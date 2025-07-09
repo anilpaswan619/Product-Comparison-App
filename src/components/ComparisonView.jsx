@@ -24,19 +24,24 @@ const getValueType = (value, feature, allValues) => {
 };
 
 const ComparisonView = ({ products, features, onClearAll }) => {
-    const [viewMode, setViewMode] = useState('table');
+    const [viewMode, setViewMode] = useState(window.innerWidth < 768 ? 'cards' : 'table');
     const [activeTab, setActiveTab] = useState('all');
     const [highlightBest] = useState(true);
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
     useEffect(() => {
         const handleResize = () => {
-            setIsMobile(window.innerWidth < 768);
+            const mobile = window.innerWidth < 768;
+            setIsMobile(mobile);
+            // Optionally update viewMode when switching between mobile/desktop
+            if (mobile && viewMode === 'table') {
+                setViewMode('cards');
+            }
         };
 
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
-    }, []);
+    }, [viewMode]);
 
     if (!products || products.length === 0) {
         return (
@@ -795,37 +800,41 @@ const ComparisonView = ({ products, features, onClearAll }) => {
                                     </div>
                                 </Col>
                                 <Col xs={12} lg={4}>
-                                    <div className="header-actions d-flex gap-2 justify-content-center justify-content-lg-end">
+                                    <div className="header-actions d-flex gap-2 justify-content-center justify-content-lg-end flex-wrap">
                                         <Button 
                                             as={Link} 
                                             to="/" 
-                                            className="action-btn d-flex align-items-center px-4 py-2 border-0 rounded-pill"
+                                            className="action-btn d-flex align-items-center px-3 py-2 border-0 rounded-pill flex-shrink-0"
+                                            size={isMobile ? "sm" : "md"}
                                             style={{ 
                                                 background: 'rgba(255,255,255,0.2)',
                                                 color: 'white',
-                                                fontSize: '0.85rem',
+                                                fontSize: isMobile ? '0.75rem' : '0.85rem',
                                                 fontWeight: '600',
                                                 backdropFilter: 'blur(10px)',
-                                                transition: 'all 0.3s ease'
+                                                transition: 'all 0.3s ease',
+                                                minWidth: isMobile ? 'auto' : '150px'
                                             }}
                                         >
-                                            <ArrowLeft className="me-2" size={16} />
-                                            Back to Products
+                                            <ArrowLeft className="me-1" size={isMobile ? 14 : 16} />
+                                            {isMobile ? 'Back' : 'Back to Products'}
                                         </Button>
                                         <Button 
                                             onClick={onClearAll}
-                                            className="action-btn d-flex align-items-center px-4 py-2 border-0 rounded-pill"
+                                            className="action-btn d-flex align-items-center px-3 py-2 border-0 rounded-pill flex-shrink-0"
+                                            size={isMobile ? "sm" : "md"}
                                             style={{ 
                                                 background: 'rgba(248, 113, 113, 0.2)',
                                                 color: 'white',
-                                                fontSize: '0.85rem',
+                                                fontSize: isMobile ? '0.75rem' : '0.85rem',
                                                 fontWeight: '600',
                                                 backdropFilter: 'blur(10px)',
-                                                transition: 'all 0.3s ease'
+                                                transition: 'all 0.3s ease',
+                                                minWidth: isMobile ? 'auto' : '120px'
                                             }}
                                         >
-                                            <Trash3 className="me-2" size={16} />
-                                            Clear All
+                                            <Trash3 className="me-1" size={isMobile ? 14 : 16} />
+                                            {isMobile ? 'Clear' : 'Clear All'}
                                         </Button>
                                     </div>
                                 </Col>
