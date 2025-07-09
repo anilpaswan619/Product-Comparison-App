@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Table, Card, Badge, Alert, Button, Row, Col, Tabs, Tab, Container, Dropdown, ProgressBar } from "react-bootstrap";
-import { Trash3, ArrowLeft, Grid3x3Gap, List, Award, ExclamationTriangle, Download, Share, Filter, Sliders, Eye } from "react-bootstrap-icons";
+import { Table, Card, Badge, Alert, Button, Row, Col, Tabs, Tab, Container, ProgressBar } from "react-bootstrap";
+import { Trash3, ArrowLeft, Grid3x3Gap, List, Award, ExclamationTriangle } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
 
 const getValueType = (value, feature, allValues) => {
@@ -26,8 +26,8 @@ const getValueType = (value, feature, allValues) => {
 const ComparisonView = ({ products, features, onClearAll }) => {
     const [viewMode, setViewMode] = useState('table');
     const [activeTab, setActiveTab] = useState('all');
-    const [highlightBest, setHighlightBest] = useState(true);
-    const [compactView, setCompactView] = useState(false);
+    const [highlightBest] = useState(true);
+    // const [compactView, setCompactView] = useState(false);
 
     if (!products || products.length === 0) {
         return (
@@ -90,81 +90,67 @@ const ComparisonView = ({ products, features, onClearAll }) => {
             <Card.Body className="py-3">
                 <Container>
                     <Row className="align-items-center">
-                        <Col md={6}>
-                            <div className="d-flex align-items-center gap-3">
-                                <div className="comparison-stats">
-                                    <Badge className="badge-custom-primary me-2">
+                        <Col md={8}>
+                            <div className="d-flex align-items-center gap-3 flex-wrap">
+                                <div className="comparison-stats d-flex gap-2">
+                                    <Badge className="badge-custom-primary px-3 py-2">
                                         <strong>{products.length}</strong> Products
                                     </Badge>
-                                    <Badge className="badge-custom-secondary">
+                                    <Badge className="badge-custom-secondary px-3 py-2">
                                         <strong>{currentFeatures.length}</strong> Features
                                     </Badge>
                                 </div>
-                                <div className="comparison-progress-mini">
-                                    <small className="text-muted d-block mb-1">Comparison Score</small>
+                                <div className="comparison-progress-mini d-none d-lg-block">
+                                    <small className="text-muted d-block mb-1 fw-medium">Comparison Score</small>
                                     <ProgressBar 
-                                        style={{ height: '6px', width: '80px', backgroundColor: 'rgba(16, 185, 129, 0.15)' }}
+                                        now={85}
+                                        style={{ 
+                                            height: '8px', 
+                                            width: '100px', 
+                                            backgroundColor: 'rgba(16, 185, 129, 0.15)',
+                                            borderRadius: '50px'
+                                        }}
                                         className="rounded-pill"
-                                    >
-                                        <div 
-                                            style={{ 
-                                                width: '85%', 
-                                                background: 'linear-gradient(90deg, #10b981, #059669)',
-                                                borderRadius: '50px'
-                                            }}
-                                        ></div>
-                                    </ProgressBar>
+                                    />
                                 </div>
                             </div>
                         </Col>
-                        <Col md={6}>
+                        <Col md={4}>
                             <div className="d-flex align-items-center justify-content-md-end gap-2">
-                                <Dropdown>
-                                    <Dropdown.Toggle 
-                                        size="sm" 
-                                        className="d-flex align-items-center btn-custom-outline-secondary"
+                                <div className="view-mode-toggle d-flex">
+                                    <Button 
+                                        size="sm"
+                                        onClick={() => setViewMode('table')}
+                                        className={`d-flex align-items-center ${
+                                            viewMode === 'table' ? 'btn-custom-primary' : 'btn-custom-outline-secondary'
+                                        }`}
+                                        style={{
+                                            borderRadius: '8px 0 0 8px',
+                                            padding: '8px 16px',
+                                            fontWeight: '500'
+                                        }}
                                     >
-                                        <Sliders size={14} className="me-2" />
-                                        Options
-                                    </Dropdown.Toggle>
-                                    <Dropdown.Menu align="end">
-                                        <Dropdown.Item onClick={() => setHighlightBest(!highlightBest)}>
-                                            <Eye size={14} className="me-2" />
-                                            {highlightBest ? '✓' : '○'} Highlight Best Values
-                                        </Dropdown.Item>
-                                        <Dropdown.Item onClick={() => setCompactView(!compactView)}>
-                                            <List size={14} className="me-2" />
-                                            {compactView ? '✓' : '○'} Compact View
-                                        </Dropdown.Item>
-                                        <Dropdown.Divider />
-                                        <Dropdown.Item>
-                                            <Download size={14} className="me-2" />
-                                            Export as PDF
-                                        </Dropdown.Item>
-                                        <Dropdown.Item>
-                                            <Share size={14} className="me-2" />
-                                            Share Comparison
-                                        </Dropdown.Item>
-                                    </Dropdown.Menu>
-                                </Dropdown>
-                                
-                                <Button 
-                                    size="sm"
-                                    onClick={() => setViewMode('table')}
-                                    className={`d-flex align-items-center ${viewMode === 'table' ? 'btn-custom-primary' : 'btn-custom-outline-secondary'}`}
-                                >
-                                    <List size={14} className="me-1" />
-                                    <span className="d-none d-lg-inline">Table</span>
-                                </Button>
-                                
-                                <Button 
-                                    size="sm"
-                                    onClick={() => setViewMode('cards')}
-                                    className={`d-flex align-items-center ${viewMode === 'cards' ? 'btn-custom-primary' : 'btn-custom-outline-secondary'}`}
-                                >
-                                    <Grid3x3Gap size={14} className="me-1" />
-                                    <span className="d-none d-lg-inline">Cards</span>
-                                </Button>
+                                        <List size={14} className="me-1" />
+                                        <span className="d-none d-lg-inline">Table</span>
+                                    </Button>
+                                    
+                                    <Button 
+                                        size="sm"
+                                        onClick={() => setViewMode('cards')}
+                                        className={`d-flex align-items-center ${
+                                            viewMode === 'cards' ? 'btn-custom-primary' : 'btn-custom-outline-secondary'
+                                        }`}
+                                        style={{
+                                            borderRadius: '0 8px 8px 0',
+                                            padding: '8px 16px',
+                                            fontWeight: '500',
+                                            borderLeft: 'none'
+                                        }}
+                                    >
+                                        <Grid3x3Gap size={14} className="me-1" />
+                                        <span className="d-none d-lg-inline">Cards</span>
+                                    </Button>
+                                </div>
                             </div>
                         </Col>
                     </Row>
@@ -188,7 +174,7 @@ const ComparisonView = ({ products, features, onClearAll }) => {
                             title={
                                 <div className="tab-title">
                                     <span>All Features</span>
-                                    <Badge bg="light" text="dark" className="ms-2">{categorizedFeatures.all.length}</Badge>
+                                    <Badge bg="light" text="dark" className="ms-2 rounded-pill">{categorizedFeatures.all.length}</Badge>
                                 </div>
                             } 
                         />
@@ -197,7 +183,7 @@ const ComparisonView = ({ products, features, onClearAll }) => {
                             title={
                                 <div className="tab-title">
                                     <span>Essential</span>
-                                    <Badge bg="light" text="dark" className="ms-2">{categorizedFeatures.basic.length}</Badge>
+                                    <Badge bg="light" text="dark" className="ms-2 rounded-pill">{categorizedFeatures.basic.length}</Badge>
                                 </div>
                             } 
                         />
@@ -206,7 +192,7 @@ const ComparisonView = ({ products, features, onClearAll }) => {
                             title={
                                 <div className="tab-title">
                                     <span>Performance</span>
-                                    <Badge bg="light" text="dark" className="ms-2">{categorizedFeatures.performance.length}</Badge>
+                                    <Badge bg="light" text="dark" className="ms-2 rounded-pill">{categorizedFeatures.performance.length}</Badge>
                                 </div>
                             } 
                         />
@@ -215,7 +201,7 @@ const ComparisonView = ({ products, features, onClearAll }) => {
                             title={
                                 <div className="tab-title">
                                     <span>Display</span>
-                                    <Badge bg="light" text="dark" className="ms-2">{categorizedFeatures.display.length}</Badge>
+                                    <Badge bg="light" text="dark" className="ms-2 rounded-pill">{categorizedFeatures.display.length}</Badge>
                                 </div>
                             } 
                         />
@@ -224,7 +210,7 @@ const ComparisonView = ({ products, features, onClearAll }) => {
                             title={
                                 <div className="tab-title">
                                     <span>Other</span>
-                                    <Badge bg="light" text="dark" className="ms-2">{categorizedFeatures.other.length}</Badge>
+                                    <Badge bg="light" text="dark" className="ms-2 rounded-pill">{categorizedFeatures.other.length}</Badge>
                                 </div>
                             } 
                         />
@@ -234,13 +220,12 @@ const ComparisonView = ({ products, features, onClearAll }) => {
 
             <Card.Body className="p-0">
                 <div className="comparison-table-container">
-                    <Table responsive borderless className={`comparison-table mb-0 ${compactView ? 'compact' : ''}`}>
+                    <Table responsive borderless className="comparison-table mb-0">
                         <thead>
                             <tr>
                                 <th className="feature-header sticky-column">
                                     <div className="feature-header-content">
-                                        <Filter size={16} className="me-2 text-custom-primary" />
-                                        <span>Features</span>
+                                        <span className="fw-bold">Features</span>
                                     </div>
                                 </th>
                                 {products.map((product) => (
@@ -249,12 +234,6 @@ const ComparisonView = ({ products, features, onClearAll }) => {
                                             <Card.Body className="text-center p-3">
                                                 <div className="product-image-container mb-3">
                                                     <img src={product.image} alt={product.name} className="product-header-image" />
-                                                    <div className="product-rating">
-                                                        <div className="rating-stars">
-                                                            {'★'.repeat(4)}{'☆'.repeat(1)}
-                                                        </div>
-                                                        <small className="text-muted">4.0/5</small>
-                                                    </div>
                                                 </div>
                                                 <h6 className="product-header-name mb-2">{product.name}</h6>
                                                 <div className="product-header-meta">
@@ -278,16 +257,7 @@ const ComparisonView = ({ products, features, onClearAll }) => {
                                     <tr key={feature} className={`comparison-row ${index % 2 === 0 ? 'even' : 'odd'}`}>
                                         <td className="feature-cell sticky-column">
                                             <div className="feature-name">
-                                                <div className="feature-icon">
-                                                    {feature.toLowerCase().includes('display') && '📱'}
-                                                    {feature.toLowerCase().includes('processor') && '⚡'}
-                                                    {feature.toLowerCase().includes('ram') && '💾'}
-                                                    {feature.toLowerCase().includes('storage') && '💿'}
-                                                    {feature.toLowerCase().includes('battery') && '🔋'}
-                                                    {feature.toLowerCase().includes('camera') && '📷'}
-                                                    {feature.toLowerCase().includes('os') && '💻'}
-                                                </div>
-                                                <span className="feature-label">{feature}</span>
+                                                <span className="feature-label fw-semibold">{feature}</span>
                                             </div>
                                         </td>
                                         {products.map((product) => {
@@ -343,7 +313,6 @@ const ComparisonView = ({ products, features, onClearAll }) => {
                             
                             <Card.Body className="specs-section">
                                 <h6 className="specs-section-title mb-3">
-                                    <Filter size={16} className="me-2 text-custom-primary" />
                                     Specifications
                                 </h6>
                                 {currentFeatures.map((feature) => {
@@ -354,15 +323,6 @@ const ComparisonView = ({ products, features, onClearAll }) => {
                                     return (
                                         <div key={feature} className={`comparison-spec-item ${valueType}`}>
                                             <div className="spec-label-container">
-                                                <span className="spec-icon">
-                                                    {feature.toLowerCase().includes('display') && '📱'}
-                                                    {feature.toLowerCase().includes('processor') && '⚡'}
-                                                    {feature.toLowerCase().includes('ram') && '💾'}
-                                                    {feature.toLowerCase().includes('storage') && '💿'}
-                                                    {feature.toLowerCase().includes('battery') && '🔋'}
-                                                    {feature.toLowerCase().includes('camera') && '📷'}
-                                                    {feature.toLowerCase().includes('os') && '💻'}
-                                                </span>
                                                 <span className="spec-label">{feature}:</span>
                                             </div>
                                             <div className="spec-value-container">
@@ -439,18 +399,28 @@ const ComparisonView = ({ products, features, onClearAll }) => {
                     <Container>
                         <Row>
                             <Col md={6}>
-                                <h6 className="legend-title mb-3">Legend & Guide</h6>
+                                <h6 className="legend-title mb-3 fw-bold">Legend & Guide</h6>
                                 <div className="d-flex align-items-center gap-4 flex-wrap">
-                                    <div className="legend-item">
+                                    <div className="legend-item d-flex align-items-center">
                                         <Award size={16} className="me-2 text-custom-success" />
                                         <span>Best Value</span>
                                     </div>
-                                    <div className="legend-item">
-                                        <div className="legend-dot me-2 neutral"></div>
+                                    <div className="legend-item d-flex align-items-center">
+                                        <div className="legend-dot me-2 neutral" style={{ 
+                                            width: '12px', 
+                                            height: '12px', 
+                                            borderRadius: '50%',
+                                            background: 'rgba(99, 102, 241, 0.4)'
+                                        }}></div>
                                         <span>Standard</span>
                                     </div>
-                                    <div className="legend-item">
-                                        <div className="legend-dot me-2 muted"></div>
+                                    <div className="legend-item d-flex align-items-center">
+                                        <div className="legend-dot me-2 muted" style={{ 
+                                            width: '12px', 
+                                            height: '12px', 
+                                            borderRadius: '50%',
+                                            background: 'rgba(156, 163, 175, 0.4)'
+                                        }}></div>
                                         <span>Not Specified</span>
                                     </div>
                                 </div>
