@@ -319,7 +319,7 @@ const ComparisonView = ({ products, features, onClearAll }) => {
                                                             whiteSpace: 'nowrap',
                                                             maxWidth: '120px'
                                                         }}>
-                                                            {value || <span className="text-muted">N/A</span>}
+                                                            {value || <span className="text-muted">Normal</span>}
                                                         </div>
                                                         {valueType === 'best' && highlightBest && (
                                                             <div className="mt-1">
@@ -508,7 +508,7 @@ const ComparisonView = ({ products, features, onClearAll }) => {
                                             height: '8px', 
                                             borderRadius: '50%'
                                         }}></div>
-                                        <span style={{ fontSize: '0.7rem' }}>N/A</span>
+                                        <span style={{ fontSize: '0.7rem' }}>Normal</span>
                                     </div>
                                 </div>
                             </Col>

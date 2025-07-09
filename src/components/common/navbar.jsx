@@ -14,6 +14,31 @@ const Navbar = () => {
         setIsMobileMenuOpen(false);
     }, [location.pathname]);
 
+    // Close mobile menu when clicking outside
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (isMobileMenuOpen && !event.target.closest('.mobile-menu') && !event.target.closest('.mobile-toggle')) {
+                setIsMobileMenuOpen(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, [isMobileMenuOpen]);
+
+    // Prevent body scroll when mobile menu is open
+    useEffect(() => {
+        if (isMobileMenuOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+
+        return () => {
+            document.body.style.overflow = 'unset';
+        };
+    }, [isMobileMenuOpen]);
+
     const navItems = [
         { path: '/', label: 'Home' },
         { path: '/compare', label: 'Compare' },
@@ -21,6 +46,10 @@ const Navbar = () => {
     ];
 
     const isActive = (path) => location.pathname === path;
+
+    const handleMobileNavClick = (path) => {
+        setIsMobileMenuOpen(false);
+    };
 
     return (
         <>
@@ -45,8 +74,9 @@ const Navbar = () => {
                     <Button
                         className="mobile-toggle d-lg-none"
                         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                        aria-label="Toggle mobile menu"
                     >
-                        {isMobileMenuOpen ? <X /> : <List />}
+                        {isMobileMenuOpen ? <X size={24} /> : <List size={24} />}
                     </Button>
 
                     {/* Desktop Navigation */}
@@ -84,37 +114,47 @@ const Navbar = () => {
 
             {/* Mobile Menu */}
             <div className={`mobile-menu d-lg-none ${isMobileMenuOpen ? 'show' : ''}`}>
-                <div className="mobile-menu-header d-flex justify-content-between align-items-center mb-4">
-                    <h5 className="text-white mb-0 fw-bold">Menu</h5>
-                    <Button
-                        className="mobile-close-btn"
-                        onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                        <X />
-                    </Button>
-                </div>
-
-                <Nav className="flex-column gap-2">
-                    {navItems.map((item) => (
-                        <Nav.Link
-                            key={item.path}
-                            as={Link}
-                            to={item.path}
-                            className={`mobile-nav-item ${isActive(item.path) ? 'active' : ''}`}
+                <div className="mobile-menu-content">
+                    <div className="mobile-menu-header d-flex justify-content-between align-items-center mb-4 p-4 border-bottom">
+                        <h5 className="text-white mb-0 fw-bold">Menu</h5>
+                        <Button
+                            className="mobile-close-btn btn-sm"
+                            onClick={() => setIsMobileMenuOpen(false)}
+                            aria-label="Close menu"
                         >
-                            {item.label}
-                        </Nav.Link>
-                    ))}
-                </Nav>
+                            <X size={20} />
+                        </Button>
+                    </div>
 
-                <div className="mobile-theme-toggle mt-4 pt-4">
-                    <Button
-                        className="mobile-theme-btn w-100"
-                        onClick={toggleTheme}
-                    >
-                        {theme === "dark" ? <MoonFill className="me-2" /> : <SunFill className="me-2" />}
-                        {theme === "dark" ? 'Dark Mode' : 'Light Mode'}
-                    </Button>
+                    <div className="mobile-menu-body p-4">
+                        <Nav className="flex-column gap-3">
+                            {navItems.map((item) => (
+                                <Nav.Link
+                                    key={item.path}
+                                    as={Link}
+                                    to={item.path}
+                                    className={`mobile-nav-item ${isActive(item.path) ? 'active' : ''}`}
+                                    onClick={() => handleMobileNavClick(item.path)}
+                                >
+                                    {item.label}
+                                </Nav.Link>
+                            ))}
+                        </Nav>
+
+                        <div className="mobile-theme-toggle mt-4 pt-4 border-top">
+                            <Button
+                                className="mobile-theme-btn w-100 d-flex align-items-center justify-content-center gap-2"
+                                onClick={() => {
+                                    toggleTheme();
+                                    setIsMobileMenuOpen(false);
+                                }}
+                                variant="outline-light"
+                            >
+                                {theme === "dark" ? <MoonFill size={18} /> : <SunFill size={18} />}
+                                <span>{theme === "dark" ? 'Dark Mode' : 'Light Mode'}</span>
+                            </Button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </>
