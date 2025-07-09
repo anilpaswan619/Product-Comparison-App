@@ -1,8 +1,3 @@
-/**
- * Highlights the differences between two strings.
- * Returns an object with 'added', 'removed', and 'unchanged' arrays.
- * Useful for simple diff highlighting in product comparison.
- */
 export function diffHighlight(str1, str2) {
   const arr1 = str1.split(" ");
   const arr2 = str2.split(" ");
@@ -32,12 +27,8 @@ export function diffHighlight(str1, str2) {
   return { added, removed, unchanged };
 }
 
-/**
- * Returns a string with HTML <mark> tags around added/removed words.
- * Useful for rendering highlighted diffs.
- */
 export function renderDiff(str1, str2) {
-  diffHighlight(str1, str2); // Call for possible side effects or remove if unnecessary
+  diffHighlight(str1, str2);
   const arr1 = str1.split(" ");
   const arr2 = str2.split(" ");
 

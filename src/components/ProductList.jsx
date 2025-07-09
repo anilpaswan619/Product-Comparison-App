@@ -46,9 +46,9 @@ const ProductList = ({
 
   return (
     <div className="product-list-container">
-      {/* Search and Filter Section */}
+   
       <div className="filter-section bg-light rounded-3 shadow-sm mb-3 p-3">
-        {/* Mobile Filter Toggle */}
+     
         <div className="d-md-none mb-2">
           <Button
             variant="outline-primary"
@@ -64,7 +64,7 @@ const ProductList = ({
           </Button>
         </div>
 
-        {/* Desktop Filters (Always Visible) */}
+      
         <div className="d-none d-md-block">
           <Row className="g-2 g-lg-3 align-items-end">
             <Col lg={5} md={12}>
@@ -135,7 +135,7 @@ const ProductList = ({
           </Row>
         </div>
 
-        {/* Mobile Filters (Collapsible) */}
+     
         {showFilters && (
           <div className="d-md-none mt-3 pt-3 border-top">
             <div className="d-flex flex-column gap-3">
@@ -208,7 +208,7 @@ const ProductList = ({
         )}
       </div>
 
-      {/* Results Info Bar */}
+   
       <div className="results-info bg-white rounded-3 shadow-sm border p-2 p-md-3 mb-3 mb-md-4">
         <Row className="align-items-center">
           <Col xs={12} sm={8}>
@@ -249,7 +249,7 @@ const ProductList = ({
         </Row>
       </div>
 
-      {/* Product Grid/List */}
+    
       {products.length === 0 ? (
         <div className="bg-white rounded-3 shadow-sm border p-4 p-md-5 text-center">
           <FilterCircle size={40} className="text-muted mb-3" />

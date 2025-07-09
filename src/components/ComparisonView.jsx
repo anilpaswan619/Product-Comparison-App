@@ -451,7 +451,7 @@ const ComparisonView = ({ products, features, onClearAll }) => {
                             transition: 'all 0.3s ease',
                             background: 'white'
                         }}>
-                            {/* Card Header with Theme Gradient */}
+                           
                             <div className="card-header-modern p-4" style={{ 
                                 color: '#5653e1'
                             }}>
@@ -518,7 +518,7 @@ const ComparisonView = ({ products, features, onClearAll }) => {
                                 </div>
                             </div>
                             
-                            {/* Card Body with Specifications */}
+                          
                             <Card.Body className="p-4">
                                 <div className="specs-header d-flex align-items-center gap-2 mb-3 pb-2 border-bottom">
                                     <h6 className="specs-title mb-0 fw-bold text-dark" style={{ 
@@ -530,7 +530,7 @@ const ComparisonView = ({ products, features, onClearAll }) => {
                                 
                                 <div className="specs-grid">
                                     {(() => {
-                                        // Group RAM, storage, and battery into two rows
+                                      
                                         const keyFeatures = ['ram', 'storage', 'battery'];
                                         const keySpecs = currentFeatures.filter(feature => 
                                             keyFeatures.some(key => feature.toLowerCase().includes(key))
@@ -541,10 +541,10 @@ const ComparisonView = ({ products, features, onClearAll }) => {
                                         
                                         const allSpecsToShow = [...keySpecs.slice(0, 3), ...otherSpecs];
                                         
-                                        // Create two rows for key specs (RAM, Storage, Battery)
+                                      
                                         const keySpecRows = [];
                                         if (keySpecs.length > 0) {
-                                            // First row: RAM and Storage
+                                         
                                             const firstRowSpecs = keySpecs.slice(0, 2);
                                             if (firstRowSpecs.length > 0) {
                                                 keySpecRows.push(
@@ -608,7 +608,7 @@ const ComparisonView = ({ products, features, onClearAll }) => {
                                                 );
                                             }
                                             
-                                            // Second row: Battery (if exists)
+                                          
                                             const secondRowSpecs = keySpecs.slice(2, 3);
                                             if (secondRowSpecs.length > 0) {
                                                 keySpecRows.push(
@@ -769,7 +769,7 @@ const ComparisonView = ({ products, features, onClearAll }) => {
             padding: isMobile ? '1rem' : '2rem 0'
         }}>
             <Container fluid className={isMobile ? 'px-2' : 'px-4'}>
-                {/* Modern Page Header */}
+            
                 <div className="page-header-modern mb-4">
                     <Card className="border-0 shadow-lg" style={{ 
                         borderRadius: '20px',
@@ -834,13 +834,13 @@ const ComparisonView = ({ products, features, onClearAll }) => {
                     </Card>
                 </div>
 
-                {/* Modern Toolbar */}
+        
                 {renderModernToolbar()}
 
-                {/* Comparison Content */}
+           
                 {viewMode === 'table' ? renderModernTableView() : renderModernCardView()}
 
-                {/* Modern Footer Legend */}
+          
                 <Card className="border-0 shadow-lg mt-4" style={{ borderRadius: '16px' }}>
                     <Card.Body className="p-4">
                         <Row className="align-items-center">

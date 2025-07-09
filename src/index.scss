@@ -2,38 +2,32 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 :root {
-  // Modern Color Palette - Professional & Visually Appealing
-  --primary-color: #6366f1; // Modern indigo
-  --primary-dark: #4338ca; // Deep indigo
-  --primary-light: #a5b4fc; // Light indigo
-  --secondary-color: #64748b; // Slate gray
-  --accent-color: #06b6d4; // Cyan
+  --primary-color: #6366f1;
+  --primary-dark: #4338ca;
+  --primary-light: #a5b4fc;
+  --secondary-color: #64748b;
+  --accent-color: #06b6d4;
 
-  // Enhanced Status Colors
-  --success: #10b981; // Emerald green
-  --warning: #f59e0b; // Amber
-  --danger: #ef4444; // Red
-  --info: #3b82f6; // Blue
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  --info: #3b82f6;
 
-  // Neutral Colors - Updated
   --white: #ffffff;
-  --light-gray: #f8fafc; // Slate 50
-  --medium-gray: #e2e8f0; // Slate 200
-  --dark-gray: #475569; // Slate 600
-  --black: #0f172a; // Slate 900
+  --light-gray: #f8fafc;
+  --medium-gray: #e2e8f0;
+  --dark-gray: #475569;
+  --black: #0f172a;
 
-  // Background Colors - Updated
   --bg-primary: #ffffff;
   --bg-secondary: #f8fafc;
-  --bg-dark: #1e293b; // Slate 800
+  --bg-dark: #1e293b;
 
-  // Text Colors - Updated
-  --text-primary: #0f172a; // Slate 900
-  --text-secondary: #64748b; // Slate 500
-  --text-muted: #94a3b8; // Slate 400
+  --text-primary: #0f172a;
+  --text-secondary: #64748b;
+  --text-muted: #94a3b8;
   --text-light: #ffffff;
 
-  // Typography
   --font-family-primary: "Poppins", sans-serif;
   --font-family-secondary: "Arial", sans-serif;
 
@@ -120,7 +114,6 @@ body {
   }
 }
 
-// Enhanced App Layout
 .app-root {
   min-height: 100vh;
   display: flex;
@@ -152,7 +145,6 @@ body {
   }
 }
 
-// Responsive product card grid
 .product-list {
   flex-wrap: wrap;
   gap: 24px;
@@ -186,7 +178,6 @@ body {
   margin-top: 2rem;
 }
 
-// Enhanced Product Cards
 .product-card {
   border-radius: 1.5rem !important;
   transition: all 0.3s ease;
@@ -276,10 +267,10 @@ body {
   .product-compare-btn {
     border-radius: 0.75rem;
     font-weight: 600;
-    padding: 0.8rem 1rem; // Reduced horizontal padding
+    padding: 0.8rem 1rem;
     transition: all 0.3s ease;
-    white-space: nowrap; // Prevent text wrapping
-    min-height: 48px; // Ensure consistent button height
+    white-space: nowrap;
+    min-height: 48px;
 
     &:not(.selected):hover {
       transform: translateY(-2px);
@@ -292,7 +283,6 @@ body {
       color: white !important;
     }
 
-    // Responsive text sizing
     @media (max-width: 576px) {
       padding: 0.6rem 0.8rem;
       font-size: 0.9rem;
@@ -305,18 +295,16 @@ body {
   }
 }
 
-// Fix comparison page scrolling
 .comparison-container {
-  margin-bottom: 10rem; // Add space for compare bar
+  margin-bottom: 10rem;
   padding: 0 1rem;
 
   @media (max-width: 768px) {
-    margin-bottom: 12rem; // More space on mobile
+    margin-bottom: 12rem;
     padding: 0 0.5rem;
   }
 }
 
-// Enhanced Comparison View
 .comparison-card {
   border-radius: 1.5rem !important;
   overflow: hidden;
@@ -328,12 +316,12 @@ body {
   }
 
   .comparison-view {
-    max-height: calc(100vh - 300px); // Prevent table from being too tall
-    overflow-y: auto; // Enable vertical scrolling if needed
+    max-height: calc(100vh - 300px);
+    overflow-y: auto;
   }
 
   .table-responsive {
-    max-height: none; // Remove height restriction
+    max-height: none;
     border-radius: 0 0 1.5rem 1.5rem;
   }
 
@@ -342,7 +330,7 @@ body {
       background: #343a40 !important;
       color: white !important;
       font-weight: 600;
-      padding: 1rem 0.8rem !important; // Reduced padding for better fit
+      padding: 1rem 0.8rem !important;
       border: none !important;
       position: sticky;
       top: 0;
@@ -350,14 +338,14 @@ body {
 
       &.feature-column {
         background: #495057 !important;
-        min-width: 150px; // Reduced minimum width
+        min-width: 150px;
         max-width: 200px;
         word-wrap: break-word;
       }
 
       .product-header-info {
         .fw-bold {
-          font-size: 1rem; // Slightly smaller for better fit
+          font-size: 1rem;
           margin-bottom: 0.5rem;
           line-height: 1.2;
         }
@@ -365,7 +353,7 @@ body {
     }
 
     .comparison-td {
-      padding: 0.8rem 0.6rem !important; // Reduced padding
+      padding: 0.8rem 0.6rem !important;
       vertical-align: middle;
       border-color: #e9ecef !important;
       word-wrap: break-word;
@@ -382,7 +370,7 @@ body {
       }
 
       &.value-cell {
-        font-size: 0.9rem; // Slightly smaller text
+        font-size: 0.9rem;
         min-width: 120px;
 
         .spec-value {
@@ -427,7 +415,6 @@ body {
   }
 }
 
-// Enhanced Filter Section
 .filter-section {
   background: linear-gradient(
     135deg,
@@ -450,7 +437,6 @@ body {
   margin-bottom: 2rem !important;
 }
 
-// Comparison Legend
 .legend-box {
   width: 20px;
   height: 20px;
@@ -472,7 +458,6 @@ body {
   }
 }
 
-// Enhanced Floating Action Button
 .compare-fab {
   position: fixed;
   bottom: 2rem;
@@ -534,7 +519,6 @@ body {
   }
 }
 
-// Enhanced Compare Bar
 .compare-bar-wrapper {
   position: fixed;
   bottom: 0;
@@ -657,7 +641,6 @@ body {
   }
 }
 
-// Enhanced Comparison View
 .comparison-container {
   margin-bottom: 2rem;
 
@@ -933,7 +916,6 @@ body {
   }
 }
 
-// Card View Styles
 .comparison-cards {
   .product-comparison-card {
     border: none !important;
@@ -1008,7 +990,6 @@ body {
   }
 }
 
-// Enhanced Comparison Toolbar
 .comparison-toolbar-card {
   background: linear-gradient(
     135deg,
@@ -1018,7 +999,6 @@ body {
   border-left: 4px solid var(--primary-color) !important;
 }
 
-// Enhanced Legend
 .comparison-legend {
   background: linear-gradient(135deg, #ffffff, #f8f9fa) !important;
   border-radius: 1rem !important;
@@ -1075,7 +1055,6 @@ body {
   }
 }
 
-// Enhanced Mobile Responsiveness - Global Improvements
 @media (max-width: 767.98px) {
   body {
     font-size: 0.9rem;
@@ -1103,7 +1082,6 @@ body {
   }
 }
 
-// Enhanced Hero Section Responsiveness
 .hero-section {
   padding: 2rem 0;
   margin: 0 0.5rem 2rem 0.5rem;
@@ -1197,7 +1175,6 @@ body {
   }
 }
 
-// Enhanced Product Cards Responsiveness
 .product-card {
   @media (max-width: 991.98px) {
     border-radius: 1.25rem !important;
@@ -1319,7 +1296,6 @@ body {
   }
 }
 
-// Enhanced Filter Section Responsiveness
 .filter-section {
   padding: 1.5rem;
   margin-bottom: 1.5rem;
@@ -1349,7 +1325,6 @@ body {
   }
 }
 
-// Enhanced Search Bar Responsiveness
 .search-input-group {
   .form-control {
     height: 48px;
@@ -1379,7 +1354,6 @@ body {
   }
 }
 
-// Enhanced Results Info Responsiveness
 .results-info {
   padding: 1rem;
   margin-bottom: 1.5rem;
@@ -1396,7 +1370,6 @@ body {
   }
 }
 
-// Enhanced Comparison View Responsiveness
 .compact-comparison {
   .comparison-container {
     margin-bottom: 8rem;
@@ -1690,7 +1663,6 @@ body {
   }
 }
 
-// Enhanced Compare Bar Responsiveness
 .compare-bar-wrapper {
   @media (max-width: 767.98px) {
     &.collapsed {
@@ -1794,7 +1766,6 @@ body {
   }
 }
 
-// Enhanced Compare FAB Responsiveness
 .compare-fab {
   bottom: 1.5rem;
   right: 1.5rem;
@@ -1867,7 +1838,6 @@ body {
   }
 }
 
-// Enhanced About Page Responsiveness
 .about-page {
   padding: 2rem 0;
 
@@ -1935,7 +1905,6 @@ body {
   }
 }
 
-// Enhanced Button Responsiveness
 .btn {
   @media (max-width: 575.98px) {
     font-size: 0.85rem;
@@ -1955,7 +1924,6 @@ body {
   }
 }
 
-// Enhanced Badge Responsiveness
 .badge {
   @media (max-width: 575.98px) {
     font-size: 0.7rem;
@@ -1963,7 +1931,6 @@ body {
   }
 }
 
-// Enhanced Card Responsiveness
 .card {
   @media (max-width: 575.98px) {
     border-radius: 0.75rem !important;
@@ -1976,7 +1943,6 @@ body {
   }
 }
 
-// Fix text overflow issues on mobile
 @media (max-width: 575.98px) {
   h1,
   h2,
@@ -2000,7 +1966,6 @@ body {
   }
 }
 
-// Enhanced Container Responsiveness
 @media (max-width: 575.98px) {
   .container,
   .container-fluid {
@@ -2020,7 +1985,6 @@ body {
   }
 }
 
-// Dark Theme Enhancements for Comparison
 [data-theme="dark"] {
   .comparison-toolbar-card {
     background: linear-gradient(
@@ -2075,7 +2039,6 @@ body {
   }
 }
 
-// Print Styles for Comparison View
 @media print {
   .compare-bar-wrapper,
   .navbar,
@@ -2098,7 +2061,6 @@ body {
   }
 }
 
-// Accessibility Improvements
 @media (prefers-reduced-motion: reduce) {
   .product-card,
   .compare-action-btn,
@@ -2107,7 +2069,6 @@ body {
   }
 }
 
-// High Contrast Mode
 @media (prefers-contrast: high) {
   .product-card {
     border: 2px solid #000 !important;
@@ -2128,7 +2089,6 @@ body {
   }
 }
 
-// Dark theme overrides
 [data-theme="dark"],
 .dark-theme {
   --bg-primary: #0f172a;
@@ -2138,7 +2098,7 @@ body {
   --text-secondary: #94a3b8;
   --text-muted: #64748b;
   --text-light: #fff;
-  --primary-color: #818cf8; // Lighter indigo for dark theme
+  --primary-color: #818cf8;
   --secondary-color: #64748b;
   --light-gray: #334155;
   --medium-gray: #64748b;
@@ -2146,18 +2106,15 @@ body {
   background-color: var(--bg-secondary) !important;
   color: var(--text-primary) !important;
 
-  // Navbar dark theme
   .navbar {
     background: linear-gradient(135deg, #1e293b, #334155) !important;
   }
 
-  // Footer dark theme
   .footer {
     background: #0f172a !important;
     border-top-color: #334155 !important;
   }
 
-  // Hero section dark theme
   .hero-section {
     background: linear-gradient(
       135deg,
@@ -2166,7 +2123,6 @@ body {
     ) !important;
   }
 
-  // Product cards dark theme
   .product-card {
     background: #1e293b !important;
     border-color: rgba(255, 255, 255, 0.1) !important;
@@ -2197,7 +2153,6 @@ body {
     }
   }
 
-  // Search bar dark theme
   .search-input-group {
     .search-icon-wrapper,
     .search-input,
@@ -2212,7 +2167,6 @@ body {
     }
   }
 
-  // Filter section dark theme
   .filter-section {
     background: linear-gradient(
       135deg,
@@ -2232,7 +2186,6 @@ body {
     }
   }
 
-  // Alert components dark theme
   .alert {
     &.alert-info {
       background: rgba(129, 140, 248, 0.1) !important;
@@ -2247,7 +2200,6 @@ body {
     }
   }
 
-  // Comparison components dark theme
   .comparison-toolbar-card {
     background: linear-gradient(
       135deg,
@@ -2366,18 +2318,15 @@ body {
     }
   }
 
-  // Compare bar dark theme
   .compare-bar-wrapper {
     background: linear-gradient(135deg, #0f172a, #1e293b) !important;
   }
 
-  // Results info dark theme
   .results-info {
     border-bottom-color: #334155 !important;
     color: #f1f5f9 !important;
   }
 
-  // Page titles and subtitles
   .page-title {
     background: linear-gradient(135deg, #818cf8, #6366f1) !important;
     -webkit-background-clip: text !important;
@@ -2389,7 +2338,6 @@ body {
     color: #94a3b8 !important;
   }
 
-  // Table improvements
   .table {
     --bs-table-bg: transparent !important;
     --bs-table-striped-bg: rgba(255, 255, 255, 0.02) !important;
@@ -2402,7 +2350,6 @@ body {
     }
   }
 
-  // Dropdown dark theme
   .dropdown-menu {
     background: #1e293b !important;
     border-color: #334155 !important;
@@ -2422,7 +2369,6 @@ body {
     }
   }
 
-  // Button variants for dark theme
   .btn-outline-primary {
     color: #818cf8 !important;
     border-color: #818cf8 !important;
@@ -2463,7 +2409,6 @@ body {
     }
   }
 
-  // Card components
   .card {
     background: #1e293b !important;
     border-color: #334155 !important;
@@ -2479,7 +2424,6 @@ body {
     }
   }
 
-  // Form controls
   .form-control,
   .form-select {
     background: #1e293b !important;
@@ -2498,7 +2442,6 @@ body {
     }
   }
 
-  // Badge components
   .badge {
     &.bg-light {
       background: #334155 !important;
@@ -2510,7 +2453,6 @@ body {
     }
   }
 
-  // Text utilities
   .text-muted {
     color: #94a3b8 !important;
   }
@@ -2520,13 +2462,11 @@ body {
   }
 }
 
-// Force dark theme on app root when dark theme is active
 [data-theme="dark"] .app-root,
 .dark-theme .app-root {
   background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%) !important;
 }
 
-// Ensure theme toggle button works in all states
 .theme-toggle-btn {
   transition: all 0.3s ease !important;
 
@@ -2547,11 +2487,6 @@ body {
   }
 }
 
-// ===================================
-// CUSTOM BUTTON & COMPONENT CLASSES
-// ===================================
-
-// Custom Primary Button (replaces btn-primary)
 .btn-custom-primary {
   background: linear-gradient(
     135deg,
@@ -2592,7 +2527,6 @@ body {
   }
 }
 
-// Custom Outline Primary Button (replaces btn-outline-primary)
 .btn-custom-outline-primary {
   background: transparent !important;
   border: 2px solid var(--primary-color) !important;
@@ -2628,7 +2562,6 @@ body {
   }
 }
 
-// Custom Success Button
 .btn-custom-success {
   background: linear-gradient(135deg, var(--success), #059669) !important;
   border: none !important;
@@ -2656,7 +2589,6 @@ body {
   }
 }
 
-// Custom Outline Success Button
 .btn-custom-outline-success {
   background: transparent !important;
   border: 2px solid var(--success) !important;
@@ -2678,7 +2610,6 @@ body {
   }
 }
 
-// Custom Danger Button
 .btn-custom-danger {
   background: linear-gradient(135deg, var(--danger), #dc2626) !important;
   border: none !important;
@@ -2700,7 +2631,6 @@ body {
   }
 }
 
-// Custom Outline Danger Button
 .btn-custom-outline-danger {
   background: transparent !important;
   border: 2px solid var(--danger) !important;
@@ -2722,7 +2652,6 @@ body {
   }
 }
 
-// Custom Background Classes (replaces bg-primary)
 .bg-custom-primary {
   background: var(--primary-color) !important;
   color: white !important;
@@ -2747,7 +2676,6 @@ body {
   color: white !important;
 }
 
-// Custom Text Classes (replaces text-primary)
 .text-custom-primary {
   color: var(--primary-color) !important;
 }
@@ -2768,7 +2696,6 @@ body {
   color: var(--secondary-color) !important;
 }
 
-// Custom Badge Classes
 .badge-custom-primary {
   background: var(--primary-color) !important;
   color: white !important;
@@ -2805,7 +2732,6 @@ body {
   font-size: var(--font-size-xs);
 }
 
-// Dark theme adjustments for custom classes
 [data-theme="dark"],
 .dark-theme {
   .btn-custom-primary {
@@ -2843,7 +2769,6 @@ body {
   }
 }
 
-// Custom Progress Bar (replaces ProgressBar component)
 .custom-progress-bar {
   height: 6px;
   background: rgba(255, 255, 255, 0.2);
@@ -2869,7 +2794,6 @@ body {
   }
 }
 
-// Custom Outline Light Button (for compare bar)
 .btn-custom-outline-light {
   background: transparent !important;
   border: 2px solid rgba(255, 255, 255, 0.3) !important;
@@ -2889,7 +2813,6 @@ body {
   }
 }
 
-// Custom Outline Secondary Button
 .btn-custom-outline-secondary {
   background: transparent !important;
   border: 2px solid var(--secondary-color) !important;
@@ -2915,15 +2838,10 @@ body {
   }
 }
 
-// Info color for progress bar
 .bg-custom-info {
   background: var(--accent-color) !important;
   color: white !important;
 }
-
-// ===================================
-// ANIMATION CLASSES (replaces framer-motion)
-// ===================================
 
 // Keyframe animations
 @keyframes fadeIn {
@@ -2986,7 +2904,6 @@ body {
   animation: scaleIn 0.6s ease-out forwards;
 }
 
-// Hero Section Styling
 .hero-section {
   .text-gradient {
     background: linear-gradient(
@@ -3033,7 +2950,6 @@ body {
   }
 }
 
-// Features Section Styling
 .features-section {
   .feature-card {
     text-align: center;
@@ -3067,7 +2983,6 @@ body {
   }
 }
 
-// About Page Styling
 .about-page {
   .icon-box {
     width: 48px;
@@ -3095,7 +3010,6 @@ body {
   }
 }
 
-// Alert Container Styling
 .alert-container {
   position: fixed;
   top: 100px;
@@ -3120,7 +3034,6 @@ body {
   }
 }
 
-// Dark theme adjustments for animations
 [data-theme="dark"],
 .dark-theme {
   .hero-section {
@@ -3157,7 +3070,6 @@ body {
   }
 }
 
-// Responsive adjustments
 @media (max-width: 768px) {
   .animate-slide-up {
     animation-duration: 0.6s;
@@ -3190,7 +3102,6 @@ body {
   }
 }
 
-// Accessibility: Respect user's motion preferences
 @media (prefers-reduced-motion: reduce) {
   .animate-fade-in,
   .animate-slide-up,
@@ -3212,9 +3123,6 @@ body {
   }
 }
 
-// ===================================
-// CUSTOM NAVBAR STYLES
-// ===================================
 .custom-navbar {
   font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
     sans-serif;
@@ -3541,7 +3449,6 @@ body {
   }
 }
 
-// Enhanced mobile toggle button
 .custom-navbar {
   .mobile-toggle {
     background: rgba(255, 255, 255, 0.1) !important;
@@ -3568,7 +3475,6 @@ body {
   }
 }
 
-// Dark theme adjustments for mobile menu
 [data-theme="dark"],
 .dark-theme {
   .mobile-menu {
@@ -3602,7 +3508,6 @@ body {
   }
 }
 
-// Responsive adjustments
 @media (max-width: 480px) {
   .mobile-menu {
     width: 100vw;
@@ -3614,7 +3519,6 @@ body {
   }
 }
 
-// Animation improvements
 @media (prefers-reduced-motion: reduce) {
   .mobile-menu,
   .mobile-menu-overlay {
@@ -3714,4 +3618,43 @@ body {
 .nav-pills .show > .nav-link {
   color: var(--bs-nav-pills-link-active-color);
   background-color: #534fde;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.compare-bar-wrapper {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.product-mini-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15) !important;
+}
+
+.empty-slot:hover {
+  border-color: rgba(255, 255, 255, 0.5) !important;
+  background: rgba(255, 255, 255, 0.15) !important;
+}
+
+.fab-container {
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.2));
+}
+
+@media (max-width: 768px) {
+  .compare-bar-container {
+    padding: 1rem 1rem 2rem !important;
+  }
+
+  .fab-compare-btn {
+    padding: 10px 16px !important;
+    font-size: 0.9rem !important;
+  }
 }

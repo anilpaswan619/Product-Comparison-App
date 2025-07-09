@@ -15,7 +15,7 @@ const Footer = () => {
         >
             <div className="container-fluid px-4 px-lg-5 py-4">
                 <div className="d-flex py-5 flex-column flex-lg-row align-items-center justify-content-between gap-4">
-                    {/* Brand/Logo */}
+                
                     <div className="d-flex align-items-center gap-2 mb-2 mb-lg-0">
                         <span
                             style={{
@@ -35,11 +35,11 @@ const Footer = () => {
                         </span>
                     </div>
 
-                    {/* Navigation Links */}
+             
                     <nav className="footer-nav mb-2 mb-lg-0">
                         <ul className="d-flex flex-wrap gap-3 list-unstyled mb-0">
                             {['Home', 'Compare', 'About'].map((link) => {
-                                // Map link names to valid URLs
+                  
                                 const linkUrls = {
                                     'Home': '/',
                                     'Compare': '/compare',
@@ -72,7 +72,7 @@ const Footer = () => {
                         </ul>
                     </nav>
 
-                    {/* Social Icons */}
+            
                     <div className="d-flex align-items-center gap-2 mb-2 mb-lg-0">
                         <a
                             href="https://twitter.com/yourprofile"
@@ -151,7 +151,7 @@ const Footer = () => {
                         </a>
                     </div>
 
-                    {/* Contact Info */}
+   
                     <div className="d-flex flex-column flex-md-row align-items-center gap-3">
                         <div className="d-flex align-items-center gap-2">
                             <Mail size={16} style={{ color: '#60a5fa' }} />
@@ -185,9 +185,9 @@ const Footer = () => {
                         </div>
                     </div>
                 </div>
-                {/* Divider */}
+      
                 <div className="mt-4" style={{ borderTop: '1px solid #334155' }}></div>
-                {/* Copyright */}
+       
                 <div className="d-flex flex-column flex-md-row align-items-center justify-content-between pt-3 pb-1">
                     <span className="small ">
                         &copy; {currentYear} CompareHub. All rights reserved.

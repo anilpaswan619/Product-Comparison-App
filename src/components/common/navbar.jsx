@@ -9,12 +9,11 @@ const Navbar = () => {
     const location = useLocation();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-    // Close mobile menu when route changes
+  
     useEffect(() => {
         setIsMobileMenuOpen(false);
     }, [location.pathname]);
 
-    // Close mobile menu when clicking outside
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (isMobileMenuOpen && !event.target.closest('.mobile-menu') && !event.target.closest('.mobile-toggle')) {
@@ -26,7 +25,7 @@ const Navbar = () => {
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, [isMobileMenuOpen]);
 
-    // Prevent body scroll when mobile menu is open
+ 
     useEffect(() => {
         if (isMobileMenuOpen) {
             document.body.style.overflow = 'hidden';
@@ -70,7 +69,6 @@ const Navbar = () => {
                         <span className="brand-text">CompareHub</span>
                     </RBNavbar.Brand>
 
-                    {/* Custom Mobile Toggle */}
                     <Button
                         className="mobile-toggle d-lg-none"
                         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -79,7 +77,7 @@ const Navbar = () => {
                         {isMobileMenuOpen ? <X size={24} /> : <List size={24} />}
                     </Button>
 
-                    {/* Desktop Navigation */}
+                
                     <div className="desktop-nav d-none d-lg-flex align-items-center ms-auto">
                         <Nav className="me-4">
                             {navItems.map((item) => (
@@ -94,7 +92,7 @@ const Navbar = () => {
                             ))}
                         </Nav>
 
-                        {/* Theme Toggle */}
+                   
                         <Button
                             className="theme-toggle-btn"
                             onClick={toggleTheme}
@@ -106,13 +104,13 @@ const Navbar = () => {
                 </Container>
             </RBNavbar>
 
-            {/* Mobile Menu Overlay */}
+     
             <div 
                 className={`mobile-menu-overlay d-lg-none ${isMobileMenuOpen ? 'show' : ''}`}
                 onClick={() => setIsMobileMenuOpen(false)}
             />
 
-            {/* Mobile Menu */}
+   
             <div className={`mobile-menu d-lg-none ${isMobileMenuOpen ? 'show' : ''}`}>
                 <div className="mobile-menu-content">
                     <div className="mobile-menu-header d-flex justify-content-between align-items-center mb-4 p-4 border-bottom">

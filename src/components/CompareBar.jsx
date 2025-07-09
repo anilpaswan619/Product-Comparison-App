@@ -30,10 +30,10 @@ const CompareBar = ({ selectedItems = [], onRemove, onCompare, onClearAll, maxIt
 
     return (
         <>
-            {/* Enhanced Floating Action Button */}
+       
             <div className="compare-fab animate-scale-in">
                 <div className="fab-container d-flex align-items-center gap-3">
-                    {/* Main FAB Button */}
+                  
                     <Button
                         className={`fab-btn shadow-lg ${isFull ? 'btn-custom-success' : 'btn-custom-primary'}`}
                         onClick={() => setIsExpanded(!isExpanded)}
@@ -60,7 +60,7 @@ const CompareBar = ({ selectedItems = [], onRemove, onCompare, onClearAll, maxIt
                         </div>
                     </Button>
 
-                    {/* Quick Compare Button */}
+                
                     {canCompare && !isExpanded && (
                         <Button
                             className="fab-compare-btn shadow-lg btn-custom-success animate-slide-up"
@@ -80,7 +80,7 @@ const CompareBar = ({ selectedItems = [], onRemove, onCompare, onClearAll, maxIt
                 </div>
             </div>
 
-            {/* Enhanced Expandable Compare Bar */}
+      
             <div 
                 className={`compare-bar-wrapper ${isExpanded ? 'expanded' : 'collapsed'}`}
                 style={{
@@ -90,7 +90,7 @@ const CompareBar = ({ selectedItems = [], onRemove, onCompare, onClearAll, maxIt
                 }}
             >
                 <Container fluid className="compare-bar-container">
-                    {/* Enhanced Toggle Button */}
+                
                     <div className="compare-bar-toggle text-center mb-3">
                         <Button
                             variant="link"
@@ -116,7 +116,7 @@ const CompareBar = ({ selectedItems = [], onRemove, onCompare, onClearAll, maxIt
 
                     <Collapse in={isExpanded}>
                         <div className="animate-fade-in">
-                            {/* Enhanced Header Section */}
+                       
                             <div className="compare-header mb-4">
                                 <Row className="align-items-center">
                                     <Col>
@@ -145,7 +145,7 @@ const CompareBar = ({ selectedItems = [], onRemove, onCompare, onClearAll, maxIt
                                 </Row>
                             </div>
 
-                            {/* Enhanced Progress Section */}
+                        
                             <div className="compare-progress mb-4">
                                 <div className="d-flex justify-content-between align-items-center mb-2">
                                     <small className="text-light fw-medium">
@@ -167,7 +167,7 @@ const CompareBar = ({ selectedItems = [], onRemove, onCompare, onClearAll, maxIt
                                 />
                             </div>
 
-                            {/* Enhanced Selected Products Grid */}
+                  
                             <Row className="selected-products-preview mb-4 g-3">
                                 {selectedItems.map((item, index) => (
                                     <Col key={item.id} xs={6} md={4} className="animate-slide-up">
@@ -183,7 +183,7 @@ const CompareBar = ({ selectedItems = [], onRemove, onCompare, onClearAll, maxIt
                                             }}
                                         >
                                             <Card.Body className="p-3 text-center position-relative">
-                                                {/* Remove Button */}
+                                      
                                                 <Button
                                                     size="sm"
                                                     className="position-absolute top-0 end-0 m-1 rounded-circle"
@@ -202,7 +202,7 @@ const CompareBar = ({ selectedItems = [], onRemove, onCompare, onClearAll, maxIt
                                                     <XCircle size={12} />
                                                 </Button>
 
-                                                {/* Product Image */}
+                                  
                                                 <div className="mb-2">
                                                     <img 
                                                         src={item.image} 
@@ -220,7 +220,7 @@ const CompareBar = ({ selectedItems = [], onRemove, onCompare, onClearAll, maxIt
                                                     />
                                                 </div>
 
-                                                {/* Product Info */}
+                                 
                                                 <div className="mini-product-name text-dark fw-semibold small mb-1" 
                                                      style={{ 
                                                          fontSize: '0.8rem',
@@ -235,7 +235,7 @@ const CompareBar = ({ selectedItems = [], onRemove, onCompare, onClearAll, maxIt
                                                     ${item.price}
                                                 </div>
                                                 
-                                                {/* Selection Badge */}
+                                       
                                                 <Badge 
                                                     className="badge-custom-success mt-1"
                                                     style={{ fontSize: '0.7rem' }}
@@ -248,7 +248,7 @@ const CompareBar = ({ selectedItems = [], onRemove, onCompare, onClearAll, maxIt
                                     </Col>
                                 ))}
                                 
-                                {/* Enhanced Empty Slots */}
+                      
                                 {Array.from({ length: maxItems - selectedItems.length }).map((_, index) => (
                                     <Col key={`empty-${index}`} xs={6} md={4} className="animate-fade-in">
                                         <Card 
@@ -272,7 +272,7 @@ const CompareBar = ({ selectedItems = [], onRemove, onCompare, onClearAll, maxIt
                                 ))}
                             </Row>
 
-                            {/* Enhanced Action Buttons */}
+                      
                             <Row className="compare-actions g-3">
                                 <Col xs={12} sm={6}>
                                     <Button
@@ -317,41 +317,7 @@ const CompareBar = ({ selectedItems = [], onRemove, onCompare, onClearAll, maxIt
                 </Container>
             </div>
 
-            <style jsx>{`
-                @keyframes pulse {
-                    0%, 100% { transform: scale(1); }
-                    50% { transform: scale(1.1); }
-                }
-
-                .compare-bar-wrapper {
-                    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-                }
-
-                .product-mini-card:hover {
-                    transform: translateY(-4px);
-                    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15) !important;
-                }
-
-                .empty-slot:hover {
-                    border-color: rgba(255, 255, 255, 0.5) !important;
-                    background: rgba(255, 255, 255, 0.15) !important;
-                }
-
-                .fab-container {
-                    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.2));
-                }
-
-                @media (max-width: 768px) {
-                    .compare-bar-container {
-                        padding: 1rem 1rem 2rem !important;
-                    }
-                    
-                    .fab-compare-btn {
-                        padding: 10px 16px !important;
-                        font-size: 0.9rem !important;
-                    }
-                }
-            `}</style>
+           
         </>
     );
 };

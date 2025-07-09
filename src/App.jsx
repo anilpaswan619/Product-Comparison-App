@@ -19,7 +19,7 @@ const getAllFeatures = (products) => {
   return Array.from(featureSet);
 };
 
-// Modern Hero Section Component
+
 const HeroSection = ({ totalProducts, selectedCount, onGetStarted }) => {
   return (
     <div className="hero-section animate-fade-in hero-mt-5">
@@ -108,7 +108,7 @@ const HeroSection = ({ totalProducts, selectedCount, onGetStarted }) => {
   );
 };
 
-// Enhanced About Page
+//  About Page
 const AboutPage = () => {
   return (
     <Container className="about-page py-5">
@@ -313,7 +313,7 @@ function AppContent() {
     <div className="App app-root">
       <Navbar />
       
-      {/* Global Alert */}
+ 
       {showAlert && (
         <div className="alert-container animate-slide-down">
           <Alert variant="info" className="mb-0 shadow-sm">
