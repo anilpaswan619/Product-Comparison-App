@@ -1,87 +1,134 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from "react-router-dom";
 import { useTheme } from "../theme";
 import { Navbar as RBNavbar, Nav, Container, Button } from "react-bootstrap";
-import { SunFill, MoonFill } from "react-bootstrap-icons";
+import { SunFill, MoonFill, List, X, Stack } from "react-bootstrap-icons";
 
 const Navbar = () => {
     const { theme, toggleTheme } = useTheme();
     const location = useLocation();
+    const [isScrolled, setIsScrolled] = useState(false);
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+    // Handle scroll effect
+    useEffect(() => {
+        const handleScroll = () => {
+            setIsScrolled(window.scrollY > 20);
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    // Close mobile menu when route changes
+    useEffect(() => {
+        setIsMobileMenuOpen(false);
+    }, [location.pathname]);
+
+    const navItems = [
+        { path: '/', label: 'Home' },
+        { path: '/compare', label: 'Compare' },
+        { path: '/about', label: 'About' }
+    ];
+
+    const isActive = (path) => location.pathname === path;
 
     return (
-        <RBNavbar 
-            style={{ background: 'linear-gradient(135deg, #6366f1, #4338ca)' }}
-            variant="dark" 
-            expand="md" 
-            sticky="top" 
-            className="shadow-sm"
-        >
-            <Container>
-                <RBNavbar.Brand as={Link} to="/" className="d-flex align-items-center fw-bold">
-                    <span role="img" aria-label="compare" className="me-2">🔍</span>
-                    Product Comparison
-                </RBNavbar.Brand>
-                <RBNavbar.Toggle aria-controls="main-navbar-nav" />
-                <RBNavbar.Collapse id="main-navbar-nav">
-                    <Nav className="ms-auto align-items-center">
-                        <Nav.Link 
-                            as={Link} 
-                            to="/" 
-                            className={`nav-link-custom ${location.pathname === "/" ? "active" : ""}`}
-                            style={{
-                                color: location.pathname === "/" ? '#fff' : 'rgba(255, 255, 255, 0.8)',
-                                fontWeight: location.pathname === "/" ? '600' : '500',
-                                borderBottom: location.pathname === "/" ? '2px solid #fff' : 'none',
-                                paddingBottom: '0.5rem'
-                            }}
-                        >
-                            Home
-                        </Nav.Link>
-                        <Nav.Link 
-                            as={Link} 
-                            to="/compare" 
-                            className={`nav-link-custom ${location.pathname === "/compare" ? "active" : ""}`}
-                            style={{
-                                color: location.pathname === "/compare" ? '#fff' : 'rgba(255, 255, 255, 0.8)',
-                                fontWeight: location.pathname === "/compare" ? '600' : '500',
-                                borderBottom: location.pathname === "/compare" ? '2px solid #fff' : 'none',
-                                paddingBottom: '0.5rem'
-                            }}
-                        >
-                            Compare
-                        </Nav.Link>
-                        <Nav.Link 
-                            as={Link} 
-                            to="/about" 
-                            className={`nav-link-custom ${location.pathname === "/about" ? "active" : ""}`}
-                            style={{
-                                color: location.pathname === "/about" ? '#fff' : 'rgba(255, 255, 255, 0.8)',
-                                fontWeight: location.pathname === "/about" ? '600' : '500',
-                                borderBottom: location.pathname === "/about" ? '2px solid #fff' : 'none',
-                                paddingBottom: '0.5rem'
-                            }}
-                        >
-                            About
-                        </Nav.Link>
+        <>
+            <RBNavbar 
+                expand="lg" 
+                fixed="top"
+                className={`custom-navbar ${isScrolled ? 'scrolled' : ''}`}
+            >
+                <Container fluid className="px-4">
+                    <RBNavbar.Brand 
+                        as={Link} 
+                        to="/" 
+                        className="brand-logo"
+                    >
+                        <div className="brand-icon">
+                            <Stack />
+                        </div>
+                        <span className="brand-text">ProductCompare</span>
+                    </RBNavbar.Brand>
+
+                    {/* Custom Mobile Toggle */}
+                    <Button
+                        className="mobile-toggle d-lg-none"
+                        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                    >
+                        {isMobileMenuOpen ? <X /> : <List />}
+                    </Button>
+
+                    {/* Desktop Navigation */}
+                    <div className="desktop-nav d-none d-lg-flex align-items-center ms-auto">
+                        <Nav className="me-4">
+                            {navItems.map((item) => (
+                                <Nav.Link
+                                    key={item.path}
+                                    as={Link}
+                                    to={item.path}
+                                    className={`nav-item-custom mx-2 ${isActive(item.path) ? 'active' : ''}`}
+                                >
+                                    {item.label}
+                                </Nav.Link>
+                            ))}
+                        </Nav>
+
+                        {/* Theme Toggle */}
                         <Button
-                            className="ms-3 d-flex align-items-center theme-toggle-btn border-0"
+                            className="theme-toggle-btn"
                             onClick={toggleTheme}
                             aria-label="Toggle theme"
-                            style={{ 
-                                background: 'rgba(255, 255, 255, 0.15)',
-                                color: 'white',
-                                borderRadius: '50%',
-                                width: '40px',
-                                height: '40px',
-                                justifyContent: 'center'
-                            }}
                         >
                             {theme === "dark" ? <MoonFill /> : <SunFill />}
                         </Button>
-                    </Nav>
-                </RBNavbar.Collapse>
-            </Container>
-        </RBNavbar>
+                    </div>
+                </Container>
+            </RBNavbar>
+
+            {/* Mobile Menu Overlay */}
+            <div 
+                className={`mobile-menu-overlay d-lg-none ${isMobileMenuOpen ? 'show' : ''}`}
+                onClick={() => setIsMobileMenuOpen(false)}
+            />
+
+            {/* Mobile Menu */}
+            <div className={`mobile-menu d-lg-none ${isMobileMenuOpen ? 'show' : ''}`}>
+                <div className="mobile-menu-header d-flex justify-content-between align-items-center mb-4">
+                    <h5 className="text-white mb-0 fw-bold">Menu</h5>
+                    <Button
+                        className="mobile-close-btn"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                        <X />
+                    </Button>
+                </div>
+
+                <Nav className="flex-column gap-2">
+                    {navItems.map((item) => (
+                        <Nav.Link
+                            key={item.path}
+                            as={Link}
+                            to={item.path}
+                            className={`mobile-nav-item ${isActive(item.path) ? 'active' : ''}`}
+                        >
+                            {item.label}
+                        </Nav.Link>
+                    ))}
+                </Nav>
+
+                <div className="mobile-theme-toggle mt-4 pt-4">
+                    <Button
+                        className="mobile-theme-btn w-100"
+                        onClick={toggleTheme}
+                    >
+                        {theme === "dark" ? <MoonFill className="me-2" /> : <SunFill className="me-2" />}
+                        {theme === "dark" ? 'Dark Mode' : 'Light Mode'}
+                    </Button>
+                </div>
+            </div>
+        </>
     );
 };
 
