@@ -27,24 +27,23 @@ const ComparisonView = ({ products, features, onClearAll }) => {
     const [viewMode, setViewMode] = useState('table');
     const [activeTab, setActiveTab] = useState('all');
     const [highlightBest] = useState(true);
-    // const [compactView, setCompactView] = useState(false);
 
     if (!products || products.length === 0) {
         return (
-            <Container className="text-center py-5">
+            <Container className="text-center py-3 py-md-5">
                 <Alert className="comparison-empty-state border-0" style={{ background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(99, 102, 241, 0.02))' }}>
                     <div className="empty-state-icon mb-3">
-                        <Grid3x3Gap size={48} className="text-custom-primary" />
+                        <Grid3x3Gap size={window.innerWidth < 768 ? 32 : 48} className="text-custom-primary" />
                     </div>
-                    <h4>No Products Selected</h4>
-                    <p className="mb-3">Select at least 2 products from the home page to start comparing their features and specifications.</p>
+                    <h4 className="h5 h-md-4">No Products Selected</h4>
+                    <p className="mb-3 small">Select at least 2 products from the home page to start comparing their features and specifications.</p>
                     <Button 
                         as={Link} 
                         to="/" 
-                        size="lg"
+                        size={window.innerWidth < 768 ? "md" : "lg"}
                         className="btn-custom-primary"
                     >
-                        <ArrowLeft className="me-2" />
+                        <ArrowLeft className="me-2" size={window.innerWidth < 768 ? 14 : 16} />
                         Browse Products
                     </Button>
                 </Alert>
@@ -54,20 +53,20 @@ const ComparisonView = ({ products, features, onClearAll }) => {
 
     if (products.length < 2) {
         return (
-            <Container className="text-center py-5">
+            <Container className="text-center py-3 py-md-5">
                 <Alert className="comparison-empty-state border-0" style={{ background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.05), rgba(245, 158, 11, 0.02))' }}>
                     <div className="empty-state-icon mb-3">
-                        <ExclamationTriangle size={48} className="text-custom-warning" />
+                        <ExclamationTriangle size={window.innerWidth < 768 ? 32 : 48} className="text-custom-warning" />
                     </div>
-                    <h4>Need More Products</h4>
-                    <p className="mb-3">You have {products.length} product selected. Add at least one more to start comparing.</p>
+                    <h4 className="h5 h-md-4">Need More Products</h4>
+                    <p className="mb-3 small">You have {products.length} product selected. Add at least one more to start comparing.</p>
                     <Button 
                         as={Link} 
                         to="/" 
-                        size="lg"
+                        size={window.innerWidth < 768 ? "md" : "lg"}
                         className="btn-custom-primary"
                     >
-                        <ArrowLeft className="me-2" />
+                        <ArrowLeft className="me-2" size={window.innerWidth < 768 ? 14 : 16} />
                         Add More Products
                     </Button>
                 </Alert>
@@ -87,16 +86,16 @@ const ComparisonView = ({ products, features, onClearAll }) => {
 
     const renderEnhancedToolbar = () => (
         <Card className="comparison-toolbar-card mb-2 border-0 shadow-sm">
-            <Card.Body className="py-2 px-3">
+            <Card.Body className="py-2 px-2 px-md-3">
                 <Container fluid>
                     <Row className="align-items-center">
-                        <Col md={8}>
+                        <Col xs={12} md={8} className="mb-2 mb-md-0">
                             <div className="d-flex align-items-center gap-2 flex-wrap">
                                 <div className="comparison-stats d-flex gap-2">
-                                    <Badge className="badge-custom-primary px-2 py-1" style={{ fontSize: '0.8rem' }}>
+                                    <Badge className="badge-custom-primary px-2 py-1" style={{ fontSize: '0.7rem' }}>
                                         <strong>{products.length}</strong> Products
                                     </Badge>
-                                    <Badge className="badge-custom-secondary px-2 py-1" style={{ fontSize: '0.8rem' }}>
+                                    <Badge className="badge-custom-secondary px-2 py-1" style={{ fontSize: '0.7rem' }}>
                                         <strong>{currentFeatures.length}</strong> Features
                                     </Badge>
                                 </div>
@@ -114,31 +113,31 @@ const ComparisonView = ({ products, features, onClearAll }) => {
                                 </div>
                             </div>
                         </Col>
-                        <Col md={4}>
-                            <div className="d-flex align-items-center justify-content-md-end">
-                                <div className="view-mode-toggle d-flex border rounded overflow-hidden">
+                        <Col xs={12} md={4}>
+                            <div className="d-flex align-items-center justify-content-center justify-content-md-end">
+                                <div className="view-mode-toggle d-flex border rounded overflow-hidden ">
                                     <Button 
                                         size="sm"
                                         onClick={() => setViewMode('table')}
-                                        className={`d-flex align-items-center px-2 py-1 border-0 ${
+                                        className={`d-flex align-items-center justify-content-center flex-fill flex-md-grow-0 px-2 py-1 border-0 ${
                                             viewMode === 'table' ? 'btn-custom-primary' : 'btn-outline-secondary bg-white'
                                         }`}
-                                        style={{ borderRadius: 0, fontSize: '0.75rem' }}
+                                        style={{ borderRadius: 0, fontSize: '0.7rem' }}
                                     >
                                         <List size={12} className="me-1" />
-                                        <span className="d-none d-lg-inline">Table</span>
+                                        <span>Table</span>
                                     </Button>
                                     
                                     <Button 
                                         size="sm"
                                         onClick={() => setViewMode('cards')}
-                                        className={`d-flex align-items-center px-2 py-1 border-0 ${
+                                        className={`d-flex align-items-center justify-content-center flex-fill flex-md-grow-0 px-2 py-1 border-0 ${
                                             viewMode === 'cards' ? 'btn-custom-primary' : 'btn-outline-secondary bg-white'
                                         }`}
-                                        style={{ borderRadius: 0, fontSize: '0.75rem' }}
+                                        style={{ borderRadius: 0, fontSize: '0.7rem' }}
                                     >
                                         <Grid3x3Gap size={12} className="me-1" />
-                                        <span className="d-none d-lg-inline">Cards</span>
+                                        <span>Cards</span>
                                     </Button>
                                 </div>
                             </div>
@@ -153,18 +152,19 @@ const ComparisonView = ({ products, features, onClearAll }) => {
         <Card className="comparison-card border-0 shadow-sm" style={{ borderRadius: '8px' }}>
             {/* Enhanced Feature Categories Tabs */}
             <div className="feature-tabs-container bg-light" style={{ borderRadius: '8px 8px 0 0' }}>
-                <Container fluid>
+                <Container fluid className="px-2 px-md-3">
                     <Tabs
                         activeKey={activeTab}
                         onSelect={setActiveTab}
                         className="comparison-tabs border-0 pt-2"
+                        variant="pills"
                     >
                         <Tab 
                             eventKey="all" 
                             title={
                                 <div className="tab-title d-flex align-items-center gap-1">
-                                    <span className="fw-semibold" style={{ fontSize: '0.8rem' }}>All</span>
-                                    <Badge bg="secondary" className="rounded-pill" style={{ fontSize: '0.6rem' }}>{categorizedFeatures.all.length}</Badge>
+                                    <span className="fw-semibold" style={{ fontSize: '0.7rem' }}>All</span>
+                                    <Badge bg="secondary" className="rounded-pill d-none d-sm-inline" style={{ fontSize: '0.6rem' }}>{categorizedFeatures.all.length}</Badge>
                                 </div>
                             } 
                         />
@@ -172,8 +172,8 @@ const ComparisonView = ({ products, features, onClearAll }) => {
                             eventKey="basic" 
                             title={
                                 <div className="tab-title d-flex align-items-center gap-1">
-                                    <span className="fw-semibold" style={{ fontSize: '0.8rem' }}>Essential</span>
-                                    <Badge bg="secondary" className="rounded-pill" style={{ fontSize: '0.6rem' }}>{categorizedFeatures.basic.length}</Badge>
+                                    <span className="fw-semibold" style={{ fontSize: '0.7rem' }}>Essential</span>
+                                    <Badge bg="secondary" className="rounded-pill d-none d-sm-inline" style={{ fontSize: '0.6rem' }}>{categorizedFeatures.basic.length}</Badge>
                                 </div>
                             } 
                         />
@@ -181,8 +181,8 @@ const ComparisonView = ({ products, features, onClearAll }) => {
                             eventKey="performance" 
                             title={
                                 <div className="tab-title d-flex align-items-center gap-1">
-                                    <span className="fw-semibold" style={{ fontSize: '0.8rem' }}>Performance</span>
-                                    <Badge bg="secondary" className="rounded-pill" style={{ fontSize: '0.6rem' }}>{categorizedFeatures.performance.length}</Badge>
+                                    <span className="fw-semibold" style={{ fontSize: '0.7rem' }}>Performance</span>
+                                    <Badge bg="secondary" className="rounded-pill d-none d-sm-inline" style={{ fontSize: '0.6rem' }}>{categorizedFeatures.performance.length}</Badge>
                                 </div>
                             } 
                         />
@@ -190,8 +190,8 @@ const ComparisonView = ({ products, features, onClearAll }) => {
                             eventKey="display" 
                             title={
                                 <div className="tab-title d-flex align-items-center gap-1">
-                                    <span className="fw-semibold" style={{ fontSize: '0.8rem' }}>Display</span>
-                                    <Badge bg="secondary" className="rounded-pill" style={{ fontSize: '0.6rem' }}>{categorizedFeatures.display.length}</Badge>
+                                    <span className="fw-semibold" style={{ fontSize: '0.7rem' }}>Display</span>
+                                    <Badge bg="secondary" className="rounded-pill d-none d-sm-inline" style={{ fontSize: '0.6rem' }}>{categorizedFeatures.display.length}</Badge>
                                 </div>
                             } 
                         />
@@ -199,8 +199,8 @@ const ComparisonView = ({ products, features, onClearAll }) => {
                             eventKey="other" 
                             title={
                                 <div className="tab-title d-flex align-items-center gap-1">
-                                    <span className="fw-semibold" style={{ fontSize: '0.8rem' }}>Other</span>
-                                    <Badge bg="secondary" className="rounded-pill" style={{ fontSize: '0.6rem' }}>{categorizedFeatures.other.length}</Badge>
+                                    <span className="fw-semibold" style={{ fontSize: '0.7rem' }}>Other</span>
+                                    <Badge bg="secondary" className="rounded-pill d-none d-sm-inline" style={{ fontSize: '0.6rem' }}>{categorizedFeatures.other.length}</Badge>
                                 </div>
                             } 
                         />
@@ -209,57 +209,59 @@ const ComparisonView = ({ products, features, onClearAll }) => {
             </div>
 
             <Card.Body className="p-0">
-                <div className="comparison-table-wrapper">
+                <div className="comparison-table-wrapper" style={{ overflowX: 'auto' }}>
                     <Table borderless className="comparison-table mb-0 table-fixed">
                         <thead className="bg-light sticky-top">
                             <tr>
                                 <th className="feature-header sticky-column" style={{ 
-                                    width: '160px',
-                                    minWidth: '160px',
-                                    maxWidth: '160px',
+                                    width: window.innerWidth < 768 ? '120px' : '160px',
+                                    minWidth: window.innerWidth < 768 ? '120px' : '160px',
+                                    maxWidth: window.innerWidth < 768 ? '120px' : '160px',
                                     backgroundColor: '#f8f9fa',
                                     position: 'sticky',
                                     left: 0,
                                     zIndex: 20,
-                                    padding: '12px 8px',
+                                    padding: window.innerWidth < 768 ? '8px 4px' : '12px 8px',
                                     borderRight: '1px solid #dee2e6'
                                 }}>
-                                    <span className="fw-bold text-dark" style={{ fontSize: '0.8rem' }}>Features</span>
+                                    <span className="fw-bold text-dark" style={{ fontSize: window.innerWidth < 768 ? '0.7rem' : '0.8rem' }}>Features</span>
                                 </th>
                                 {products.map((product) => (
                                     <th key={product.id} className="product-header" style={{ 
-                                        width: '140px',
-                                        minWidth: '140px',
-                                        maxWidth: '140px',
-                                        padding: '8px 4px'
+                                        width: window.innerWidth < 768 ? '110px' : '140px',
+                                        minWidth: window.innerWidth < 768 ? '110px' : '140px',
+                                        maxWidth: window.innerWidth < 768 ? '110px' : '140px',
+                                        padding: window.innerWidth < 768 ? '6px 2px' : '8px 4px'
                                     }}>
                                         <div className="text-center">
-                                            <div className="mb-2">
+                                            <div className="mb-1 mb-md-2">
                                                 <img 
                                                     src={product.image} 
                                                     alt={product.name} 
                                                     style={{ 
-                                                        width: '32px', 
-                                                        height: '32px', 
+                                                        width: window.innerWidth < 768 ? '24px' : '32px', 
+                                                        height: window.innerWidth < 768 ? '24px' : '32px', 
                                                         objectFit: 'contain',
                                                         borderRadius: '4px'
                                                     }}
                                                 />
                                             </div>
                                             <div className="fw-bold text-dark mb-1" style={{ 
-                                                fontSize: '0.7rem', 
+                                                fontSize: window.innerWidth < 768 ? '0.6rem' : '0.7rem', 
                                                 lineHeight: '1.2',
                                                 overflow: 'hidden',
                                                 textOverflow: 'ellipsis',
                                                 whiteSpace: 'nowrap'
                                             }}>
-                                                {product.name.length > 15 ? product.name.substring(0, 15) + '...' : product.name}
+                                                {product.name.length > (window.innerWidth < 768 ? 12 : 15) ? 
+                                                    product.name.substring(0, window.innerWidth < 768 ? 12 : 15) + '...' : 
+                                                    product.name}
                                             </div>
-                                            <Badge className="badge-custom-secondary mb-1" style={{ fontSize: '0.6rem' }}>{product.brand}</Badge>
-                                            <div className="text-custom-success fw-bold" style={{ fontSize: '0.8rem' }}>
+                                            <Badge className="badge-custom-secondary mb-1" style={{ fontSize: window.innerWidth < 768 ? '0.5rem' : '0.6rem' }}>{product.brand}</Badge>
+                                            <div className="text-custom-success fw-bold" style={{ fontSize: window.innerWidth < 768 ? '0.7rem' : '0.8rem' }}>
                                                 ${product.price}
                                             </div>
-                                            <Badge className={`${product.category === 'Mobile' ? 'badge-custom-primary' : 'badge-custom-success'}`} style={{ fontSize: '0.55rem' }}>
+                                            <Badge className={`${product.category === 'Mobile' ? 'badge-custom-primary' : 'badge-custom-success'}`} style={{ fontSize: window.innerWidth < 768 ? '0.5rem' : '0.55rem' }}>
                                                 {product.category.substring(0, 3)}
                                             </Badge>
                                         </div>
@@ -278,14 +280,14 @@ const ComparisonView = ({ products, features, onClearAll }) => {
                                             position: 'sticky',
                                             left: 0,
                                             zIndex: 10,
-                                            width: '160px',
-                                            minWidth: '160px',
-                                            maxWidth: '160px',
-                                            padding: '8px',
+                                            width: window.innerWidth < 768 ? '120px' : '160px',
+                                            minWidth: window.innerWidth < 768 ? '120px' : '160px',
+                                            maxWidth: window.innerWidth < 768 ? '120px' : '160px',
+                                            padding: window.innerWidth < 768 ? '6px 4px' : '8px',
                                             borderRight: '1px solid #dee2e6'
                                         }}>
                                             <span className="fw-semibold text-dark" style={{ 
-                                                fontSize: '0.7rem',
+                                                fontSize: window.innerWidth < 768 ? '0.6rem' : '0.7rem',
                                                 overflow: 'hidden',
                                                 textOverflow: 'ellipsis',
                                                 whiteSpace: 'nowrap',
@@ -300,30 +302,32 @@ const ComparisonView = ({ products, features, onClearAll }) => {
                                             
                                             return (
                                                 <td key={product.id} className="value-cell text-center" style={{ 
-                                                    width: '140px',
-                                                    minWidth: '140px',
-                                                    maxWidth: '140px',
-                                                    padding: '8px 4px'
+                                                    width: window.innerWidth < 768 ? '110px' : '140px',
+                                                    minWidth: window.innerWidth < 768 ? '110px' : '140px',
+                                                    maxWidth: window.innerWidth < 768 ? '110px' : '140px',
+                                                    padding: window.innerWidth < 768 ? '6px 2px' : '8px 4px'
                                                 }}>
                                                     <div className="value-container">
-                                                        {valueType === 'best' && highlightBest && (
+                                                        {valueType === 'best' && highlightBest && window.innerWidth >= 768 && (
                                                             <Award size={10} className="value-icon text-custom-success mb-1" />
                                                         )}
-                                                        <div className={`value-text d-inline-block px-2 py-1 rounded ${
+                                                        <div className={`value-text d-inline-block px-1 px-md-2 py-1 rounded ${
                                                             valueType === 'best' ? 'bg-success bg-opacity-10 text-success fw-bold' :
                                                             'bg-primary bg-opacity-10 text-primary'
                                                         }`} style={{ 
-                                                            fontSize: '0.65rem',
+                                                            fontSize: window.innerWidth < 768 ? '0.55rem' : '0.65rem',
                                                             overflow: 'hidden',
                                                             textOverflow: 'ellipsis',
                                                             whiteSpace: 'nowrap',
-                                                            maxWidth: '120px'
+                                                            maxWidth: window.innerWidth < 768 ? '90px' : '120px'
                                                         }}>
                                                             {value || <span className="text-muted">Normal</span>}
                                                         </div>
                                                         {valueType === 'best' && highlightBest && (
                                                             <div className="mt-1">
-                                                                <Badge className="badge-custom-success" style={{ fontSize: '0.5rem' }}>BEST</Badge>
+                                                                <Badge className="badge-custom-success" style={{ fontSize: window.innerWidth < 768 ? '0.4rem' : '0.5rem' }}>
+                                                                    {window.innerWidth < 768 ? '★' : 'BEST'}
+                                                                </Badge>
                                                             </div>
                                                         )}
                                                     </div>
@@ -342,14 +346,14 @@ const ComparisonView = ({ products, features, onClearAll }) => {
 
     const renderCardView = () => (
         <div className="comparison-cards-container">
-            <Row className="g-3">
+            <Row className="g-2 g-md-3">
                 {products.map((product, index) => (
-                    <Col key={product.id} xl={4} lg={6} md={12}>
+                    <Col key={product.id} xs={12} sm={6} lg={4} xl={4}>
                         <Card className="product-comparison-card h-100 border-0 shadow-sm" style={{ borderRadius: '8px' }}>
-                            <div className="comparison-card-header p-3" style={{ background: 'linear-gradient(135deg, #f8fafc, #fff)', borderRadius: '8px 8px 0 0' }}>
+                            <div className="comparison-card-header p-2 p-md-3" style={{ background: 'linear-gradient(135deg, #f8fafc, #fff)', borderRadius: '8px 8px 0 0' }}>
                                 <div className="d-flex align-items-center justify-content-between mb-2">
-                                    <Badge className="badge-custom-primary px-2 py-1" style={{ fontSize: '0.7rem' }}>#{index + 1}</Badge>
-                                    <div className="rating-stars text-warning" style={{ fontSize: '0.7rem' }}>
+                                    <Badge className="badge-custom-primary px-2 py-1" style={{ fontSize: '0.6rem' }}>#{index + 1}</Badge>
+                                    <div className="rating-stars text-warning d-none d-sm-block" style={{ fontSize: '0.7rem' }}>
                                         {'★'.repeat(4)}{'☆'.repeat(1)}
                                         <small className="text-muted ms-1" style={{ fontSize: '0.6rem' }}>4.0</small>
                                     </div>
@@ -361,8 +365,8 @@ const ComparisonView = ({ products, features, onClearAll }) => {
                                             src={product.image} 
                                             alt={product.name} 
                                             style={{
-                                                width: '50px',
-                                                height: '50px',
+                                                width: window.innerWidth < 768 ? '40px' : '50px',
+                                                height: window.innerWidth < 768 ? '40px' : '50px',
                                                 objectFit: 'contain',
                                                 borderRadius: '6px',
                                                 background: 'white',
@@ -372,23 +376,23 @@ const ComparisonView = ({ products, features, onClearAll }) => {
                                         />
                                     </div>
                                     
-                                    <h6 className="product-name mb-2 fw-bold text-dark" style={{ fontSize: '0.85rem' }}>{product.name}</h6>
-                                    <div className="d-flex align-items-center justify-content-center gap-1 mb-2">
-                                        <Badge className="badge-custom-secondary" style={{ fontSize: '0.6rem' }}>{product.brand}</Badge>
-                                        <Badge className={product.category === 'Mobile' ? 'badge-custom-primary' : 'badge-custom-success'} style={{ fontSize: '0.6rem' }}>
+                                    <h6 className="product-name mb-2 fw-bold text-dark" style={{ fontSize: window.innerWidth < 768 ? '0.75rem' : '0.85rem' }}>{product.name}</h6>
+                                    <div className="d-flex align-items-center justify-content-center gap-1 mb-2 flex-wrap">
+                                        <Badge className="badge-custom-secondary" style={{ fontSize: window.innerWidth < 768 ? '0.55rem' : '0.6rem' }}>{product.brand}</Badge>
+                                        <Badge className={product.category === 'Mobile' ? 'badge-custom-primary' : 'badge-custom-success'} style={{ fontSize: window.innerWidth < 768 ? '0.55rem' : '0.6rem' }}>
                                             {product.category}
                                         </Badge>
                                     </div>
-                                    <div className="product-price text-custom-success fw-bold mb-0" style={{ fontSize: '1rem' }}>${product.price}</div>
+                                    <div className="product-price text-custom-success fw-bold mb-0" style={{ fontSize: window.innerWidth < 768 ? '0.9rem' : '1rem' }}>${product.price}</div>
                                 </div>
                             </div>
                             
-                            <Card.Body className="p-3">
-                                <h6 className="specs-section-title mb-2 fw-bold text-dark border-bottom pb-1" style={{ fontSize: '0.75rem' }}>
+                            <Card.Body className="p-2 p-md-3">
+                                <h6 className="specs-section-title mb-2 fw-bold text-dark border-bottom pb-1" style={{ fontSize: window.innerWidth < 768 ? '0.7rem' : '0.75rem' }}>
                                     Specifications
                                 </h6>
                                 <div className="specs-list">
-                                    {currentFeatures.slice(0, 5).map((feature) => {
+                                    {currentFeatures.slice(0, window.innerWidth < 768 ? 4 : 5).map((feature) => {
                                         const value = product.specs[feature];
                                         const allValues = products.map(p => p.specs[feature]).filter(Boolean);
                                         const valueType = highlightBest && value ? getValueType(value, feature, allValues) : 'neutral';
@@ -396,36 +400,36 @@ const ComparisonView = ({ products, features, onClearAll }) => {
                                         return (
                                             <div key={feature} className={`comparison-spec-item d-flex justify-content-between align-items-center py-1 ${valueType === 'best' ? 'bg-success bg-opacity-10 px-2 rounded my-1' : ''}`}>
                                                 <span className="spec-label fw-medium text-dark" style={{ 
-                                                    fontSize: '0.65rem',
+                                                    fontSize: window.innerWidth < 768 ? '0.6rem' : '0.65rem',
                                                     overflow: 'hidden',
                                                     textOverflow: 'ellipsis',
                                                     whiteSpace: 'nowrap',
-                                                    maxWidth: '80px'
+                                                    maxWidth: window.innerWidth < 768 ? '70px' : '80px'
                                                 }}>{feature}:</span>
                                                 <div className="spec-value-container d-flex align-items-center gap-1">
-                                                    {valueType === 'best' && highlightBest && (
+                                                    {valueType === 'best' && highlightBest && window.innerWidth >= 768 && (
                                                         <Award size={8} className="text-custom-success" />
                                                     )}
                                                     <span className={`spec-value ${valueType === 'best' ? 'fw-bold text-success' : 'text-dark'}`} style={{ 
-                                                        fontSize: '0.65rem',
+                                                        fontSize: window.innerWidth < 768 ? '0.6rem' : '0.65rem',
                                                         overflow: 'hidden',
                                                         textOverflow: 'ellipsis',
                                                         whiteSpace: 'nowrap',
-                                                        maxWidth: '60px'
+                                                        maxWidth: window.innerWidth < 768 ? '50px' : '60px'
                                                     }}>
                                                         {value || <span className="text-muted">-</span>}
                                                     </span>
                                                     {valueType === 'best' && highlightBest && (
-                                                        <Badge className="badge-custom-success" style={{ fontSize: '0.5rem' }}>★</Badge>
+                                                        <Badge className="badge-custom-success" style={{ fontSize: window.innerWidth < 768 ? '0.4rem' : '0.5rem' }}>★</Badge>
                                                     )}
                                                 </div>
                                             </div>
                                         );
                                     })}
-                                    {currentFeatures.length > 5 && (
+                                    {currentFeatures.length > (window.innerWidth < 768 ? 4 : 5) && (
                                         <div className="text-center mt-1">
                                             <small className="text-muted" style={{ fontSize: '0.6rem' }}>
-                                                +{currentFeatures.length - 5} more
+                                                +{currentFeatures.length - (window.innerWidth < 768 ? 4 : 5)} more
                                             </small>
                                         </div>
                                     )}
@@ -439,37 +443,37 @@ const ComparisonView = ({ products, features, onClearAll }) => {
     );
 
     return (
-        <div className="comparison-container compact-comparison">
+        <div className="comparison-container compact-comparison px-1 px-md-0">
             {/* Enhanced Page Header */}
             <Container fluid className="comparison-page-header mb-2">
                 <Row className="align-items-center">
-                    <Col className="text-lg-start">
-                        <h1 className="page-title text-custom-primary fw-bold mb-1" style={{ fontSize: '1.4rem' }}>
+                    <Col xs={12} md={8} className="text-center text-md-start mb-2 mb-md-0">
+                        <h1 className="page-title text-custom-primary fw-bold mb-1" style={{ fontSize: window.innerWidth < 768 ? '1.2rem' : '1.4rem' }}>
                             Selected Products
                         </h1>
-                        <p className="page-subtitle text-muted mb-0" style={{ fontSize: '0.8rem' }}>
+                        <p className="page-subtitle text-muted mb-0" style={{ fontSize: window.innerWidth < 768 ? '0.75rem' : '0.8rem' }}>
                             Analyzing {products.length} products across {currentFeatures.length} features • 
                             <span className="text-custom-success ms-1">Live data</span>
                         </p>
                     </Col>
-                    <Col xs="auto">
-                        <div className="page-actions d-flex gap-2">
+                    <Col xs={12} md={4}>
+                        <div className="page-actions d-flex gap-2 justify-content-center justify-content-md-end">
                             <Button 
                                 as={Link} 
                                 to="/" 
-                                className="d-flex align-items-center btn-custom-outline-primary px-2 py-1"
-                                style={{ borderRadius: '6px', fontSize: '0.75rem' }}
+                                className="d-flex align-items-center btn-custom-outline-primary px-2 py-1 flex-fill flex-md-grow-0"
+                                style={{ borderRadius: '6px', fontSize: '0.7rem' }}
                             >
                                 <ArrowLeft className="me-1" size={12} />
-                                <span className="d-none d-md-inline">Back</span>
+                                <span>Back</span>
                             </Button>
                             <Button 
                                 onClick={onClearAll}
-                                className="d-flex align-items-center btn-custom-outline-danger px-2 py-1"
-                                style={{ borderRadius: '6px', fontSize: '0.75rem' }}
+                                className="d-flex align-items-center btn-custom-outline-danger px-2 py-1 flex-fill flex-md-grow-0"
+                                style={{ borderRadius: '6px', fontSize: '0.7rem' }}
                             >
                                 <Trash3 className="me-1" size={12} />
-                                <span className="d-none d-md-inline">Clear</span>
+                                <span>Clear</span>
                             </Button>
                         </div>
                     </Col>
@@ -484,15 +488,15 @@ const ComparisonView = ({ products, features, onClearAll }) => {
 
             {/* Enhanced Comparison Legend */}
             <Card className="comparison-legend mt-2 border-0 shadow-sm" style={{ borderRadius: '8px' }}>
-                <Card.Body className="p-3">
+                <Card.Body className="p-2 p-md-3">
                     <Container fluid>
                         <Row className="align-items-center">
-                            <Col md={6}>
-                                <h6 className="legend-title fw-bold mb-2 text-dark" style={{ fontSize: '0.8rem' }}>Legend</h6>
-                                <div className="d-flex align-items-center gap-3 flex-wrap">
+                            <Col xs={12} md={6} className="mb-2 mb-md-0">
+                                <h6 className="legend-title fw-bold mb-2 text-dark" style={{ fontSize: window.innerWidth < 768 ? '0.75rem' : '0.8rem' }}>Legend</h6>
+                                <div className="d-flex align-items-center gap-2 gap-md-3 flex-wrap justify-content-center justify-content-md-start">
                                     <div className="legend-item d-flex align-items-center gap-1">
                                         <Award size={12} className="text-custom-success" />
-                                        <span style={{ fontSize: '0.7rem' }}>Best</span>
+                                        <span style={{ fontSize: window.innerWidth < 768 ? '0.65rem' : '0.7rem' }}>Best</span>
                                     </div>
                                     <div className="legend-item d-flex align-items-center gap-1">
                                         <div className="legend-dot bg-primary bg-opacity-25" style={{ 
@@ -500,7 +504,7 @@ const ComparisonView = ({ products, features, onClearAll }) => {
                                             height: '8px', 
                                             borderRadius: '50%'
                                         }}></div>
-                                        <span style={{ fontSize: '0.7rem' }}>Standard</span>
+                                        <span style={{ fontSize: window.innerWidth < 768 ? '0.65rem' : '0.7rem' }}>Standard</span>
                                     </div>
                                     <div className="legend-item d-flex align-items-center gap-1">
                                         <div className="legend-dot bg-secondary bg-opacity-25" style={{ 
@@ -508,12 +512,12 @@ const ComparisonView = ({ products, features, onClearAll }) => {
                                             height: '8px', 
                                             borderRadius: '50%'
                                         }}></div>
-                                        <span style={{ fontSize: '0.7rem' }}>Normal</span>
+                                        <span style={{ fontSize: window.innerWidth < 768 ? '0.65rem' : '0.7rem' }}>Normal</span>
                                     </div>
                                 </div>
                             </Col>
-                            <Col md={6} className="text-md-end mt-2 mt-md-0">
-                                <small className="text-muted" style={{ fontSize: '0.65rem' }}>
+                            <Col xs={12} md={6} className="text-center text-md-end">
+                                <small className="text-muted" style={{ fontSize: window.innerWidth < 768 ? '0.6rem' : '0.65rem' }}>
                                     Updated: {new Date().toLocaleDateString()} • 
                                     <span className="text-custom-primary ms-1">Real-time</span>
                                 </small>

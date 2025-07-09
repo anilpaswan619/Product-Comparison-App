@@ -33,45 +33,85 @@ const ProductCard = ({ product, onCompare, isSelected, isMaxSelected }) => {
                 />
                 <Badge 
                     className={`position-absolute top-0 end-0 m-2 category-badge ${product.category === 'Mobile' ? 'badge-custom-primary' : 'badge-custom-success'}`}
+                    style={{ fontSize: '0.65rem' }}
                 >
-                    {product.category}
+                    <span className="d-none d-sm-inline">{product.category}</span>
+                    <span className="d-inline d-sm-none">{product.category.substring(0, 3)}</span>
                 </Badge>
                 {isSelected && (
                     <div className="selection-overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center">
-                        <CheckCircleFill className="text-custom-success" size={32} />
+                        <CheckCircleFill className="text-custom-success" size={28} />
                     </div>
                 )}
             </div>
             
-            <Card.Body className="d-flex flex-column p-4">
-                <div className="product-header mb-3">
-                    <Card.Title className="product-title h5 fw-bold mb-2">{product.name}</Card.Title>
-                    <Row className="align-items-center mb-2">
-                        <Col>
-                            <span className="product-brand fw-semibold text-custom-primary">
+            <Card.Body className="d-flex flex-column p-3 p-md-4">
+                <div className="product-header mb-2 mb-md-3">
+                    <Card.Title className="product-title h6 h5-md fw-bold mb-1 mb-md-2" 
+                                style={{ fontSize: 'clamp(0.9rem, 2.5vw, 1.1rem)' }}>
+                        {product.name}
+                    </Card.Title>
+                    <Row className="align-items-center mb-1 mb-md-2">
+                        <Col xs={7} sm={8}>
+                            <span className="product-brand fw-semibold text-custom-primary small">
                                 {product.brand}
                             </span>
                         </Col>
-                        <Col xs="auto">
-                            <span className="product-price h5 fw-bold mb-0 text-custom-success">
+                        <Col xs={5} sm={4} className="text-end">
+                            <span className="product-price fw-bold mb-0 text-custom-success"
+                                  style={{ fontSize: 'clamp(1rem, 3vw, 1.25rem)' }}>
                                 ${product.price}
                             </span>
                         </Col>
                     </Row>
-                    <p className="product-description text-muted small mb-3">{product.description}</p>
+                    <p className="product-description text-muted mb-2 mb-md-3" 
+                       style={{ 
+                         fontSize: 'clamp(0.75rem, 2vw, 0.85rem)',
+                         lineHeight: '1.4',
+                         display: '-webkit-box',
+                         WebkitLineClamp: window.innerWidth < 576 ? '2' : '3',
+                         WebkitBoxOrient: 'vertical',
+                         overflow: 'hidden'
+                       }}>
+                        {product.description}
+                    </p>
                 </div>
 
-                <div className="product-specs mb-4">
-                    <h6 className="specs-title fw-semibold mb-3">
+                <div className="product-specs mb-3 mb-md-4">
+                    <h6 className="specs-title fw-semibold mb-2 mb-md-3 small">
                         Key Specifications
                     </h6>
                     <div className="specs-grid">
-                        {Object.entries(product.specs).slice(0, 4).map(([key, value]) => (
-                            <div key={key} className="spec-item d-flex justify-content-between py-1">
-                                <span className="spec-key text-muted small text-capitalize">{key}:</span>
-                                <span className="spec-value small fw-medium">{value}</span>
+                        {Object.entries(product.specs).slice(0, window.innerWidth < 576 ? 3 : 4).map(([key, value]) => (
+                            <div key={key} className="spec-item d-flex justify-content-between align-items-center py-1" 
+                                 style={{ fontSize: 'clamp(0.7rem, 2vw, 0.8rem)' }}>
+                                <span className="spec-key text-muted text-capitalize" 
+                                      style={{ 
+                                        maxWidth: '45%',
+                                        overflow: 'hidden',
+                                        textOverflow: 'ellipsis',
+                                        whiteSpace: 'nowrap'
+                                      }}>
+                                    {key}:
+                                </span>
+                                <span className="spec-value fw-medium text-end" 
+                                      style={{ 
+                                        maxWidth: '50%',
+                                        overflow: 'hidden',
+                                        textOverflow: 'ellipsis',
+                                        whiteSpace: 'nowrap'
+                                      }}>
+                                    {value}
+                                </span>
                             </div>
                         ))}
+                        {Object.keys(product.specs).length > (window.innerWidth < 576 ? 3 : 4) && (
+                            <div className="text-center mt-1">
+                                <small className="text-muted" style={{ fontSize: '0.7rem' }}>
+                                    +{Object.keys(product.specs).length - (window.innerWidth < 576 ? 3 : 4)} more
+                                </small>
+                            </div>
+                        )}
                     </div>
                 </div>
 
@@ -86,22 +126,27 @@ const ProductCard = ({ product, onCompare, isSelected, isMaxSelected }) => {
                     }`}
                     onClick={() => canSelect && onCompare(product)}
                     disabled={isSelected || isMaxSelected}
+                    style={{ 
+                        fontSize: 'clamp(0.8rem, 2.5vw, 0.9rem)',
+                        padding: 'clamp(0.5rem, 2vw, 0.75rem) clamp(0.7rem, 2.5vw, 1rem)',
+                        minHeight: 'clamp(40px, 10vw, 48px)'
+                    }}
                 >
                     {isSelected ? (
                         <>
-                            <CheckCircleFill className="me-1" /> 
+                            <CheckCircleFill className="me-1" size={14} /> 
                             <span className="d-none d-sm-inline">Selected</span>
                             <span className="d-inline d-sm-none">✓</span>
                         </>
                     ) : isMaxSelected ? (
                         <>
-                            <ExclamationTriangle className="me-1" />
+                            <ExclamationTriangle className="me-1" size={14} />
                             <span className="d-none d-sm-inline">Max Reached</span>
                             <span className="d-inline d-sm-none">Max</span>
                         </>
                     ) : (
                         <>
-                            <PlusCircle className="me-1" /> 
+                            <PlusCircle className="me-1" size={14} /> 
                             <span className="d-none d-sm-inline">Compare</span>
                             <span className="d-inline d-sm-none">Add</span>
                         </>
