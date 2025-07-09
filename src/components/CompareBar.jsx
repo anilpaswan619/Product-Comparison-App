@@ -1,89 +1,148 @@
-import React from 'react';
-import { Button, Badge, Container, Row, Col, ProgressBar } from "react-bootstrap";
-import { XCircle, ArrowRightCircle, Eye, Trash3 } from "react-bootstrap-icons";
+import React, { useState } from 'react';
+import { Button, Badge, Container, Row, Col, ProgressBar, Collapse, Card } from "react-bootstrap";
+import { XCircle, ArrowRightCircle, Eye, Trash3, ChevronUp, ChevronDown } from "react-bootstrap-icons";
 
 const CompareBar = ({ selectedItems = [], onRemove, onCompare, onClearAll, maxItems = 3 }) => {
+    const [isExpanded, setIsExpanded] = useState(false);
+    
     if (selectedItems.length === 0) return null;
 
     const progress = (selectedItems.length / maxItems) * 100;
     const canCompare = selectedItems.length >= 2;
 
     return (
-        <div className="compare-bar-wrapper">
-            <Container fluid className="compare-bar-container">
-                {/* Progress Bar */}
-                <div className="compare-progress mb-2">
-                    <ProgressBar 
-                        now={progress} 
-                        variant={progress === 100 ? "warning" : "info"}
-                        className="mb-1"
-                        style={{ height: '4px' }}
-                    />
-                    <small className="text-light opacity-75">
-                        {selectedItems.length} of {maxItems} products selected
-                    </small>
-                </div>
+        <>
+            {/* Floating Action Button - Always Visible */}
+            <div className="compare-fab">
+                <Button
+                    variant="primary"
+                    className="fab-btn shadow-lg"
+                    onClick={() => setIsExpanded(!isExpanded)}
+                    aria-label="Toggle comparison bar"
+                >
+                    <div className="fab-content">
+                        <Eye size={20} />
+                        <Badge bg="warning" text="dark" className="fab-badge">
+                            {selectedItems.length}
+                        </Badge>
+                    </div>
+                </Button>
+                {canCompare && !isExpanded && (
+                    <Button
+                        variant="success"
+                        className="fab-compare-btn shadow-lg ms-2"
+                        onClick={onCompare}
+                    >
+                        <ArrowRightCircle size={18} className="me-1" />
+                        Compare
+                    </Button>
+                )}
+            </div>
 
-                <Row className="align-items-center">
-                    <Col xs={12} md="auto" className="compare-info mb-2 mb-md-0">
-                        <div className="d-flex align-items-center">
-                            <Eye className="me-2 text-primary" size={18} />
-                            <span className="compare-label fw-semibold">
-                                Selected ({selectedItems.length}/{maxItems}):
-                            </span>
-                        </div>
-                    </Col>
-                    
-                    <Col xs={12} md className="selected-items mb-2 mb-md-0">
-                        <div className="d-flex flex-wrap gap-2">
-                            {selectedItems.map(item => (
-                                <Badge
-                                    key={item.id}
-                                    bg="light"
-                                    text="dark"
-                                    className="selected-item-badge d-flex align-items-center"
-                                >
-                                    <span className="item-name">{item.name}</span>
+            {/* Expandable Compare Bar */}
+            <div className={`compare-bar-wrapper ${isExpanded ? 'expanded' : 'collapsed'}`}>
+                <Container fluid className="compare-bar-container">
+                    {/* Toggle Button */}
+                    <div className="compare-bar-toggle text-center mb-2">
+                        <Button
+                            variant="link"
+                            className="toggle-btn text-light p-0"
+                            onClick={() => setIsExpanded(!isExpanded)}
+                        >
+                            {isExpanded ? <ChevronDown size={20} /> : <ChevronUp size={20} />}
+                        </Button>
+                    </div>
+
+                    <Collapse in={isExpanded}>
+                        <div>
+                            {/* Progress Bar */}
+                            <div className="compare-progress mb-3">
+                                <div className="d-flex justify-content-between align-items-center mb-2">
+                                    <small className="text-light opacity-75">
+                                        {selectedItems.length} of {maxItems} products selected
+                                    </small>
+                                    <small className="text-light opacity-75">
+                                        {progress.toFixed(0)}% full
+                                    </small>
+                                </div>
+                                <ProgressBar 
+                                    now={progress} 
+                                    variant={progress === 100 ? "warning" : progress >= 67 ? "info" : "success"}
+                                    className="progress-animated"
+                                    style={{ height: '6px' }}
+                                />
+                            </div>
+
+                            {/* Selected Products Preview */}
+                            <Row className="selected-products-preview mb-3">
+                                {selectedItems.map(item => (
+                                    <Col key={item.id} xs={4} className="mb-2">
+                                        <Card className="product-mini-card bg-light text-dark">
+                                            <Card.Body className="p-2 text-center">
+                                                <img 
+                                                    src={item.image} 
+                                                    alt={item.name}
+                                                    className="mini-product-image mb-1"
+                                                />
+                                                <div className="mini-product-name">{item.name}</div>
+                                                <div className="mini-product-price text-success fw-bold">${item.price}</div>
+                                                <Button
+                                                    size="sm"
+                                                    variant="outline-danger"
+                                                    className="mini-remove-btn mt-1"
+                                                    onClick={() => onRemove(item.id)}
+                                                >
+                                                    <XCircle size={12} />
+                                                </Button>
+                                            </Card.Body>
+                                        </Card>
+                                    </Col>
+                                ))}
+                                
+                                {/* Empty slots */}
+                                {Array.from({ length: maxItems - selectedItems.length }).map((_, index) => (
+                                    <Col key={`empty-${index}`} xs={4} className="mb-2">
+                                        <Card className="product-mini-card empty-slot">
+                                            <Card.Body className="p-2 text-center">
+                                                <div className="empty-slot-content">
+                                                    <div className="empty-icon">+</div>
+                                                    <small>Add Product</small>
+                                                </div>
+                                            </Card.Body>
+                                        </Card>
+                                    </Col>
+                                ))}
+                            </Row>
+
+                            {/* Action Buttons */}
+                            <Row className="compare-actions">
+                                <Col xs={6}>
                                     <Button
-                                        size="sm"
-                                        variant="link"
-                                        className="remove-item-btn p-0 ms-2"
-                                        onClick={() => onRemove(item.id)}
-                                        aria-label={`Remove ${item.name} from comparison`}
+                                        onClick={onClearAll}
+                                        variant="outline-light"
+                                        className="w-100 d-flex align-items-center justify-content-center"
                                     >
-                                        <XCircle size={14} className="text-danger" />
+                                        <Trash3 className="me-2" size={16} />
+                                        Clear All
                                     </Button>
-                                </Badge>
-                            ))}
+                                </Col>
+                                <Col xs={6}>
+                                    <Button
+                                        onClick={onCompare}
+                                        disabled={!canCompare}
+                                        variant="success"
+                                        className="w-100 d-flex align-items-center justify-content-center compare-main-btn"
+                                    >
+                                        <ArrowRightCircle className="me-2" />
+                                        Compare Now
+                                    </Button>
+                                </Col>
+                            </Row>
                         </div>
-                    </Col>
-                    
-                    <Col xs={12} md="auto">
-                        <div className="d-flex gap-2">
-                            <Button
-                                onClick={onClearAll}
-                                variant="outline-light"
-                                size="sm"
-                                className="d-flex align-items-center"
-                            >
-                                <Trash3 className="me-1" size={14} />
-                                Clear
-                            </Button>
-                            <Button
-                                onClick={onCompare}
-                                disabled={!canCompare}
-                                size="lg"
-                                className="compare-action-btn d-flex align-items-center"
-                                variant="success"
-                            >
-                                <ArrowRightCircle className="me-2" />
-                                Compare Now
-                            </Button>
-                        </div>
-                    </Col>
-                </Row>
-            </Container>
-        </div>
+                    </Collapse>
+                </Container>
+            </div>
+        </>
     );
 };
 

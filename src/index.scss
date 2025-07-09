@@ -473,93 +473,715 @@ body {
   }
 }
 
-// Enhanced Compare Bar with progress
-.compare-bar-wrapper {
-  // ...existing code...
+// Enhanced Floating Action Button
+.compare-fab {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 1060;
+  display: flex;
+  align-items: center;
 
-  .compare-progress {
-    .progress {
-      background-color: rgba(255, 255, 255, 0.2);
+  .fab-btn {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background: linear-gradient(135deg, #007bff, #0056b3) !important;
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: scale(1.1);
+      box-shadow: 0 8px 25px rgba(0, 123, 255, 0.4) !important;
+    }
+
+    .fab-content {
+      position: relative;
+    }
+
+    .fab-badge {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      min-width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: bold;
     }
   }
 
-  // ...existing code...
-}
+  .fab-compare-btn {
+    height: 48px;
+    border-radius: 24px;
+    padding: 0 1.5rem;
+    font-weight: 600;
+    background: linear-gradient(135deg, #28a745, #20c997) !important;
+    border: none;
+    transition: all 0.3s ease;
 
-// Hero Section Statistics
-.hero-stats {
-  .stat-item {
-    text-align: center;
-    padding: 1rem;
-
-    .stat-number {
-      display: block;
-      line-height: 1;
-    }
-
-    .stat-label {
-      font-size: 0.875rem;
-    }
-  }
-}
-
-// Enhanced Search Container
-.search-container {
-  // ...existing code...
-
-  .search-input-group {
-    // ...existing code...
-
-    &:focus-within {
+    &:hover {
       transform: translateY(-2px);
-      border-color: #007bff;
-      box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+      box-shadow: 0 8px 25px rgba(40, 167, 69, 0.4) !important;
     }
   }
 }
 
-// Keyboard Navigation Improvements
-.product-card:focus-visible,
-button:focus-visible,
-.form-select:focus-visible,
-.form-control:focus-visible {
-  outline: 2px solid #007bff !important;
-  outline-offset: 2px !important;
+// Enhanced Compare Bar
+.compare-bar-wrapper {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1050;
+  background: linear-gradient(135deg, #2c3e50, #34495e);
+  backdrop-filter: blur(20px);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &.collapsed {
+    transform: translateY(calc(100% - 60px));
+    box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  &.expanded {
+    transform: translateY(0);
+    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.2);
+  }
+
+  .compare-bar-container {
+    padding: 1rem 2rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .compare-bar-toggle {
+    .toggle-btn {
+      color: white !important;
+      text-decoration: none !important;
+
+      &:hover {
+        color: #f8f9fa !important;
+        transform: scale(1.2);
+      }
+    }
+  }
+
+  .progress-animated {
+    .progress-bar {
+      transition: width 0.6s ease;
+    }
+  }
+
+  .selected-products-preview {
+    .product-mini-card {
+      border: none !important;
+      border-radius: 12px !important;
+      transition: all 0.3s ease;
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+
+      &.empty-slot {
+        background: rgba(255, 255, 255, 0.1) !important;
+        border: 2px dashed rgba(255, 255, 255, 0.3) !important;
+
+        .empty-slot-content {
+          color: rgba(255, 255, 255, 0.6);
+
+          .empty-icon {
+            font-size: 2rem;
+            font-weight: 300;
+            line-height: 1;
+          }
+        }
+      }
+    }
+
+    .mini-product-image {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+      border-radius: 6px;
+      background: white;
+      padding: 4px;
+    }
+
+    .mini-product-name {
+      font-size: 0.75rem;
+      font-weight: 600;
+      line-height: 1.2;
+      margin-bottom: 2px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .mini-product-price {
+      font-size: 0.8rem;
+      margin-bottom: 4px;
+    }
+
+    .mini-remove-btn {
+      border: none !important;
+      background: transparent !important;
+      color: #dc3545 !important;
+
+      &:hover {
+        background: rgba(220, 53, 69, 0.1) !important;
+        transform: scale(1.1);
+      }
+    }
+  }
+
+  .compare-main-btn {
+    background: linear-gradient(135deg, #28a745, #20c997) !important;
+    border: none !important;
+    font-weight: 600;
+
+    &:hover:not(:disabled) {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+    }
+
+    &:disabled {
+      background: #6c757d !important;
+      opacity: 0.6;
+    }
+  }
+}
+
+// Enhanced Comparison View
+.comparison-container {
+  margin-bottom: 2rem;
+
+  .comparison-page-header {
+    .page-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #007bff, #0056b3);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.5rem;
+    }
+
+    .page-subtitle {
+      color: #6c757d;
+      font-size: 1.1rem;
+      margin-bottom: 0;
+    }
+  }
+
+  .comparison-empty-state {
+    border: none !important;
+    background: linear-gradient(
+      135deg,
+      rgba(0, 123, 255, 0.05),
+      rgba(0, 123, 255, 0.02)
+    ) !important;
+    border-radius: 1rem !important;
+    padding: 3rem !important;
+
+    .empty-state-icon {
+      opacity: 0.7;
+    }
+  }
+}
+
+.comparison-card {
+  border-radius: 1.5rem !important;
+  overflow: hidden;
+
+  .comparison-header {
+    background: linear-gradient(135deg, #007bff, #0056b3) !important;
+    border: none !important;
+    padding: 1.5rem 0;
+
+    .header-actions {
+      .btn {
+        border-radius: 0.5rem;
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.2) !important;
+          border-color: rgba(255, 255, 255, 0.3) !important;
+        }
+      }
+    }
+  }
+
+  .feature-tabs-container {
+    background: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+
+    .comparison-tabs {
+      .nav-link {
+        border: none !important;
+        background: transparent !important;
+        color: #6c757d;
+        font-weight: 600;
+        padding: 1.2rem 1.5rem;
+        transition: all 0.3s ease;
+        position: relative;
+
+        .tab-title {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+
+          .badge {
+            font-size: 0.7rem;
+            font-weight: 500;
+          }
+        }
+
+        &.active {
+          background: white !important;
+          color: #007bff !important;
+          border-bottom: 3px solid #007bff !important;
+
+          &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 3px;
+            background: linear-gradient(
+              90deg,
+              transparent,
+              #007bff,
+              transparent
+            );
+          }
+        }
+
+        &:hover:not(.active) {
+          color: #007bff;
+          background: rgba(0, 123, 255, 0.05) !important;
+          transform: translateY(-1px);
+        }
+      }
+    }
+  }
+
+  .comparison-table-container {
+    max-height: 70vh;
+    overflow-y: auto;
+
+    .comparison-table {
+      .sticky-column {
+        position: sticky !important;
+        left: 0 !important;
+        z-index: 10 !important;
+        background: #f8f9fa !important;
+        border-right: 2px solid #dee2e6 !important;
+      }
+
+      .feature-header {
+        min-width: 200px;
+        padding: 1.5rem 1rem !important;
+
+        .feature-header-content {
+          font-weight: 700;
+          font-size: 1.1rem;
+          color: #495057;
+        }
+      }
+
+      .product-header {
+        min-width: 220px;
+        padding: 1rem !important;
+        border-bottom: 2px solid #dee2e6 !important;
+
+        .product-header-card {
+          border: none !important;
+          background: linear-gradient(135deg, #f8f9fa, #ffffff) !important;
+
+          .product-image-container {
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            border-radius: 8px;
+            margin: 0 auto;
+            width: fit-content;
+            padding: 8px;
+          }
+
+          .product-header-image {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+          }
+
+          .product-header-name {
+            font-weight: 700;
+            color: #2c3e50;
+            line-height: 1.3;
+          }
+
+          .product-header-price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #28a745;
+            margin: 0.5rem 0;
+          }
+
+          .category-badge {
+            font-size: 0.75rem;
+          }
+        }
+      }
+
+      .comparison-row {
+        transition: background-color 0.2s ease;
+
+        &:hover {
+          background: rgba(0, 123, 255, 0.03) !important;
+        }
+
+        &.even {
+          background: #fdfdfd;
+        }
+      }
+
+      .feature-cell {
+        padding: 1.2rem 1rem !important;
+
+        .feature-name {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+
+          .feature-icon {
+            font-size: 1.1rem;
+            opacity: 0.8;
+          }
+
+          .feature-label {
+            font-weight: 600;
+            color: #495057;
+            text-transform: capitalize;
+            font-size: 0.95rem;
+          }
+        }
+      }
+
+      .value-cell {
+        padding: 1.2rem 1rem !important;
+        text-align: center;
+        position: relative;
+
+        .value-container {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 0.3rem;
+
+          .value-icon {
+            color: #28a745;
+          }
+
+          .best-indicator {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+            font-size: 0.6rem;
+            font-weight: 700;
+            padding: 0.2rem 0.4rem;
+            border-radius: 0.3rem;
+            box-shadow: 0 2px 4px rgba(40, 167, 69, 0.3);
+          }
+        }
+
+        .value-text {
+          font-weight: 500;
+          padding: 0.5rem 0.8rem;
+          border-radius: 0.6rem;
+          background: rgba(0, 123, 255, 0.08);
+          color: #0056b3;
+          transition: all 0.3s ease;
+
+          &:hover {
+            background: rgba(0, 123, 255, 0.12);
+            transform: translateY(-1px);
+          }
+        }
+
+        &.best .value-text {
+          background: linear-gradient(
+            135deg,
+            rgba(40, 167, 69, 0.15),
+            rgba(40, 167, 69, 0.1)
+          ) !important;
+          color: #155724 !important;
+          font-weight: 600;
+          border: 2px solid rgba(40, 167, 69, 0.3);
+        }
+      }
+    }
+  }
+}
+
+// Card View Styles
+.comparison-cards {
+  .product-comparison-card {
+    border: none !important;
+    border-radius: 1rem !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12) !important;
+    }
+
+    .product-comparison-header {
+      background: linear-gradient(135deg, #f8f9fa, #ffffff) !important;
+      border-bottom: 2px solid #dee2e6 !important;
+
+      .comparison-card-image {
+        width: 80px;
+        height: 80px;
+        object-fit: contain;
+        border-radius: 8px;
+        background: white;
+        padding: 8px;
+      }
+
+      .comparison-card-price {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #28a745;
+      }
+    }
+
+    .comparison-spec-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid #f8f9fa;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      .spec-label {
+        font-weight: 600;
+        color: #6c757d;
+        text-transform: capitalize;
+        flex: 0 0 40%;
+      }
+
+      .spec-value {
+        font-weight: 500;
+        text-align: right;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 0.25rem;
+      }
+
+      &.best {
+        background: rgba(40, 167, 69, 0.05);
+        border-radius: 0.5rem;
+        padding: 0.75rem 1rem;
+        margin: 0.25rem 0;
+
+        .spec-value {
+          color: #155724;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+}
+
+// Enhanced Comparison Toolbar
+.comparison-toolbar-card {
+  background: linear-gradient(
+    135deg,
+    rgba(0, 123, 255, 0.03),
+    rgba(0, 123, 255, 0.01)
+  ) !important;
+  border-left: 4px solid var(--primary-color) !important;
+
+  .comparison-stats {
+    .badge {
+      font-size: 0.8rem;
+      font-weight: 600;
+      border-radius: 1rem;
+    }
+  }
+
+  .comparison-progress-mini {
+    .progress {
+      background-color: rgba(40, 167, 69, 0.15);
+    }
+  }
+}
+
+// Enhanced Legend
+.comparison-legend {
+  background: linear-gradient(135deg, #ffffff, #f8f9fa) !important;
+  border-radius: 1rem !important;
+  border-left: 4px solid var(--primary-color) !important;
+
+  .legend-title {
+    color: #495057;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    &::before {
+      content: "📊";
+      font-size: 1.2rem;
+    }
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    color: #6c757d;
+    padding: 0.3rem 0.6rem;
+    border-radius: 0.4rem;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: rgba(0, 123, 255, 0.05);
+      color: #495057;
+    }
+
+    .legend-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+
+      &.neutral {
+        background: linear-gradient(
+          135deg,
+          rgba(0, 123, 255, 0.3),
+          rgba(0, 123, 255, 0.6)
+        );
+      }
+
+      &.muted {
+        background: linear-gradient(
+          135deg,
+          rgba(108, 117, 125, 0.3),
+          rgba(108, 117, 125, 0.6)
+        );
+      }
+    }
+  }
 }
 
 // Enhanced Mobile Responsiveness
 @media (max-width: 768px) {
-  // ...existing code...
-
-  .filter-section .card-body {
-    padding: 1rem !important;
+  .comparison-toolbar-card {
+    .comparison-stats {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
   }
 
-  .hero-section .hero-stats {
-    flex-direction: column;
-    gap: 1rem !important;
+  .comparison-cards-container {
+    .product-comparison-card {
+      .comparison-card-header {
+        padding: 1.5rem 1rem;
+
+        .comparison-card-image {
+          width: 80px !important;
+          height: 80px !important;
+        }
+      }
+    }
+  }
+
+  .comparison-table {
+    .feature-cell .feature-name {
+      flex-direction: column;
+      gap: 0.2rem;
+
+      .feature-icon {
+        font-size: 0.9rem;
+      }
+    }
+
+    .value-cell .value-container .best-indicator {
+      font-size: 0.5rem;
+      padding: 0.1rem 0.3rem;
+    }
+  }
+}
+
+// Dark Theme Enhancements for Comparison
+[data-theme="dark"] {
+  .comparison-toolbar-card {
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.05),
+      rgba(255, 255, 255, 0.02)
+    ) !important;
+    border-left-color: #66b3ff !important;
   }
 
   .comparison-card {
-    .product-header-info {
-      .product-image-small img {
-        width: 30px;
-        height: 30px;
+    .product-header-card {
+      background: linear-gradient(135deg, #2d3748, #4a5568) !important;
+
+      .product-header-name {
+        color: #f7fafc !important;
       }
+    }
+
+    .feature-cell {
+      background: #4a5568 !important;
+
+      .feature-label {
+        color: #f7fafc !important;
+      }
+    }
+
+    .value-cell .value-text {
+      background: rgba(66, 153, 225, 0.2);
+      color: #90cdf4 !important;
+    }
+  }
+
+  .product-comparison-card {
+    background: linear-gradient(135deg, #2d3748, #4a5568) !important;
+
+    .comparison-card-header {
+      background: linear-gradient(135deg, #4a5568, #2d3748) !important;
 
       .product-name {
-        font-size: 0.85rem;
+        color: #f7fafc !important;
       }
     }
   }
 
-  .compare-bar-wrapper {
-    .compare-progress {
-      margin-bottom: 0.5rem;
-    }
+  .comparison-legend {
+    background: linear-gradient(135deg, #2d3748, #4a5568) !important;
 
-    .selected-item-badge .item-name {
-      max-width: 100px;
+    .legend-title {
+      color: #f7fafc !important;
     }
   }
 }
@@ -614,5 +1236,424 @@ button:focus-visible,
   .comparison-td.worst {
     background: #ff0000 !important;
     color: #fff !important;
+  }
+}
+
+// Dark theme overrides
+[data-theme="dark"],
+.dark-theme {
+  --bg-primary: #1a202c;
+  --bg-secondary: #2d3748;
+  --bg-dark: #1a202c;
+  --text-primary: #f7fafc;
+  --text-secondary: #a0aec0;
+  --text-muted: #718096;
+  --text-light: #fff;
+  --primary-color: #63b3ed;
+  --secondary-color: #718096;
+  --light-gray: #4a5568;
+  --medium-gray: #718096;
+
+  background-color: var(--bg-secondary) !important;
+  color: var(--text-primary) !important;
+
+  // Navbar dark theme
+  .navbar {
+    background: linear-gradient(135deg, #2d3748, #4a5568) !important;
+  }
+
+  // Footer dark theme
+  .footer {
+    background: #1a202c !important;
+    border-top-color: #4a5568 !important;
+  }
+
+  // Hero section dark theme
+  .hero-section {
+    background: linear-gradient(
+      135deg,
+      rgba(99, 179, 237, 0.1) 0%,
+      rgba(99, 179, 237, 0.05) 100%
+    ) !important;
+  }
+
+  // Product cards dark theme
+  .product-card {
+    background: #2d3748 !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+
+    .product-title {
+      color: #f7fafc !important;
+    }
+
+    .product-image-container {
+      background: linear-gradient(135deg, #4a5568, #2d3748) !important;
+    }
+
+    .product-description {
+      color: #a0aec0 !important;
+    }
+
+    .spec-key {
+      color: #a0aec0 !important;
+    }
+
+    .spec-value {
+      color: #f7fafc !important;
+    }
+
+    .specs-title {
+      color: #f7fafc !important;
+      border-bottom-color: #4a5568 !important;
+    }
+  }
+
+  // Search bar dark theme
+  .search-input-group {
+    .search-icon-wrapper,
+    .search-input,
+    .clear-search-btn {
+      background: #2d3748 !important;
+      border-color: #4a5568 !important;
+      color: #f7fafc !important;
+
+      &::placeholder {
+        color: #a0aec0 !important;
+      }
+    }
+  }
+
+  // Filter section dark theme
+  .filter-section {
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.05),
+      rgba(255, 255, 255, 0.02)
+    ) !important;
+
+    .category-select {
+      background: #2d3748 !important;
+      border-color: #4a5568 !important;
+      color: #f7fafc !important;
+
+      option {
+        background: #2d3748 !important;
+        color: #f7fafc !important;
+      }
+    }
+  }
+
+  // Alert components dark theme
+  .alert {
+    &.alert-info {
+      background: rgba(99, 179, 237, 0.1) !important;
+      border-color: rgba(99, 179, 237, 0.3) !important;
+      color: #f7fafc !important;
+    }
+
+    &.alert-warning {
+      background: rgba(237, 137, 54, 0.1) !important;
+      border-color: rgba(237, 137, 54, 0.3) !important;
+      color: #f7fafc !important;
+    }
+  }
+
+  // Comparison components dark theme
+  .comparison-toolbar-card {
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.05),
+      rgba(255, 255, 255, 0.02)
+    ) !important;
+    border-left-color: #63b3ed !important;
+
+    .badge {
+      &.bg-primary {
+        background: #63b3ed !important;
+        color: #1a202c !important;
+      }
+
+      &.bg-secondary {
+        background: #718096 !important;
+        color: #f7fafc !important;
+      }
+    }
+  }
+
+  .comparison-card {
+    background: #2d3748 !important;
+
+    .feature-tabs-container {
+      background: #4a5568 !important;
+      border-bottom-color: #718096 !important;
+
+      .nav-link {
+        color: #a0aec0 !important;
+
+        &.active {
+          background: #2d3748 !important;
+          color: #63b3ed !important;
+          border-bottom-color: #63b3ed !important;
+        }
+
+        &:hover:not(.active) {
+          color: #63b3ed !important;
+          background: rgba(99, 179, 237, 0.1) !important;
+        }
+      }
+    }
+
+    .product-header-card {
+      background: linear-gradient(135deg, #2d3748, #4a5568) !important;
+
+      .product-header-name {
+        color: #f7fafc !important;
+      }
+    }
+
+    .feature-cell {
+      background: #4a5568 !important;
+
+      .feature-label {
+        color: #f7fafc !important;
+      }
+    }
+
+    .value-cell .value-text {
+      background: rgba(99, 179, 237, 0.2) !important;
+      color: #f7fafc !important;
+    }
+
+    .comparison-td.feature-cell {
+      background: #4a5568 !important;
+      color: #f7fafc !important;
+    }
+
+    .comparison-td.value-cell .spec-value {
+      background: rgba(99, 179, 237, 0.2) !important;
+      color: #f7fafc !important;
+    }
+  }
+
+  .product-comparison-card {
+    background: linear-gradient(135deg, #2d3748, #4a5568) !important;
+
+    .comparison-card-header {
+      background: linear-gradient(135deg, #4a5568, #2d3748) !important;
+
+      .product-name {
+        color: #f7fafc !important;
+      }
+    }
+
+    .spec-label {
+      color: #a0aec0 !important;
+    }
+
+    .spec-value {
+      color: #f7fafc !important;
+    }
+
+    .specs-section-title {
+      color: #f7fafc !important;
+      border-bottom-color: #4a5568 !important;
+    }
+  }
+
+  .comparison-legend {
+    background: linear-gradient(135deg, #2d3748, #4a5568) !important;
+
+    .legend-title {
+      color: #f7fafc !important;
+    }
+
+    .legend-item {
+      color: #a0aec0 !important;
+
+      &:hover {
+        background: rgba(99, 179, 237, 0.1) !important;
+        color: #f7fafc !important;
+      }
+    }
+  }
+
+  // Compare bar dark theme
+  .compare-bar-wrapper {
+    background: linear-gradient(135deg, #1a202c, #2d3748) !important;
+  }
+
+  // Results info dark theme
+  .results-info {
+    border-bottom-color: #4a5568 !important;
+    color: #f7fafc !important;
+  }
+
+  // Page titles and subtitles
+  .page-title {
+    background: linear-gradient(135deg, #63b3ed, #3182ce) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+  }
+
+  .page-subtitle {
+    color: #a0aec0 !important;
+  }
+
+  // Table improvements
+  .table {
+    --bs-table-bg: transparent !important;
+    --bs-table-striped-bg: rgba(255, 255, 255, 0.02) !important;
+    --bs-table-hover-bg: rgba(255, 255, 255, 0.05) !important;
+    color: #f7fafc !important;
+
+    th,
+    td {
+      border-color: #4a5568 !important;
+    }
+  }
+
+  // Dropdown dark theme
+  .dropdown-menu {
+    background: #2d3748 !important;
+    border-color: #4a5568 !important;
+
+    .dropdown-item {
+      color: #f7fafc !important;
+
+      &:hover,
+      &:focus {
+        background: #4a5568 !important;
+        color: #f7fafc !important;
+      }
+    }
+
+    .dropdown-divider {
+      border-color: #4a5568 !important;
+    }
+  }
+
+  // Button variants for dark theme
+  .btn-outline-primary {
+    color: #63b3ed !important;
+    border-color: #63b3ed !important;
+
+    &:hover {
+      background: #63b3ed !important;
+      color: #1a202c !important;
+    }
+  }
+
+  .btn-outline-secondary {
+    color: #a0aec0 !important;
+    border-color: #a0aec0 !important;
+
+    &:hover {
+      background: #a0aec0 !important;
+      color: #1a202c !important;
+    }
+  }
+
+  .btn-outline-danger {
+    color: #fc8181 !important;
+    border-color: #fc8181 !important;
+
+    &:hover {
+      background: #fc8181 !important;
+      color: #1a202c !important;
+    }
+  }
+
+  .btn-outline-light {
+    color: #f7fafc !important;
+    border-color: #f7fafc !important;
+
+    &:hover {
+      background: #f7fafc !important;
+      color: #1a202c !important;
+    }
+  }
+
+  // Card components
+  .card {
+    background: #2d3748 !important;
+    border-color: #4a5568 !important;
+    color: #f7fafc !important;
+
+    .card-header {
+      background: #4a5568 !important;
+      border-bottom-color: #718096 !important;
+    }
+
+    .card-body {
+      color: #f7fafc !important;
+    }
+  }
+
+  // Form controls
+  .form-control,
+  .form-select {
+    background: #2d3748 !important;
+    border-color: #4a5568 !important;
+    color: #f7fafc !important;
+
+    &:focus {
+      background: #2d3748 !important;
+      border-color: #63b3ed !important;
+      color: #f7fafc !important;
+      box-shadow: 0 0 0 0.2rem rgba(99, 179, 237, 0.25) !important;
+    }
+
+    &::placeholder {
+      color: #a0aec0 !important;
+    }
+  }
+
+  // Badge components
+  .badge {
+    &.bg-light {
+      background: #4a5568 !important;
+      color: #f7fafc !important;
+    }
+
+    &.text-dark {
+      color: #f7fafc !important;
+    }
+  }
+
+  // Text utilities
+  .text-muted {
+    color: #a0aec0 !important;
+  }
+
+  .text-dark {
+    color: #f7fafc !important;
+  }
+}
+
+// Force dark theme on app root when dark theme is active
+[data-theme="dark"] .app-root,
+.dark-theme .app-root {
+  background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%) !important;
+}
+
+// Ensure theme toggle button works in all states
+.theme-toggle-btn {
+  transition: all 0.3s ease !important;
+
+  &:hover {
+    transform: scale(1.1) !important;
+    background: rgba(255, 255, 255, 0.2) !important;
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.25) !important;
+  }
+}
+
+[data-theme="dark"] .theme-toggle-btn,
+.dark-theme .theme-toggle-btn {
+  &:hover {
+    background: rgba(255, 255, 255, 0.15) !important;
   }
 }

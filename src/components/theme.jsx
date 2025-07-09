@@ -4,7 +4,13 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 const ThemeContext = createContext();
 
 // Custom hook to use theme
-export const useTheme = () => useContext(ThemeContext);
+export const useTheme = () => {
+    const context = useContext(ThemeContext);
+    if (!context) {
+        throw new Error('useTheme must be used within a ThemeProvider');
+    }
+    return context;
+};
 
 export const ThemeProvider = ({ children }) => {
     // Check local storage or system preference
@@ -25,8 +31,21 @@ export const ThemeProvider = ({ children }) => {
     const [theme, setTheme] = useState(getInitialTheme);
 
     useEffect(() => {
+        // Apply theme to document root
         document.documentElement.setAttribute("data-theme", theme);
+        // Also apply to body for better coverage
+        document.body.setAttribute("data-theme", theme);
+        // Store in localStorage
         window.localStorage.setItem("theme", theme);
+        
+        // Apply theme-specific classes to body
+        if (theme === 'dark') {
+            document.body.classList.add('dark-theme');
+            document.body.classList.remove('light-theme');
+        } else {
+            document.body.classList.add('light-theme');
+            document.body.classList.remove('dark-theme');
+        }
     }, [theme]);
 
     const toggleTheme = () => {
