@@ -86,17 +86,17 @@ const ComparisonView = ({ products, features, onClearAll }) => {
     const currentFeatures = categorizedFeatures[activeTab] || features;
 
     const renderEnhancedToolbar = () => (
-        <Card className="comparison-toolbar-card mb-4 border-0 shadow-sm">
-            <Card.Body className="py-3">
+        <Card className="comparison-toolbar-card mb-3 border-0 shadow-sm">
+            <Card.Body className="py-3 px-4">
                 <Container>
                     <Row className="align-items-center">
                         <Col md={8}>
                             <div className="d-flex align-items-center gap-3 flex-wrap">
                                 <div className="comparison-stats d-flex gap-2">
-                                    <Badge className="badge-custom-primary px-3 py-2">
+                                    <Badge className="badge-custom-primary px-3 py-2 fs-6">
                                         <strong>{products.length}</strong> Products
                                     </Badge>
-                                    <Badge className="badge-custom-secondary px-3 py-2">
+                                    <Badge className="badge-custom-secondary px-3 py-2 fs-6">
                                         <strong>{currentFeatures.length}</strong> Features
                                     </Badge>
                                 </div>
@@ -105,10 +105,10 @@ const ComparisonView = ({ products, features, onClearAll }) => {
                                     <ProgressBar 
                                         now={85}
                                         style={{ 
-                                            height: '8px', 
-                                            width: '100px', 
+                                            height: '6px', 
+                                            width: '90px', 
                                             backgroundColor: 'rgba(16, 185, 129, 0.15)',
-                                            borderRadius: '50px'
+                                            borderRadius: '3px'
                                         }}
                                         className="rounded-pill"
                                     />
@@ -116,19 +116,15 @@ const ComparisonView = ({ products, features, onClearAll }) => {
                             </div>
                         </Col>
                         <Col md={4}>
-                            <div className="d-flex align-items-center justify-content-md-end gap-2">
-                                <div className="view-mode-toggle d-flex">
+                            <div className="d-flex align-items-center justify-content-md-end">
+                                <div className="view-mode-toggle d-flex border rounded-2 overflow-hidden">
                                     <Button 
                                         size="sm"
                                         onClick={() => setViewMode('table')}
-                                        className={`d-flex align-items-center ${
-                                            viewMode === 'table' ? 'btn-custom-primary' : 'btn-custom-outline-secondary'
+                                        className={`d-flex align-items-center px-3 py-2 border-0 ${
+                                            viewMode === 'table' ? 'btn-custom-primary' : 'btn-outline-secondary bg-white'
                                         }`}
-                                        style={{
-                                            borderRadius: '8px 0 0 8px',
-                                            padding: '8px 16px',
-                                            fontWeight: '500'
-                                        }}
+                                        style={{ borderRadius: 0 }}
                                     >
                                         <List size={14} className="me-1" />
                                         <span className="d-none d-lg-inline">Table</span>
@@ -137,15 +133,10 @@ const ComparisonView = ({ products, features, onClearAll }) => {
                                     <Button 
                                         size="sm"
                                         onClick={() => setViewMode('cards')}
-                                        className={`d-flex align-items-center ${
-                                            viewMode === 'cards' ? 'btn-custom-primary' : 'btn-custom-outline-secondary'
+                                        className={`d-flex align-items-center px-3 py-2 border-0 ${
+                                            viewMode === 'cards' ? 'btn-custom-primary' : 'btn-outline-secondary bg-white'
                                         }`}
-                                        style={{
-                                            borderRadius: '0 8px 8px 0',
-                                            padding: '8px 16px',
-                                            fontWeight: '500',
-                                            borderLeft: 'none'
-                                        }}
+                                        style={{ borderRadius: 0 }}
                                     >
                                         <Grid3x3Gap size={14} className="me-1" />
                                         <span className="d-none d-lg-inline">Cards</span>
@@ -160,57 +151,57 @@ const ComparisonView = ({ products, features, onClearAll }) => {
     );
 
     const renderTableView = () => (
-        <Card className="comparison-card border-0 shadow-lg">
+        <Card className="comparison-card border-0 shadow-sm" style={{ borderRadius: '12px' }}>
             {/* Enhanced Feature Categories Tabs */}
-            <div className="feature-tabs-container">
+            <div className="feature-tabs-container bg-light" style={{ borderRadius: '12px 12px 0 0' }}>
                 <Container>
                     <Tabs
                         activeKey={activeTab}
                         onSelect={setActiveTab}
-                        className="comparison-tabs border-0"
+                        className="comparison-tabs border-0 pt-3"
                     >
                         <Tab 
                             eventKey="all" 
                             title={
-                                <div className="tab-title">
-                                    <span>All Features</span>
-                                    <Badge bg="light" text="dark" className="ms-2 rounded-pill">{categorizedFeatures.all.length}</Badge>
+                                <div className="tab-title d-flex align-items-center gap-2">
+                                    <span className="fw-semibold">All Features</span>
+                                    <Badge bg="secondary" className="rounded-pill">{categorizedFeatures.all.length}</Badge>
                                 </div>
                             } 
                         />
                         <Tab 
                             eventKey="basic" 
                             title={
-                                <div className="tab-title">
-                                    <span>Essential</span>
-                                    <Badge bg="light" text="dark" className="ms-2 rounded-pill">{categorizedFeatures.basic.length}</Badge>
+                                <div className="tab-title d-flex align-items-center gap-2">
+                                    <span className="fw-semibold">Essential</span>
+                                    <Badge bg="secondary" className="rounded-pill">{categorizedFeatures.basic.length}</Badge>
                                 </div>
                             } 
                         />
                         <Tab 
                             eventKey="performance" 
                             title={
-                                <div className="tab-title">
-                                    <span>Performance</span>
-                                    <Badge bg="light" text="dark" className="ms-2 rounded-pill">{categorizedFeatures.performance.length}</Badge>
+                                <div className="tab-title d-flex align-items-center gap-2">
+                                    <span className="fw-semibold">Performance</span>
+                                    <Badge bg="secondary" className="rounded-pill">{categorizedFeatures.performance.length}</Badge>
                                 </div>
                             } 
                         />
                         <Tab 
                             eventKey="display" 
                             title={
-                                <div className="tab-title">
-                                    <span>Display</span>
-                                    <Badge bg="light" text="dark" className="ms-2 rounded-pill">{categorizedFeatures.display.length}</Badge>
+                                <div className="tab-title d-flex align-items-center gap-2">
+                                    <span className="fw-semibold">Display</span>
+                                    <Badge bg="secondary" className="rounded-pill">{categorizedFeatures.display.length}</Badge>
                                 </div>
                             } 
                         />
                         <Tab 
                             eventKey="other" 
                             title={
-                                <div className="tab-title">
-                                    <span>Other</span>
-                                    <Badge bg="light" text="dark" className="ms-2 rounded-pill">{categorizedFeatures.other.length}</Badge>
+                                <div className="tab-title d-flex align-items-center gap-2">
+                                    <span className="fw-semibold">Other</span>
+                                    <Badge bg="secondary" className="rounded-pill">{categorizedFeatures.other.length}</Badge>
                                 </div>
                             } 
                         />
@@ -221,24 +212,38 @@ const ComparisonView = ({ products, features, onClearAll }) => {
             <Card.Body className="p-0">
                 <div className="comparison-table-container">
                     <Table responsive borderless className="comparison-table mb-0">
-                        <thead>
+                        <thead className="bg-light">
                             <tr>
-                                <th className="feature-header sticky-column">
+                                <th className="feature-header sticky-column py-3 px-4" style={{ minWidth: '180px', backgroundColor: '#f8f9fa' }}>
                                     <div className="feature-header-content">
-                                        <span className="fw-bold">Features</span>
+                                        <span className="fw-bold text-dark">Features</span>
                                     </div>
                                 </th>
                                 {products.map((product) => (
-                                    <th key={product.id} className="product-header">
-                                        <Card className="product-header-card">
+                                    <th key={product.id} className="product-header p-3" style={{ minWidth: '200px' }}>
+                                        <Card className="product-header-card border-0 bg-white shadow-sm" style={{ borderRadius: '8px' }}>
                                             <Card.Body className="text-center p-3">
                                                 <div className="product-image-container mb-3">
-                                                    <img src={product.image} alt={product.name} className="product-header-image" />
+                                                    <img 
+                                                        src={product.image} 
+                                                        alt={product.name} 
+                                                        className="product-header-image" 
+                                                        style={{ 
+                                                            width: '60px', 
+                                                            height: '60px', 
+                                                            objectFit: 'contain',
+                                                            borderRadius: '6px'
+                                                        }}
+                                                    />
                                                 </div>
-                                                <h6 className="product-header-name mb-2">{product.name}</h6>
+                                                <h6 className="product-header-name mb-2 fw-bold text-dark" style={{ fontSize: '0.9rem', lineHeight: '1.3' }}>
+                                                    {product.name}
+                                                </h6>
                                                 <div className="product-header-meta">
                                                     <Badge className="badge-custom-secondary mb-2">{product.brand}</Badge>
-                                                    <div className="product-header-price mb-2 text-custom-success">${product.price}</div>
+                                                    <div className="product-header-price mb-2 text-custom-success fw-bold h6">
+                                                        ${product.price}
+                                                    </div>
                                                     <Badge className={`${product.category === 'Mobile' ? 'badge-custom-primary' : 'badge-custom-success'} category-badge`}>
                                                         {product.category}
                                                     </Badge>
@@ -254,10 +259,10 @@ const ComparisonView = ({ products, features, onClearAll }) => {
                                 const allValues = products.map(p => p.specs[feature]).filter(Boolean);
                                 
                                 return (
-                                    <tr key={feature} className={`comparison-row ${index % 2 === 0 ? 'even' : 'odd'}`}>
-                                        <td className="feature-cell sticky-column">
+                                    <tr key={feature} className={`comparison-row ${index % 2 === 0 ? 'bg-white' : 'bg-light bg-opacity-25'}`}>
+                                        <td className="feature-cell sticky-column py-3 px-4 border-end" style={{ backgroundColor: index % 2 === 0 ? '#ffffff' : '#f8f9fa' }}>
                                             <div className="feature-name">
-                                                <span className="feature-label fw-semibold">{feature}</span>
+                                                <span className="feature-label fw-semibold text-dark">{feature}</span>
                                             </div>
                                         </td>
                                         {products.map((product) => {
@@ -265,16 +270,21 @@ const ComparisonView = ({ products, features, onClearAll }) => {
                                             const valueType = highlightBest && value ? getValueType(value, feature, allValues) : 'neutral';
                                             
                                             return (
-                                                <td key={product.id} className={`value-cell ${valueType}`}>
+                                                <td key={product.id} className={`value-cell text-center py-3 px-3 ${valueType}`}>
                                                     <div className="value-container">
                                                         {valueType === 'best' && highlightBest && (
-                                                            <Award size={14} className="value-icon text-custom-success" />
+                                                            <Award size={14} className="value-icon text-custom-success mb-1" />
                                                         )}
-                                                        <span className="value-text">
+                                                        <div className={`value-text d-inline-block px-3 py-2 rounded-2 ${
+                                                            valueType === 'best' ? 'bg-success bg-opacity-10 text-success fw-bold border border-success border-opacity-25' :
+                                                            'bg-primary bg-opacity-10 text-primary'
+                                                        }`}>
                                                             {value || <span className="text-muted">Not specified</span>}
-                                                        </span>
+                                                        </div>
                                                         {valueType === 'best' && highlightBest && (
-                                                            <div className="best-indicator">BEST</div>
+                                                            <div className="best-indicator mt-1">
+                                                                <Badge className="badge-custom-success">BEST</Badge>
+                                                            </div>
                                                         )}
                                                     </div>
                                                 </td>
@@ -294,51 +304,74 @@ const ComparisonView = ({ products, features, onClearAll }) => {
         <div className="comparison-cards-container">
             <Row className="g-4">
                 {products.map((product, index) => (
-                    <Col key={product.id} xl={4} lg={6} md={12} className="mb-4">
-                        <Card className="product-comparison-card h-100 border-0 shadow-lg">
-                            <div className="comparison-card-header">
-                                <div className="product-rank">#{index + 1}</div>
-                                <div className="product-image-section">
-                                    <img src={product.image} alt={product.name} className="comparison-card-image" />
+                    <Col key={product.id} xl={4} lg={6} md={12}>
+                        <Card className="product-comparison-card h-100 border-0 shadow-sm" style={{ borderRadius: '12px' }}>
+                            <div className="comparison-card-header p-4" style={{ background: 'linear-gradient(135deg, #f8fafc, #fff)', borderRadius: '12px 12px 0 0' }}>
+                                <div className="d-flex align-items-center justify-content-between mb-3">
+                                    <Badge className="badge-custom-primary px-3 py-2">#{index + 1}</Badge>
+                                    <div className="rating-stars text-warning">
+                                        {'★'.repeat(4)}{'☆'.repeat(1)}
+                                        <small className="text-muted ms-1">4.0</small>
+                                    </div>
                                 </div>
-                                <div className="product-info-section text-center">
-                                    <h5 className="product-name mb-2">{product.name}</h5>
-                                    <Badge className="badge-custom-secondary mb-2">{product.brand}</Badge>
-                                    <div className="product-price mb-2 text-custom-success">${product.price}</div>
-                                    <Badge className={product.category === 'Mobile' ? 'badge-custom-primary' : 'badge-custom-success'}>
-                                        {product.category}
-                                    </Badge>
+                                
+                                <div className="text-center">
+                                    <div className="product-image-section mb-3">
+                                        <img 
+                                            src={product.image} 
+                                            alt={product.name} 
+                                            className="comparison-card-image"
+                                            style={{
+                                                width: '80px',
+                                                height: '80px',
+                                                objectFit: 'contain',
+                                                borderRadius: '8px',
+                                                background: 'white',
+                                                padding: '8px',
+                                                border: '1px solid #e9ecef'
+                                            }}
+                                        />
+                                    </div>
+                                    
+                                    <h5 className="product-name mb-2 fw-bold text-dark">{product.name}</h5>
+                                    <div className="d-flex align-items-center justify-content-center gap-2 mb-2">
+                                        <Badge className="badge-custom-secondary">{product.brand}</Badge>
+                                        <Badge className={product.category === 'Mobile' ? 'badge-custom-primary' : 'badge-custom-success'}>
+                                            {product.category}
+                                        </Badge>
+                                    </div>
+                                    <div className="product-price text-custom-success fw-bold h4 mb-0">${product.price}</div>
                                 </div>
                             </div>
                             
-                            <Card.Body className="specs-section">
-                                <h6 className="specs-section-title mb-3">
+                            <Card.Body className="p-4">
+                                <h6 className="specs-section-title mb-3 fw-bold text-dark border-bottom pb-2">
                                     Specifications
                                 </h6>
-                                {currentFeatures.map((feature) => {
-                                    const value = product.specs[feature];
-                                    const allValues = products.map(p => p.specs[feature]).filter(Boolean);
-                                    const valueType = highlightBest && value ? getValueType(value, feature, allValues) : 'neutral';
-                                    
-                                    return (
-                                        <div key={feature} className={`comparison-spec-item ${valueType}`}>
-                                            <div className="spec-label-container">
-                                                <span className="spec-label">{feature}:</span>
+                                <div className="specs-list">
+                                    {currentFeatures.map((feature) => {
+                                        const value = product.specs[feature];
+                                        const allValues = products.map(p => p.specs[feature]).filter(Boolean);
+                                        const valueType = highlightBest && value ? getValueType(value, feature, allValues) : 'neutral';
+                                        
+                                        return (
+                                            <div key={feature} className={`comparison-spec-item d-flex justify-content-between align-items-center py-2 border-bottom border-light ${valueType === 'best' ? 'bg-success bg-opacity-10 px-3 rounded-2 my-1' : ''}`}>
+                                                <span className="spec-label fw-medium text-dark">{feature}:</span>
+                                                <div className="spec-value-container d-flex align-items-center gap-1">
+                                                    {valueType === 'best' && highlightBest && (
+                                                        <Award size={12} className="text-custom-success" />
+                                                    )}
+                                                    <span className={`spec-value ${valueType === 'best' ? 'fw-bold text-success' : 'text-dark'}`}>
+                                                        {value || <span className="text-muted">-</span>}
+                                                    </span>
+                                                    {valueType === 'best' && highlightBest && (
+                                                        <Badge className="badge-custom-success ms-1">Best</Badge>
+                                                    )}
+                                                </div>
                                             </div>
-                                            <div className="spec-value-container">
-                                                {valueType === 'best' && highlightBest && (
-                                                    <Award size={12} className="me-1 text-custom-success" />
-                                                )}
-                                                <span className="spec-value">
-                                                    {value || <span className="text-muted">-</span>}
-                                                </span>
-                                                {valueType === 'best' && highlightBest && (
-                                                    <Badge className="badge-custom-success ms-2">Best</Badge>
-                                                )}
-                                            </div>
-                                        </div>
-                                    );
-                                })}
+                                        );
+                                    })}
+                                </div>
                             </Card.Body>
                         </Card>
                     </Col>
@@ -348,27 +381,26 @@ const ComparisonView = ({ products, features, onClearAll }) => {
     );
 
     return (
-        <div className="comparison-container">
+        <div className="comparison-container" style={{ paddingBottom: '2rem' }}>
             {/* Enhanced Page Header */}
             <Container className="comparison-page-header mb-4">
                 <Row className="align-items-center">
-                    <Col>
-                        <div className="page-title-section">
-                            <h1 className="page-title text-custom-primary">
-                                Product Comparison
-                            </h1>
-                            <p className="page-subtitle">
-                                Analyzing {products.length} products across {currentFeatures.length} features • 
-                                <span className="text-custom-success ms-1">Data updated live</span>
-                            </p>
-                        </div>
+                    <Col className="text-lg-start">
+                        <h1 className="page-title text-custom-primary fw-bold mb-2" style={{ fontSize: '2rem' }}>
+                            Selected Products
+                        </h1>
+                        <p className="page-subtitle text-muted mb-0">
+                            Analyzing {products.length} products across {currentFeatures.length} features • 
+                            <span className="text-custom-success ms-1">Data updated live</span>
+                        </p>
                     </Col>
                     <Col xs="auto">
                         <div className="page-actions d-flex gap-2">
                             <Button 
                                 as={Link} 
                                 to="/" 
-                                className="d-flex align-items-center btn-custom-outline-primary"
+                                className="d-flex align-items-center btn-custom-outline-primary px-3 py-2"
+                                style={{ borderRadius: '8px' }}
                             >
                                 <ArrowLeft className="me-2" />
                                 <span className="d-none d-md-inline">Back to Products</span>
@@ -376,7 +408,8 @@ const ComparisonView = ({ products, features, onClearAll }) => {
                             </Button>
                             <Button 
                                 onClick={onClearAll}
-                                className="d-flex align-items-center btn-custom-outline-danger"
+                                className="d-flex align-items-center btn-custom-outline-danger px-3 py-2"
+                                style={{ borderRadius: '8px' }}
                             >
                                 <Trash3 className="me-2" />
                                 <span className="d-none d-md-inline">Clear All</span>
@@ -394,34 +427,32 @@ const ComparisonView = ({ products, features, onClearAll }) => {
             {viewMode === 'table' ? renderTableView() : renderCardView()}
 
             {/* Enhanced Comparison Legend */}
-            <Card className="comparison-legend mt-4 border-0 shadow-sm">
-                <Card.Body className="py-4">
+            <Card className="comparison-legend mt-4 border-0 shadow-sm" style={{ borderRadius: '12px' }}>
+                <Card.Body className="p-4">
                     <Container>
-                        <Row>
+                        <Row className="align-items-center">
                             <Col md={6}>
-                                <h6 className="legend-title mb-3 fw-bold">Legend & Guide</h6>
+                                <h6 className="legend-title fw-bold mb-3 text-dark">Legend & Guide</h6>
                                 <div className="d-flex align-items-center gap-4 flex-wrap">
-                                    <div className="legend-item d-flex align-items-center">
-                                        <Award size={16} className="me-2 text-custom-success" />
-                                        <span>Best Value</span>
+                                    <div className="legend-item d-flex align-items-center gap-2">
+                                        <Award size={16} className="text-custom-success" />
+                                        <span className="fw-medium">Best Value</span>
                                     </div>
-                                    <div className="legend-item d-flex align-items-center">
-                                        <div className="legend-dot me-2 neutral" style={{ 
+                                    <div className="legend-item d-flex align-items-center gap-2">
+                                        <div className="legend-dot bg-primary bg-opacity-25" style={{ 
                                             width: '12px', 
                                             height: '12px', 
-                                            borderRadius: '50%',
-                                            background: 'rgba(99, 102, 241, 0.4)'
+                                            borderRadius: '50%'
                                         }}></div>
-                                        <span>Standard</span>
+                                        <span className="fw-medium">Standard</span>
                                     </div>
-                                    <div className="legend-item d-flex align-items-center">
-                                        <div className="legend-dot me-2 muted" style={{ 
+                                    <div className="legend-item d-flex align-items-center gap-2">
+                                        <div className="legend-dot bg-secondary bg-opacity-25" style={{ 
                                             width: '12px', 
                                             height: '12px', 
-                                            borderRadius: '50%',
-                                            background: 'rgba(156, 163, 175, 0.4)'
+                                            borderRadius: '50%'
                                         }}></div>
-                                        <span>Not Specified</span>
+                                        <span className="fw-medium">Not Specified</span>
                                     </div>
                                 </div>
                             </Col>
