@@ -161,7 +161,7 @@ export const products = [
   {
     id: 10,
     category: "Laptop",
-    name: "Lenovo ThinkPad X1 Carbon Gen 11",
+    name: "Lenovo ThinkPad X1",
     brand: "Lenovo",
     price: 1599,
     image: require("../assets/images/laptop4.png"),

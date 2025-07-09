@@ -22,7 +22,7 @@ const getAllFeatures = (products) => {
 // Modern Hero Section Component
 const HeroSection = ({ totalProducts, selectedCount, onGetStarted }) => {
   return (
-    <div className="hero-section animate-fade-in">
+    <div className="hero-section animate-fade-in hero-mt-5">
       <Container>
         <Row className="align-items-center min-vh-75">
           <Col lg={8} className="mx-auto text-center">

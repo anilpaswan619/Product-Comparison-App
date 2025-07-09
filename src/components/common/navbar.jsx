@@ -7,18 +7,7 @@ import { SunFill, MoonFill, List, X, Stack } from "react-bootstrap-icons";
 const Navbar = () => {
     const { theme, toggleTheme } = useTheme();
     const location = useLocation();
-    const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-    // Handle scroll effect
-    useEffect(() => {
-        const handleScroll = () => {
-            setIsScrolled(window.scrollY > 20);
-        };
-
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
 
     // Close mobile menu when route changes
     useEffect(() => {
@@ -38,7 +27,7 @@ const Navbar = () => {
             <RBNavbar 
                 expand="lg" 
                 fixed="top"
-                className={`custom-navbar ${isScrolled ? 'scrolled' : ''}`}
+                className="custom-navbar"
             >
                 <Container fluid className="px-4">
                     <RBNavbar.Brand 

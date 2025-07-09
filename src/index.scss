@@ -2305,3 +2305,221 @@ body {
     }
   }
 }
+
+// ===================================
+// CUSTOM NAVBAR STYLES
+// ===================================
+.custom-navbar {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  background: linear-gradient(
+    135deg,
+    var(--primary-color) 0%,
+    var(--primary-dark) 100%
+  ) !important;
+  backdrop-filter: none;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border-bottom: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 1rem 0;
+  z-index: 1050;
+
+  &.scrolled {
+    background: linear-gradient(
+      135deg,
+      var(--primary-light) 0%,
+      var(--primary-color) 100%
+    ) !important;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 0.5rem 0;
+
+    .brand-logo {
+      color: #fff !important;
+    }
+
+    .brand-icon {
+      background: rgba(255, 255, 255, 0.25) !important;
+    }
+
+    .nav-item-custom {
+      color: rgba(255, 255, 255, 0.95) !important;
+
+      &.active {
+        color: #fff !important;
+        background: rgba(255, 255, 255, 0.2) !important;
+      }
+
+      &:hover:not(.active) {
+        background: rgba(255, 255, 255, 0.15) !important;
+        color: #fff !important;
+      }
+    }
+
+    .theme-toggle-btn {
+      background: rgba(255, 255, 255, 0.2) !important;
+      color: #fff !important;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.3) !important;
+      }
+    }
+
+    .mobile-toggle {
+      color: #fff !important;
+    }
+  }
+
+  .brand-logo {
+    color: #fff !important;
+    font-size: 1.5rem;
+    text-decoration: none !important;
+    transition: all 0.3s ease;
+    font-weight: var(--font-weight-bold);
+    display: flex;
+    align-items: center;
+
+    &:hover {
+      transform: translateY(-2px);
+      color: #fff !important;
+      text-decoration: none !important;
+
+      .brand-icon {
+        transform: rotate(5deg) scale(1.05);
+      }
+    }
+
+    .brand-icon {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 12px;
+      padding: 8px 10px;
+      font-size: 1.2rem;
+      margin-right: 0.75rem;
+      transition: all 0.3s ease;
+      transform: rotate(0deg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      svg {
+        width: 1.2rem;
+        height: 1.2rem;
+        color: #fff;
+      }
+    }
+
+    .brand-text {
+      font-size: 1.5rem;
+      color: #fff;
+
+      @media (max-width: 768px) {
+        font-size: 1.2rem;
+      }
+    }
+  }
+
+  .mobile-toggle {
+    background: transparent !important;
+    border: none !important;
+    color: #fff !important;
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+
+    &:hover {
+      transform: scale(1.1);
+      background: rgba(255, 255, 255, 0.1) !important;
+    }
+
+    &:focus {
+      box-shadow: none !important;
+      outline: none !important;
+    }
+  }
+
+  .desktop-nav {
+    .nav-item-custom {
+      color: rgba(255, 255, 255, 0.9) !important;
+      font-weight: var(--font-weight-medium);
+      font-size: 1rem;
+      padding: 0.75rem 1rem;
+      border-radius: 12px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      text-decoration: none !important;
+      background: transparent;
+      position: relative;
+
+      &.active {
+        color: #fff !important;
+        font-weight: var(--font-weight-semibold);
+        background: rgba(255, 255, 255, 0.15) !important;
+      }
+
+      &:hover:not(.active) {
+        background: rgba(255, 255, 255, 0.1) !important;
+        transform: translateY(-2px);
+        color: #fff !important;
+        text-decoration: none !important;
+      }
+
+      &:focus {
+        color: #fff !important;
+        text-decoration: none !important;
+      }
+    }
+
+    .theme-toggle-btn {
+      background: rgba(255, 255, 255, 0.2) !important;
+      color: #fff !important;
+      border: none !important;
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      font-size: 1.2rem;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &:hover {
+        transform: scale(1.05);
+        background: rgba(255, 255, 255, 0.3) !important;
+      }
+
+      &:focus {
+        box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.25) !important;
+        background: rgba(255, 255, 255, 0.2) !important;
+      }
+    }
+  }
+}
+.hero-mt-5 {
+  margin-top: 5rem !important;
+}
+// Mobile Menu Styles
+.mobile-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1040;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+
+  &.show {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+}
