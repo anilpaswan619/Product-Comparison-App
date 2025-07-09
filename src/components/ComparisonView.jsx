@@ -529,79 +529,230 @@ const ComparisonView = ({ products, features, onClearAll }) => {
                                 </div>
                                 
                                 <div className="specs-grid">
-                                    {currentFeatures.slice(0, isMobile ? 5 : 6).map((feature) => {
-                                        const value = product.specs[feature];
-                                        const allValues = products.map(p => p.specs[feature]).filter(Boolean);
-                                        const valueType = highlightBest && value ? getValueType(value, feature, allValues) : 'neutral';
+                                    {(() => {
+                                        // Group RAM, storage, and battery into two rows
+                                        const keyFeatures = ['ram', 'storage', 'battery'];
+                                        const keySpecs = currentFeatures.filter(feature => 
+                                            keyFeatures.some(key => feature.toLowerCase().includes(key))
+                                        );
+                                        const otherSpecs = currentFeatures.filter(feature => 
+                                            !keyFeatures.some(key => feature.toLowerCase().includes(key))
+                                        ).slice(0, isMobile ? 2 : 3);
+                                        
+                                        const allSpecsToShow = [...keySpecs.slice(0, 3), ...otherSpecs];
+                                        
+                                        // Create two rows for key specs (RAM, Storage, Battery)
+                                        const keySpecRows = [];
+                                        if (keySpecs.length > 0) {
+                                            // First row: RAM and Storage
+                                            const firstRowSpecs = keySpecs.slice(0, 2);
+                                            if (firstRowSpecs.length > 0) {
+                                                keySpecRows.push(
+                                                    <div key="key-row-1" className="spec-row-group d-flex gap-2 mb-2">
+                                                        {firstRowSpecs.map((feature) => {
+                                                            const value = product.specs[feature];
+                                                            const allValues = products.map(p => p.specs[feature]).filter(Boolean);
+                                                            const valueType = highlightBest && value ? getValueType(value, feature, allValues) : 'neutral';
+                                                            
+                                                            return (
+                                                                <div key={feature} className={`spec-item flex-fill d-flex flex-column align-items-center py-2 px-2 rounded-lg ${
+                                                                    valueType === 'best' ? 'best-spec' : 'normal-spec'
+                                                                }`} style={{
+                                                                    background: valueType === 'best' 
+                                                                        ? 'linear-gradient(135deg, rgba(72, 187, 120, 0.1) 0%, rgba(56, 161, 105, 0.1) 100%)'
+                                                                        : '#f8fafc',
+                                                                    border: valueType === 'best' 
+                                                                        ? '1px solid rgba(72, 187, 120, 0.2)'
+                                                                        : '1px solid #e2e8f0',
+                                                                    borderRadius: '8px',
+                                                                    minHeight: '60px'
+                                                                }}>
+                                                                    <div className="spec-label-container d-flex align-items-center gap-1 mb-1">
+                                                                        {valueType === 'best' && (
+                                                                            <Award size={10} className="text-success" />
+                                                                        )}
+                                                                        <span className="spec-label fw-medium text-dark text-center" style={{ 
+                                                                            fontSize: isMobile ? '0.65rem' : '0.7rem',
+                                                                            lineHeight: '1.2'
+                                                                        }}>
+                                                                            {feature}
+                                                                        </span>
+                                                                    </div>
+                                                                    
+                                                                    <div className="spec-value-container d-flex align-items-center gap-1">
+                                                                        <span className={`spec-value fw-bold text-center ${
+                                                                            valueType === 'best' ? 'text-success' : 'text-dark'
+                                                                        }`} style={{ 
+                                                                            fontSize: isMobile ? '0.7rem' : '0.75rem',
+                                                                            lineHeight: '1.2'
+                                                                        }}>
+                                                                            {value || <span className="text-muted">N/A</span>}
+                                                                        </span>
+                                                                        {valueType === 'best' && (
+                                                                            <span className="best-star px-1 py-0 rounded-circle d-inline-flex align-items-center justify-content-center" style={{
+                                                                                background: 'linear-gradient(135deg, #ffd700 0%, #ffed4e 100%)',
+                                                                                color: '#744210',
+                                                                                fontSize: '0.6rem',
+                                                                                fontWeight: '700',
+                                                                                width: '16px',
+                                                                                height: '16px'
+                                                                            }}>
+                                                                                ★
+                                                                            </span>
+                                                                        )}
+                                                                    </div>
+                                                                </div>
+                                                            );
+                                                        })}
+                                                    </div>
+                                                );
+                                            }
+                                            
+                                            // Second row: Battery (if exists)
+                                            const secondRowSpecs = keySpecs.slice(2, 3);
+                                            if (secondRowSpecs.length > 0) {
+                                                keySpecRows.push(
+                                                    <div key="key-row-2" className="spec-row-group d-flex justify-content-center mb-2">
+                                                        {secondRowSpecs.map((feature) => {
+                                                            const value = product.specs[feature];
+                                                            const allValues = products.map(p => p.specs[feature]).filter(Boolean);
+                                                            const valueType = highlightBest && value ? getValueType(value, feature, allValues) : 'neutral';
+                                                            
+                                                            return (
+                                                                <div key={feature} className={`spec-item d-flex flex-column align-items-center py-2 px-3 rounded-lg ${
+                                                                    valueType === 'best' ? 'best-spec' : 'normal-spec'
+                                                                }`} style={{
+                                                                    background: valueType === 'best' 
+                                                                        ? 'linear-gradient(135deg, rgba(72, 187, 120, 0.1) 0%, rgba(56, 161, 105, 0.1) 100%)'
+                                                                        : '#f8fafc',
+                                                                    border: valueType === 'best' 
+                                                                        ? '1px solid rgba(72, 187, 120, 0.2)'
+                                                                        : '1px solid #e2e8f0',
+                                                                    borderRadius: '8px',
+                                                                    minHeight: '60px',
+                                                                    width: '48%'
+                                                                }}>
+                                                                    <div className="spec-label-container d-flex align-items-center gap-1 mb-1">
+                                                                        {valueType === 'best' && (
+                                                                            <Award size={10} className="text-success" />
+                                                                        )}
+                                                                        <span className="spec-label fw-medium text-dark text-center" style={{ 
+                                                                            fontSize: isMobile ? '0.65rem' : '0.7rem',
+                                                                            lineHeight: '1.2'
+                                                                        }}>
+                                                                            {feature}
+                                                                        </span>
+                                                                    </div>
+                                                                    
+                                                                    <div className="spec-value-container d-flex align-items-center gap-1">
+                                                                        <span className={`spec-value fw-bold text-center ${
+                                                                            valueType === 'best' ? 'text-success' : 'text-dark'
+                                                                        }`} style={{ 
+                                                                            fontSize: isMobile ? '0.7rem' : '0.75rem',
+                                                                            lineHeight: '1.2'
+                                                                        }}>
+                                                                            {value || <span className="text-muted">N/A</span>}
+                                                                        </span>
+                                                                        {valueType === 'best' && (
+                                                                            <span className="best-star px-1 py-0 rounded-circle d-inline-flex align-items-center justify-content-center" style={{
+                                                                                background: 'linear-gradient(135deg, #ffd700 0%, #ffed4e 100%)',
+                                                                                color: '#744210',
+                                                                                fontSize: '0.6rem',
+                                                                                fontWeight: '700',
+                                                                                width: '16px',
+                                                                                height: '16px'
+                                                                            }}>
+                                                                                ★
+                                                                            </span>
+                                                                        )}
+                                                                    </div>
+                                                                </div>
+                                                            );
+                                                        })}
+                                                    </div>
+                                                );
+                                            }
+                                        }
                                         
                                         return (
-                                            <div key={feature} className={`spec-row d-flex justify-content-between align-items-center py-2 px-3 rounded-lg mb-2 ${
-                                                valueType === 'best' ? 'best-spec' : 'normal-spec'
-                                            }`} style={{
-                                                background: valueType === 'best' 
-                                                    ? 'linear-gradient(135deg, rgba(72, 187, 120, 0.1) 0%, rgba(56, 161, 105, 0.1) 100%)'
-                                                    : '#f8fafc',
-                                                border: valueType === 'best' 
-                                                    ? '1px solid rgba(72, 187, 120, 0.2)'
-                                                    : '1px solid #e2e8f0',
-                                                borderRadius: '8px'
-                                            }}>
-                                                <div className="spec-label-container d-flex align-items-center gap-2">
-                                                    {valueType === 'best' && (
-                                                        <Award size={12} className="text-success" />
-                                                    )}
-                                                    <span className="spec-label fw-medium text-dark" style={{ 
-                                                        fontSize: isMobile ? '0.75rem' : '0.8rem',
-                                                        maxWidth: isMobile ? '80px' : '100px',
-                                                        overflow: 'hidden',
-                                                        textOverflow: 'ellipsis',
-                                                        whiteSpace: 'nowrap'
-                                                    }}>
-                                                        {feature}:
-                                                    </span>
-                                                </div>
-                                                
-                                                <div className="spec-value-container d-flex align-items-center gap-1">
-                                                    <span className={`spec-value fw-bold ${
-                                                        valueType === 'best' ? 'text-success' : 'text-dark'
-                                                    }`} style={{ 
-                                                        fontSize: isMobile ? '0.75rem' : '0.8rem',
-                                                        maxWidth: isMobile ? '70px' : '90px',
-                                                        overflow: 'hidden',
-                                                        textOverflow: 'ellipsis',
-                                                        whiteSpace: 'nowrap'
-                                                    }}>
-                                                        {value || <span className="text-muted">N/A</span>}
-                                                    </span>
-                                                    {valueType === 'best' && (
-                                                        <span className="best-star px-1 py-0 rounded-circle d-inline-flex align-items-center justify-content-center" style={{
-                                                            background: 'linear-gradient(135deg, #ffd700 0%, #ffed4e 100%)',
-                                                            color: '#744210',
-                                                            fontSize: '0.6rem',
-                                                            fontWeight: '700',
-                                                            width: '18px',
-                                                            height: '18px'
+                                            <>
+                                                {keySpecRows}
+                                                {otherSpecs.map((feature) => {
+                                                    const value = product.specs[feature];
+                                                    const allValues = products.map(p => p.specs[feature]).filter(Boolean);
+                                                    const valueType = highlightBest && value ? getValueType(value, feature, allValues) : 'neutral';
+                                                    
+                                                    return (
+                                                        <div key={feature} className={`spec-row d-flex justify-content-between align-items-center py-2 px-3 rounded-lg mb-2 ${
+                                                            valueType === 'best' ? 'best-spec' : 'normal-spec'
+                                                        }`} style={{
+                                                            background: valueType === 'best' 
+                                                                ? 'linear-gradient(135deg, rgba(72, 187, 120, 0.1) 0%, rgba(56, 161, 105, 0.1) 100%)'
+                                                                : '#f8fafc',
+                                                            border: valueType === 'best' 
+                                                                ? '1px solid rgba(72, 187, 120, 0.2)'
+                                                                : '1px solid #e2e8f0',
+                                                            borderRadius: '8px'
                                                         }}>
-                                                            ★
+                                                            <div className="spec-label-container d-flex align-items-center gap-2">
+                                                                {valueType === 'best' && (
+                                                                    <Award size={12} className="text-success" />
+                                                                )}
+                                                                <span className="spec-label fw-medium text-dark" style={{ 
+                                                                    fontSize: isMobile ? '0.75rem' : '0.8rem',
+                                                                    maxWidth: isMobile ? '80px' : '100px',
+                                                                    overflow: 'hidden',
+                                                                    textOverflow: 'ellipsis',
+                                                                    whiteSpace: 'nowrap'
+                                                                }}>
+                                                                    {feature}:
+                                                                </span>
+                                                            </div>
+                                                            
+                                                            <div className="spec-value-container d-flex align-items-center gap-1">
+                                                                <span className={`spec-value fw-bold ${
+                                                                    valueType === 'best' ? 'text-success' : 'text-dark'
+                                                                }`} style={{ 
+                                                                    fontSize: isMobile ? '0.75rem' : '0.8rem',
+                                                                    maxWidth: isMobile ? '70px' : '90px',
+                                                                    overflow: 'hidden',
+                                                                    textOverflow: 'ellipsis',
+                                                                    whiteSpace: 'nowrap'
+                                                                }}>
+                                                                    {value || <span className="text-muted">N/A</span>}
+                                                                </span>
+                                                                {valueType === 'best' && (
+                                                                    <span className="best-star px-1 py-0 rounded-circle d-inline-flex align-items-center justify-content-center" style={{
+                                                                        background: 'linear-gradient(135deg, #ffd700 0%, #ffed4e 100%)',
+                                                                        color: '#744210',
+                                                                        fontSize: '0.6rem',
+                                                                        fontWeight: '700',
+                                                                        width: '18px',
+                                                                        height: '18px'
+                                                                    }}>
+                                                                        ★
+                                                                    </span>
+                                                                )}
+                                                            </div>
+                                                        </div>
+                                                    );
+                                                })}
+                                                
+                                                {currentFeatures.length > allSpecsToShow.length && (
+                                                    <div className="more-specs text-center mt-2">
+                                                        <span className="more-indicator px-3 py-1 rounded-pill d-inline-block" style={{
+                                                            background: '#e2e8f0',
+                                                            color: '#6b7280',
+                                                            fontSize: '0.7rem',
+                                                            fontWeight: '600'
+                                                        }}>
+                                                            +{currentFeatures.length - allSpecsToShow.length} more features
                                                         </span>
-                                                    )}
-                                                </div>
-                                            </div>
+                                                    </div>
+                                                )}
+                                            </>
                                         );
-                                    })}
-                                    
-                                    {currentFeatures.length > (isMobile ? 5 : 6) && (
-                                        <div className="more-specs text-center mt-2">
-                                            <span className="more-indicator px-3 py-1 rounded-pill d-inline-block" style={{
-                                                background: '#e2e8f0',
-                                                color: '#6b7280',
-                                                fontSize: '0.7rem',
-                                                fontWeight: '600'
-                                            }}>
-                                                +{currentFeatures.length - (isMobile ? 5 : 6)} more features
-                                            </span>
-                                        </div>
-                                    )}
+                                    })()}
                                 </div>
                             </Card.Body>
                         </Card>
