@@ -30,7 +30,7 @@ const Footer = () => {
                         >
                             CompareHub
                         </span>
-                        <span className="d-none d-md-inline text-muted small ms-2" style={{ fontWeight: 400 }}>
+                        <span className="d-none d-md-inline  small ms-2" style={{ fontWeight: 400 }}>
                             | Smart Product Comparisons
                         </span>
                     </div>

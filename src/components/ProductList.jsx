@@ -11,6 +11,16 @@ const CategoryFilter = ({ categories, selectedCategory, onCategoryChange }) => (
       value={selectedCategory}
       onChange={(e) => onCategoryChange(e.target.value)}
       className="form-select category-select"
+      style={{
+        height: '48px',
+        border: '1px solid #ced4da',
+        outline: 'none',
+        boxShadow: 'none'
+      }}
+      onFocus={(e) => {
+        e.target.style.outline = 'none';
+        e.target.style.boxShadow = 'none';
+      }}
     >
       {categories.map((category) => (
         <option key={category} value={category}>
@@ -59,7 +69,13 @@ const ProductList = ({
             <Col lg={6}>
               <SearchBar 
                 placeholder="Search products, brands, or features..." 
-                onSearch={onSearch} 
+                onSearch={onSearch}
+                style={{
+                  height: '48px',
+                  border: '1px solid #ced4da',
+                  outline: 'none',
+                  boxShadow: 'none'
+                }}
               />
             </Col>
             <Col lg={4}>
@@ -70,15 +86,22 @@ const ProductList = ({
               />
             </Col>
             <Col lg={2}>
-              {selected.length > 0 && (
-                <Button 
-                  onClick={onClearAll}
-                  className="w-100 d-flex align-items-center justify-content-center gap-2 btn-custom-outline-danger"
-                >
-                  <X size={16} />
-                  Clear All
-                </Button>
-              )}
+              <Button 
+                onClick={selected.length > 0 ? onClearAll : undefined}
+                disabled={selected.length === 0}
+                className="w-100 d-flex align-items-center justify-content-center gap-2"
+                variant={selected.length > 0 ? "outline-danger" : "outline-secondary"}
+                style={{
+                  height: '48px',
+                  outline: 'none',
+                  boxShadow: 'none',
+                  opacity: selected.length === 0 ? 0.5 : 1,
+                  cursor: selected.length === 0 ? 'not-allowed' : 'pointer'
+                }}
+              >
+                <X size={16} />
+                Clear All
+              </Button>
             </Col>
           </Row>
         </div>
@@ -89,22 +112,35 @@ const ProductList = ({
             <div className="d-flex flex-column gap-3">
               <SearchBar 
                 placeholder="Search products, brands, or features..." 
-                onSearch={onSearch} 
+                onSearch={onSearch}
+                style={{
+                  height: '48px',
+                  border: '1px solid #ced4da',
+                  outline: 'none',
+                  boxShadow: 'none'
+                }}
               />
               <CategoryFilter 
                 categories={categories}
                 selectedCategory={selectedCategory}
                 onCategoryChange={onCategoryChange}
               />
-              {selected.length > 0 && (
-                <Button 
-                  onClick={onClearAll}
-                  className="w-100 d-flex align-items-center justify-content-center gap-2 btn-custom-outline-danger"
-                >
-                  <X size={16} />
-                  Clear All ({selected.length})
-                </Button>
-              )}
+              <Button 
+                onClick={selected.length > 0 ? onClearAll : undefined}
+                disabled={selected.length === 0}
+                className="w-100 d-flex align-items-center justify-content-center gap-2"
+                variant={selected.length > 0 ? "outline-danger" : "outline-secondary"}
+                style={{
+                  height: '48px',
+                  outline: 'none',
+                  boxShadow: 'none',
+                  opacity: selected.length === 0 ? 0.5 : 1,
+                  cursor: selected.length === 0 ? 'not-allowed' : 'pointer'
+                }}
+              >
+                <X size={16} />
+                Clear All {selected.length > 0 && `(${selected.length})`}
+              </Button>
             </div>
           </div>
         )}
@@ -152,9 +188,9 @@ const ProductList = ({
 
       {/* View Mode Toggle (Desktop) */}
       <div className="d-none d-md-flex justify-content-end mb-3">
-        <div className="btn-group" role="group">
+        <div className="btn-group " role="group">
           <Button
-            variant={viewMode === 'grid' ? 'primary' : 'outline-secondary'}
+            variant={viewMode === 'grid' ? 'primary btn-custom-primary' : 'outline-secondary'}
             onClick={() => setViewMode('grid')}
             className="d-flex align-items-center gap-2"
           >
@@ -162,7 +198,7 @@ const ProductList = ({
             Grid
           </Button>
           <Button
-            variant={viewMode === 'list' ? 'primary' : 'outline-secondary'}
+            variant={viewMode === 'list' ? 'primary btn-custom-primary' : 'outline-secondary'}
             onClick={() => setViewMode('list')}
             className="d-flex align-items-center gap-2"
           >
