@@ -112,7 +112,7 @@ const HeroSection = ({ totalProducts, selectedCount, onGetStarted }) => {
 const AboutPage = () => {
   return (
     <Container className="about-page py-5">
-      <Row className="justify-content-center">
+      <Row className="justify-content-center hero-mt-5">
         <Col lg={10}>
           <div className="animate-fade-in">
             <div className="text-center mb-5">
@@ -364,7 +364,7 @@ function AppContent() {
             element={
               <div className="compare-page py-5">
                 <Container>
-                  <div className="animate-fade-in">
+                  <div className="animate-fade-in hero-mt-5">
                     <div className="text-center mb-5">
                       <h1 className="display-4 fw-bold text-custom-primary mb-3">Product Comparison</h1>
                       <p className="lead text-muted">

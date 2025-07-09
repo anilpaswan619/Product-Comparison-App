@@ -38,7 +38,7 @@ const Navbar = () => {
                         <div className="brand-icon">
                             <Stack />
                         </div>
-                        <span className="brand-text">ProductCompare</span>
+                        <span className="brand-text">CompareHub</span>
                     </RBNavbar.Brand>
 
                     {/* Custom Mobile Toggle */}

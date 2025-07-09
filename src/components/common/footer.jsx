@@ -38,36 +38,46 @@ const Footer = () => {
                     {/* Navigation Links */}
                     <nav className="footer-nav mb-2 mb-lg-0">
                         <ul className="d-flex flex-wrap gap-3 list-unstyled mb-0">
-                            {['Home', 'Products', 'Compare', 'Categories', 'About Us'].map((link) => (
-                                <li key={link}>
-                                    <a
-                                        href="#"
-                                        className="text-decoration-none small px-2 py-1"
-                                        style={{
-                                            color: '#cbd5e1',
-                                            borderRadius: '4px',
-                                            transition: 'background 0.2s, color 0.2s'
-                                        }}
-                                        onMouseEnter={e => {
-                                            e.target.style.background = '#334155';
-                                            e.target.style.color = '#fff';
-                                        }}
-                                        onMouseLeave={e => {
-                                            e.target.style.background = 'transparent';
-                                            e.target.style.color = '#cbd5e1';
-                                        }}
-                                    >
-                                        {link}
-                                    </a>
-                                </li>
-                            ))}
+                            {['Home', 'Compare', 'About'].map((link) => {
+                                // Map link names to valid URLs
+                                const linkUrls = {
+                                    'Home': '/',
+                                    'Compare': '/compare',
+                                    'About': '/about'
+                                };
+                                return (
+                                    <li key={link}>
+                                        <a
+                                            href={linkUrls[link]}
+                                            className="text-decoration-none small px-2 py-1"
+                                            style={{
+                                                color: '#cbd5e1',
+                                                borderRadius: '4px',
+                                                transition: 'background 0.2s, color 0.2s'
+                                            }}
+                                            onMouseEnter={e => {
+                                                e.target.style.background = '#334155';
+                                                e.target.style.color = '#fff';
+                                            }}
+                                            onMouseLeave={e => {
+                                                e.target.style.background = 'transparent';
+                                                e.target.style.color = '#cbd5e1';
+                                            }}
+                                        >
+                                            {link}
+                                        </a>
+                                    </li>
+                                );
+                            })}
                         </ul>
                     </nav>
 
                     {/* Social Icons */}
                     <div className="d-flex align-items-center gap-2 mb-2 mb-lg-0">
                         <a
-                            href="#"
+                            href="https://twitter.com/yourprofile"
+                            target="_blank"
+                            rel="noopener noreferrer"
                             className="d-flex align-items-center justify-content-center"
                             style={{
                                 backgroundColor: '#475569',
@@ -90,7 +100,9 @@ const Footer = () => {
                             <Twitter size={16} />
                         </a>
                         <a
-                            href="#"
+                            href="https://linkedin.com/in/yourprofile"
+                            target="_blank"
+                            rel="noopener noreferrer"
                             className="d-flex align-items-center justify-content-center"
                             style={{
                                 backgroundColor: '#475569',
@@ -113,7 +125,9 @@ const Footer = () => {
                             <Linkedin size={16} />
                         </a>
                         <a
-                            href="#"
+                            href="https://github.com/yourprofile"
+                            target="_blank"
+                            rel="noopener noreferrer"
                             className="d-flex align-items-center justify-content-center"
                             style={{
                                 backgroundColor: '#475569',
