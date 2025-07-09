@@ -51,9 +51,9 @@ const ProductList = ({
      
         <div className="d-md-none mb-2">
           <Button
-            variant="outline-primary"
+            variant="none"
             onClick={() => setShowFilters(!showFilters)}
-            className="w-100 d-flex align-items-center justify-content-between py-2"
+            className="w-100 d-flex align-items-center justify-content-between py-2 btn-custom-primary"
             style={{ fontSize: '0.9rem' }}
           >
             <div className="d-flex align-items-center gap-2">
