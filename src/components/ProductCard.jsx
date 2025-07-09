@@ -1,12 +1,29 @@
 import React from 'react';
 import { Card, Button, Badge, Row, Col } from "react-bootstrap";
-import { CheckCircleFill, PlusCircle } from "react-bootstrap-icons";
+import { CheckCircleFill, PlusCircle, ExclamationTriangle } from "react-bootstrap-icons";
 
-const ProductCard = ({ product, onCompare, isSelected }) => {
+const ProductCard = ({ product, onCompare, isSelected, isMaxSelected }) => {
     if (!product) return null;
 
+    const handleKeyPress = (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            if (!isSelected && !isMaxSelected) {
+                onCompare(product);
+            }
+        }
+    };
+
+    const canSelect = !isSelected && !isMaxSelected;
+
     return (
-        <Card className="product-card h-100 border-0 shadow-hover">
+        <Card 
+            className={`product-card h-100 border-0 shadow-hover ${isSelected ? 'selected' : ''} ${isMaxSelected && !isSelected ? 'disabled' : ''}`}
+            tabIndex={canSelect ? 0 : -1}
+            onKeyDown={handleKeyPress}
+            role="button"
+            aria-label={`Product: ${product.name}. ${isSelected ? 'Selected for comparison' : canSelect ? 'Press Enter to add to comparison' : 'Maximum products selected'}`}
+        >
             <div className="product-image-container position-relative">
                 <Card.Img
                     variant="top"
@@ -16,10 +33,15 @@ const ProductCard = ({ product, onCompare, isSelected }) => {
                 />
                 <Badge 
                     bg={product.category === 'Mobile' ? 'primary' : 'success'} 
-                    className="position-absolute top-0 end-0 m-2"
+                    className="position-absolute top-0 end-0 m-2 category-badge"
                 >
                     {product.category}
                 </Badge>
+                {isSelected && (
+                    <div className="selection-overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center">
+                        <CheckCircleFill className="text-success" size={32} />
+                    </div>
+                )}
             </div>
             
             <Card.Body className="d-flex flex-column p-4">
@@ -49,21 +71,29 @@ const ProductCard = ({ product, onCompare, isSelected }) => {
                 </div>
 
                 <Button
-                    variant={isSelected ? "outline-success" : "primary"}
+                    variant={isSelected ? "success" : isMaxSelected ? "outline-secondary" : "primary"}
                     size="lg"
                     className={`product-compare-btn mt-auto ${isSelected ? 'selected' : ''}`}
-                    onClick={() => !isSelected && onCompare(product)}
-                    disabled={isSelected}
+                    onClick={() => canSelect && onCompare(product)}
+                    disabled={isSelected || isMaxSelected}
                 >
                     {isSelected ? (
                         <>
-                            <CheckCircleFill className="me-2" /> 
-                            <span>Selected</span>
+                            <CheckCircleFill className="me-1" /> 
+                            <span className="d-none d-sm-inline">Selected</span>
+                            <span className="d-inline d-sm-none">✓</span>
+                        </>
+                    ) : isMaxSelected ? (
+                        <>
+                            <ExclamationTriangle className="me-1" />
+                            <span className="d-none d-sm-inline">Max Reached</span>
+                            <span className="d-inline d-sm-none">Max</span>
                         </>
                     ) : (
                         <>
-                            <PlusCircle className="me-2" /> 
-                            <span>Add to Compare</span>
+                            <PlusCircle className="me-1" /> 
+                            <span className="d-none d-sm-inline">Compare</span>
+                            <span className="d-inline d-sm-none">Add</span>
                         </>
                     )}
                 </Button>
