@@ -105,7 +105,7 @@ const ProductList = ({
                 }}
               >
                 <X size={14} />
-                <span className="d-none d-lg-inline">Clear All</span>
+                <span className="d-none d-lg-inline fw-bold">Clear All</span>
                 <span className="d-inline d-lg-none">Clear</span>
               </Button>
             </Col>

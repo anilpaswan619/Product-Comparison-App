@@ -453,8 +453,7 @@ const ComparisonView = ({ products, features, onClearAll }) => {
                         }}>
                             {/* Card Header with Theme Gradient */}
                             <div className="card-header-modern p-4" style={{ 
-                                background: 'linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%) !important',
-                                color: 'white'
+                                color: '#5653e1'
                             }}>
                                 <div className="d-flex justify-content-between align-items-start mb-3">
                                     <div className="rank-badge px-3 py-1 rounded-pill" style={{
