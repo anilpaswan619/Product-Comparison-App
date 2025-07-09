@@ -25,7 +25,7 @@ const SearchBar = ({ placeholder = "Search products, brands, or categories...", 
         <div className="search-container">
             <InputGroup size="lg" className="search-input-group shadow-sm">
                 <InputGroup.Text className="search-icon-wrapper bg-white border-end-0">
-                    <Search className="search-icon text-primary" />
+                    <Search className="search-icon text-custom-primary" />
                 </InputGroup.Text>
                 <FormControl
                     type="text"
@@ -37,8 +37,7 @@ const SearchBar = ({ placeholder = "Search products, brands, or categories...", 
                 />
                 {query && (
                     <Button 
-                        variant="outline-secondary" 
-                        className="clear-search-btn border-start-0"
+                        className="clear-search-btn border-start-0 btn-custom-outline-danger"
                         onClick={clearSearch}
                         aria-label="Clear search"
                     >

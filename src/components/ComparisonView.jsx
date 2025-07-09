@@ -32,13 +32,18 @@ const ComparisonView = ({ products, features, onClearAll }) => {
     if (!products || products.length === 0) {
         return (
             <Container className="text-center py-5">
-                <Alert variant="info" className="comparison-empty-state">
+                <Alert className="comparison-empty-state border-0" style={{ background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(99, 102, 241, 0.02))' }}>
                     <div className="empty-state-icon mb-3">
-                        <Grid3x3Gap size={48} className="text-primary" />
+                        <Grid3x3Gap size={48} className="text-custom-primary" />
                     </div>
                     <h4>No Products Selected</h4>
                     <p className="mb-3">Select at least 2 products from the home page to start comparing their features and specifications.</p>
-                    <Button as={Link} to="/" variant="primary" size="lg">
+                    <Button 
+                        as={Link} 
+                        to="/" 
+                        size="lg"
+                        className="btn-custom-primary"
+                    >
                         <ArrowLeft className="me-2" />
                         Browse Products
                     </Button>
@@ -50,13 +55,18 @@ const ComparisonView = ({ products, features, onClearAll }) => {
     if (products.length < 2) {
         return (
             <Container className="text-center py-5">
-                <Alert variant="warning" className="comparison-empty-state">
+                <Alert className="comparison-empty-state border-0" style={{ background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.05), rgba(245, 158, 11, 0.02))' }}>
                     <div className="empty-state-icon mb-3">
-                        <ExclamationTriangle size={48} className="text-warning" />
+                        <ExclamationTriangle size={48} className="text-custom-warning" />
                     </div>
                     <h4>Need More Products</h4>
                     <p className="mb-3">You have {products.length} product selected. Add at least one more to start comparing.</p>
-                    <Button as={Link} to="/" variant="primary" size="lg">
+                    <Button 
+                        as={Link} 
+                        to="/" 
+                        size="lg"
+                        className="btn-custom-primary"
+                    >
                         <ArrowLeft className="me-2" />
                         Add More Products
                     </Button>
@@ -83,28 +93,37 @@ const ComparisonView = ({ products, features, onClearAll }) => {
                         <Col md={6}>
                             <div className="d-flex align-items-center gap-3">
                                 <div className="comparison-stats">
-                                    <Badge bg="primary" className="px-3 py-2 me-2">
+                                    <Badge className="badge-custom-primary me-2">
                                         <strong>{products.length}</strong> Products
                                     </Badge>
-                                    <Badge bg="secondary" className="px-3 py-2">
+                                    <Badge className="badge-custom-secondary">
                                         <strong>{currentFeatures.length}</strong> Features
                                     </Badge>
                                 </div>
                                 <div className="comparison-progress-mini">
                                     <small className="text-muted d-block mb-1">Comparison Score</small>
                                     <ProgressBar 
-                                        variant="success" 
-                                        now={85} 
-                                        style={{ height: '6px', width: '80px' }}
+                                        style={{ height: '6px', width: '80px', backgroundColor: 'rgba(16, 185, 129, 0.15)' }}
                                         className="rounded-pill"
-                                    />
+                                    >
+                                        <div 
+                                            style={{ 
+                                                width: '85%', 
+                                                background: 'linear-gradient(90deg, #10b981, #059669)',
+                                                borderRadius: '50px'
+                                            }}
+                                        ></div>
+                                    </ProgressBar>
                                 </div>
                             </div>
                         </Col>
                         <Col md={6}>
                             <div className="d-flex align-items-center justify-content-md-end gap-2">
                                 <Dropdown>
-                                    <Dropdown.Toggle variant="outline-secondary" size="sm" className="d-flex align-items-center">
+                                    <Dropdown.Toggle 
+                                        size="sm" 
+                                        className="d-flex align-items-center btn-custom-outline-secondary"
+                                    >
                                         <Sliders size={14} className="me-2" />
                                         Options
                                     </Dropdown.Toggle>
@@ -130,20 +149,18 @@ const ComparisonView = ({ products, features, onClearAll }) => {
                                 </Dropdown>
                                 
                                 <Button 
-                                    variant={viewMode === 'table' ? "primary" : "outline-primary"}
                                     size="sm"
                                     onClick={() => setViewMode('table')}
-                                    className="d-flex align-items-center"
+                                    className={`d-flex align-items-center ${viewMode === 'table' ? 'btn-custom-primary' : 'btn-custom-outline-secondary'}`}
                                 >
                                     <List size={14} className="me-1" />
                                     <span className="d-none d-lg-inline">Table</span>
                                 </Button>
                                 
                                 <Button 
-                                    variant={viewMode === 'cards' ? "primary" : "outline-primary"}
                                     size="sm"
                                     onClick={() => setViewMode('cards')}
-                                    className="d-flex align-items-center"
+                                    className={`d-flex align-items-center ${viewMode === 'cards' ? 'btn-custom-primary' : 'btn-custom-outline-secondary'}`}
                                 >
                                     <Grid3x3Gap size={14} className="me-1" />
                                     <span className="d-none d-lg-inline">Cards</span>
@@ -222,7 +239,7 @@ const ComparisonView = ({ products, features, onClearAll }) => {
                             <tr>
                                 <th className="feature-header sticky-column">
                                     <div className="feature-header-content">
-                                        <Filter size={16} className="me-2 text-primary" />
+                                        <Filter size={16} className="me-2 text-custom-primary" />
                                         <span>Features</span>
                                     </div>
                                 </th>
@@ -241,9 +258,9 @@ const ComparisonView = ({ products, features, onClearAll }) => {
                                                 </div>
                                                 <h6 className="product-header-name mb-2">{product.name}</h6>
                                                 <div className="product-header-meta">
-                                                    <Badge bg="secondary" className="mb-2">{product.brand}</Badge>
-                                                    <div className="product-header-price mb-2">${product.price}</div>
-                                                    <Badge bg={product.category === 'Mobile' ? 'primary' : 'success'} className="category-badge">
+                                                    <Badge className="badge-custom-secondary mb-2">{product.brand}</Badge>
+                                                    <div className="product-header-price mb-2 text-custom-success">${product.price}</div>
+                                                    <Badge className={`${product.category === 'Mobile' ? 'badge-custom-primary' : 'badge-custom-success'} category-badge`}>
                                                         {product.category}
                                                     </Badge>
                                                 </div>
@@ -281,7 +298,7 @@ const ComparisonView = ({ products, features, onClearAll }) => {
                                                 <td key={product.id} className={`value-cell ${valueType}`}>
                                                     <div className="value-container">
                                                         {valueType === 'best' && highlightBest && (
-                                                            <Award size={14} className="value-icon" />
+                                                            <Award size={14} className="value-icon text-custom-success" />
                                                         )}
                                                         <span className="value-text">
                                                             {value || <span className="text-muted">Not specified</span>}
@@ -316,9 +333,9 @@ const ComparisonView = ({ products, features, onClearAll }) => {
                                 </div>
                                 <div className="product-info-section text-center">
                                     <h5 className="product-name mb-2">{product.name}</h5>
-                                    <Badge bg="secondary" className="mb-2">{product.brand}</Badge>
-                                    <div className="product-price mb-2">${product.price}</div>
-                                    <Badge bg={product.category === 'Mobile' ? 'primary' : 'success'}>
+                                    <Badge className="badge-custom-secondary mb-2">{product.brand}</Badge>
+                                    <div className="product-price mb-2 text-custom-success">${product.price}</div>
+                                    <Badge className={product.category === 'Mobile' ? 'badge-custom-primary' : 'badge-custom-success'}>
                                         {product.category}
                                     </Badge>
                                 </div>
@@ -326,7 +343,7 @@ const ComparisonView = ({ products, features, onClearAll }) => {
                             
                             <Card.Body className="specs-section">
                                 <h6 className="specs-section-title mb-3">
-                                    <Filter size={16} className="me-2" />
+                                    <Filter size={16} className="me-2 text-custom-primary" />
                                     Specifications
                                 </h6>
                                 {currentFeatures.map((feature) => {
@@ -350,13 +367,13 @@ const ComparisonView = ({ products, features, onClearAll }) => {
                                             </div>
                                             <div className="spec-value-container">
                                                 {valueType === 'best' && highlightBest && (
-                                                    <Award size={12} className="me-1 text-success" />
+                                                    <Award size={12} className="me-1 text-custom-success" />
                                                 )}
                                                 <span className="spec-value">
                                                     {value || <span className="text-muted">-</span>}
                                                 </span>
                                                 {valueType === 'best' && highlightBest && (
-                                                    <Badge bg="success" size="sm" className="ms-2">Best</Badge>
+                                                    <Badge className="badge-custom-success ms-2">Best</Badge>
                                                 )}
                                             </div>
                                         </div>
@@ -377,10 +394,12 @@ const ComparisonView = ({ products, features, onClearAll }) => {
                 <Row className="align-items-center">
                     <Col>
                         <div className="page-title-section">
-                            <h1 className="page-title">Product Comparison</h1>
+                            <h1 className="page-title text-custom-primary">
+                                Product Comparison
+                            </h1>
                             <p className="page-subtitle">
                                 Analyzing {products.length} products across {currentFeatures.length} features • 
-                                <span className="text-success ms-1">Data updated live</span>
+                                <span className="text-custom-success ms-1">Data updated live</span>
                             </p>
                         </div>
                     </Col>
@@ -389,17 +408,15 @@ const ComparisonView = ({ products, features, onClearAll }) => {
                             <Button 
                                 as={Link} 
                                 to="/" 
-                                variant="outline-primary"
-                                className="d-flex align-items-center"
+                                className="d-flex align-items-center btn-custom-outline-primary"
                             >
                                 <ArrowLeft className="me-2" />
                                 <span className="d-none d-md-inline">Back to Products</span>
                                 <span className="d-inline d-md-none">Back</span>
                             </Button>
                             <Button 
-                                variant="outline-danger" 
                                 onClick={onClearAll}
-                                className="d-flex align-items-center"
+                                className="d-flex align-items-center btn-custom-outline-danger"
                             >
                                 <Trash3 className="me-2" />
                                 <span className="d-none d-md-inline">Clear All</span>
@@ -425,15 +442,15 @@ const ComparisonView = ({ products, features, onClearAll }) => {
                                 <h6 className="legend-title mb-3">Legend & Guide</h6>
                                 <div className="d-flex align-items-center gap-4 flex-wrap">
                                     <div className="legend-item">
-                                        <Award size={16} className="text-success me-2" />
+                                        <Award size={16} className="me-2 text-custom-success" />
                                         <span>Best Value</span>
                                     </div>
                                     <div className="legend-item">
-                                        <div className="legend-dot neutral me-2"></div>
+                                        <div className="legend-dot me-2 neutral"></div>
                                         <span>Standard</span>
                                     </div>
                                     <div className="legend-item">
-                                        <div className="legend-dot muted me-2"></div>
+                                        <div className="legend-dot me-2 muted"></div>
                                         <span>Not Specified</span>
                                     </div>
                                 </div>
@@ -441,7 +458,7 @@ const ComparisonView = ({ products, features, onClearAll }) => {
                             <Col md={6} className="text-md-end mt-3 mt-md-0">
                                 <small className="text-muted">
                                     Comparison updated: {new Date().toLocaleDateString()} • 
-                                    <span className="text-primary ms-1">Real-time pricing</span>
+                                    <span className="text-custom-primary ms-1">Real-time pricing</span>
                                 </small>
                             </Col>
                         </Row>

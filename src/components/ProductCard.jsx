@@ -32,14 +32,13 @@ const ProductCard = ({ product, onCompare, isSelected, isMaxSelected }) => {
                     className="product-card-image"
                 />
                 <Badge 
-                    bg={product.category === 'Mobile' ? 'primary' : 'success'} 
-                    className="position-absolute top-0 end-0 m-2 category-badge"
+                    className={`position-absolute top-0 end-0 m-2 category-badge ${product.category === 'Mobile' ? 'badge-custom-primary' : 'badge-custom-success'}`}
                 >
                     {product.category}
                 </Badge>
                 {isSelected && (
                     <div className="selection-overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center">
-                        <CheckCircleFill className="text-success" size={32} />
+                        <CheckCircleFill className="text-custom-success" size={32} />
                     </div>
                 )}
             </div>
@@ -49,17 +48,23 @@ const ProductCard = ({ product, onCompare, isSelected, isMaxSelected }) => {
                     <Card.Title className="product-title h5 fw-bold mb-2">{product.name}</Card.Title>
                     <Row className="align-items-center mb-2">
                         <Col>
-                            <span className="product-brand text-primary fw-semibold">{product.brand}</span>
+                            <span className="product-brand fw-semibold text-custom-primary">
+                                {product.brand}
+                            </span>
                         </Col>
                         <Col xs="auto">
-                            <span className="product-price h5 fw-bold text-success mb-0">${product.price}</span>
+                            <span className="product-price h5 fw-bold mb-0 text-custom-success">
+                                ${product.price}
+                            </span>
                         </Col>
                     </Row>
                     <p className="product-description text-muted small mb-3">{product.description}</p>
                 </div>
 
                 <div className="product-specs mb-4">
-                    <h6 className="specs-title text-dark fw-semibold mb-3">Key Specifications</h6>
+                    <h6 className="specs-title fw-semibold mb-3">
+                        Key Specifications
+                    </h6>
                     <div className="specs-grid">
                         {Object.entries(product.specs).slice(0, 4).map(([key, value]) => (
                             <div key={key} className="spec-item d-flex justify-content-between py-1">
@@ -71,9 +76,14 @@ const ProductCard = ({ product, onCompare, isSelected, isMaxSelected }) => {
                 </div>
 
                 <Button
-                    variant={isSelected ? "success" : isMaxSelected ? "outline-secondary" : "primary"}
                     size="lg"
-                    className={`product-compare-btn mt-auto ${isSelected ? 'selected' : ''}`}
+                    className={`product-compare-btn mt-auto ${
+                        isSelected 
+                            ? 'btn-custom-success' 
+                            : isMaxSelected 
+                                ? 'btn-custom-outline-secondary disabled' 
+                                : 'btn-custom-primary'
+                    }`}
                     onClick={() => canSelect && onCompare(product)}
                     disabled={isSelected || isMaxSelected}
                 >

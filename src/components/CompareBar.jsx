@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Badge, Container, Row, Col, ProgressBar, Collapse, Card } from "react-bootstrap";
+import { Button, Badge, Container, Row, Col, Collapse, Card } from "react-bootstrap";
 import { XCircle, ArrowRightCircle, Eye, Trash3, ChevronUp, ChevronDown } from "react-bootstrap-icons";
 
 const CompareBar = ({ selectedItems = [], onRemove, onCompare, onClearAll, maxItems = 3 }) => {
@@ -15,22 +15,20 @@ const CompareBar = ({ selectedItems = [], onRemove, onCompare, onClearAll, maxIt
             {/* Floating Action Button - Always Visible */}
             <div className="compare-fab">
                 <Button
-                    variant="primary"
-                    className="fab-btn shadow-lg"
+                    className="fab-btn shadow-lg btn-custom-primary"
                     onClick={() => setIsExpanded(!isExpanded)}
                     aria-label="Toggle comparison bar"
                 >
                     <div className="fab-content">
-                        <Eye size={20} />
-                        <Badge bg="warning" text="dark" className="fab-badge">
+                        <Eye size={20} color="white" />
+                        <Badge className="fab-badge badge-custom-warning">
                             {selectedItems.length}
                         </Badge>
                     </div>
                 </Button>
                 {canCompare && !isExpanded && (
                     <Button
-                        variant="success"
-                        className="fab-compare-btn shadow-lg ms-2"
+                        className="fab-compare-btn shadow-lg ms-2 btn-custom-success"
                         onClick={onCompare}
                     >
                         <ArrowRightCircle size={18} className="me-1" />
@@ -46,8 +44,9 @@ const CompareBar = ({ selectedItems = [], onRemove, onCompare, onClearAll, maxIt
                     <div className="compare-bar-toggle text-center mb-2">
                         <Button
                             variant="link"
-                            className="toggle-btn text-light p-0"
+                            className="toggle-btn text-light p-0 border-0"
                             onClick={() => setIsExpanded(!isExpanded)}
+                            style={{ background: 'transparent' }}
                         >
                             {isExpanded ? <ChevronDown size={20} /> : <ChevronUp size={20} />}
                         </Button>
@@ -65,12 +64,18 @@ const CompareBar = ({ selectedItems = [], onRemove, onCompare, onClearAll, maxIt
                                         {progress.toFixed(0)}% full
                                     </small>
                                 </div>
-                                <ProgressBar 
-                                    now={progress} 
-                                    variant={progress === 100 ? "warning" : progress >= 67 ? "info" : "success"}
-                                    className="progress-animated"
-                                    style={{ height: '6px' }}
-                                />
+                                <div className="custom-progress-bar">
+                                    <div
+                                        className={`custom-progress-fill ${
+                                            progress === 100 
+                                                ? 'bg-custom-warning' 
+                                                : progress >= 67 
+                                                    ? 'bg-custom-info' 
+                                                    : 'bg-custom-success'
+                                        }`}
+                                        style={{ width: `${progress}%` }}
+                                    ></div>
+                                </div>
                             </div>
 
                             {/* Selected Products Preview */}
@@ -85,11 +90,12 @@ const CompareBar = ({ selectedItems = [], onRemove, onCompare, onClearAll, maxIt
                                                     className="mini-product-image mb-1"
                                                 />
                                                 <div className="mini-product-name">{item.name}</div>
-                                                <div className="mini-product-price text-success fw-bold">${item.price}</div>
+                                                <div className="mini-product-price fw-bold text-custom-success">
+                                                    ${item.price}
+                                                </div>
                                                 <Button
                                                     size="sm"
-                                                    variant="outline-danger"
-                                                    className="mini-remove-btn mt-1"
+                                                    className="mini-remove-btn mt-1 btn-custom-outline-danger"
                                                     onClick={() => onRemove(item.id)}
                                                 >
                                                     <XCircle size={12} />
@@ -119,8 +125,7 @@ const CompareBar = ({ selectedItems = [], onRemove, onCompare, onClearAll, maxIt
                                 <Col xs={6}>
                                     <Button
                                         onClick={onClearAll}
-                                        variant="outline-light"
-                                        className="w-100 d-flex align-items-center justify-content-center"
+                                        className="w-100 d-flex align-items-center justify-content-center btn-custom-outline-light"
                                     >
                                         <Trash3 className="me-2" size={16} />
                                         Clear All
@@ -130,8 +135,9 @@ const CompareBar = ({ selectedItems = [], onRemove, onCompare, onClearAll, maxIt
                                     <Button
                                         onClick={onCompare}
                                         disabled={!canCompare}
-                                        variant="success"
-                                        className="w-100 d-flex align-items-center justify-content-center compare-main-btn"
+                                        className={`w-100 d-flex align-items-center justify-content-center ${
+                                            canCompare ? 'btn-custom-success' : 'btn-custom-outline-secondary disabled'
+                                        }`}
                                     >
                                         <ArrowRightCircle className="me-2" />
                                         Compare Now
