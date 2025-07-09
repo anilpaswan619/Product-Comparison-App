@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { Table, Card, Badge, Alert, Button, Row, Col, Tabs, Tab, Container, ProgressBar } from "react-bootstrap";
-import { Trash3, ArrowLeft, Grid3x3Gap, List, Award, ExclamationTriangle } from "react-bootstrap-icons";
+import { Table, Card,  Button, Row, Col, Tabs, Tab, Container,  } from "react-bootstrap";
+import { Trash3, ArrowLeft, Grid3x3Gap, List, Award, ExclamationTriangle, Star, StarFill } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
 
 const getValueType = (value, feature, allValues) => {
@@ -27,243 +27,321 @@ const ComparisonView = ({ products, features, onClearAll }) => {
     const [viewMode, setViewMode] = useState('table');
     const [activeTab, setActiveTab] = useState('all');
     const [highlightBest] = useState(true);
+    const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth < 768);
+        };
+
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     if (!products || products.length === 0) {
         return (
-            <Container className="text-center py-3 py-md-5">
-                <Alert className="comparison-empty-state border-0" style={{ background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(99, 102, 241, 0.02))' }}>
-                    <div className="empty-state-icon mb-3">
-                        <Grid3x3Gap size={window.innerWidth < 768 ? 32 : 48} className="text-custom-primary" />
-                    </div>
-                    <h4 className="h5 h-md-4">No Products Selected</h4>
-                    <p className="mb-3 small">Select at least 2 products from the home page to start comparing their features and specifications.</p>
-                    <Button 
-                        as={Link} 
-                        to="/" 
-                        size={window.innerWidth < 768 ? "md" : "lg"}
-                        className="btn-custom-primary"
-                    >
-                        <ArrowLeft className="me-2" size={window.innerWidth < 768 ? 14 : 16} />
-                        Browse Products
-                    </Button>
-                </Alert>
+            <Container className="text-center py-5">
+                <div className="empty-state-wrapper mx-auto" style={{ maxWidth: '500px' }}>
+                    <Card className="border-0 shadow-lg" style={{ 
+                        borderRadius: '20px',
+                        background: 'linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%) !important',
+                        color: 'white'
+                    }}>
+                        <Card.Body className="p-5">
+                            <div className="empty-state-icon mb-4">
+                                <div className="icon-circle mx-auto d-flex align-items-center justify-content-center" style={{
+                                    width: isMobile ? '80px' : '100px',
+                                    height: isMobile ? '80px' : '100px',
+                                    background: 'rgba(255,255,255,0.2)',
+                                    borderRadius: '50%'
+                                }}>
+                                    <Grid3x3Gap size={isMobile ? 32 : 40} />
+                                </div>
+                            </div>
+                            <h3 className="mb-3" style={{ fontSize: isMobile ? '1.5rem' : '2rem' }}>No Products Selected</h3>
+                            <p className="mb-4 opacity-90" style={{ fontSize: isMobile ? '0.9rem' : '1.1rem' }}>
+                                Start comparing products by selecting at least 2 items from our catalog
+                            </p>
+                            <Button 
+                                as={Link} 
+                                to="/" 
+                                size={isMobile ? "md" : "lg"}
+                                className="btn-light text-dark fw-bold px-4 py-2"
+                                style={{ borderRadius: '50px', boxShadow: '0 4px 15px rgba(0,0,0,0.2)' }}
+                            >
+                                <ArrowLeft className="me-2" size={16} />
+                                Browse Products
+                            </Button>
+                        </Card.Body>
+                    </Card>
+                </div>
             </Container>
         );
     }
 
     if (products.length < 2) {
         return (
-            <Container className="text-center py-3 py-md-5">
-                <Alert className="comparison-empty-state border-0" style={{ background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.05), rgba(245, 158, 11, 0.02))' }}>
-                    <div className="empty-state-icon mb-3">
-                        <ExclamationTriangle size={window.innerWidth < 768 ? 32 : 48} className="text-custom-warning" />
-                    </div>
-                    <h4 className="h5 h-md-4">Need More Products</h4>
-                    <p className="mb-3 small">You have {products.length} product selected. Add at least one more to start comparing.</p>
-                    <Button 
-                        as={Link} 
-                        to="/" 
-                        size={window.innerWidth < 768 ? "md" : "lg"}
-                        className="btn-custom-primary"
-                    >
-                        <ArrowLeft className="me-2" size={window.innerWidth < 768 ? 14 : 16} />
-                        Add More Products
-                    </Button>
-                </Alert>
+            <Container className="text-center py-5">
+                <div className="empty-state-wrapper mx-auto" style={{ maxWidth: '500px' }}>
+                    <Card className="border-0 shadow-lg" style={{ 
+                        borderRadius: '20px',
+                        background: 'linear-gradient(135deg, #ff6b6b 0%, #d63031 100%)',
+                        color: 'white'
+                    }}>
+                        <Card.Body className="p-5">
+                            <div className="empty-state-icon mb-4">
+                                <div className="icon-circle mx-auto d-flex align-items-center justify-content-center" style={{
+                                    width: isMobile ? '80px' : '100px',
+                                    height: isMobile ? '80px' : '100px',
+                                    background: 'rgba(255,255,255,0.2)',
+                                    borderRadius: '50%'
+                                }}>
+                                    <ExclamationTriangle size={isMobile ? 32 : 40} />
+                                </div>
+                            </div>
+                            <h3 className="mb-3" style={{ fontSize: isMobile ? '1.5rem' : '2rem' }}>Need More Products</h3>
+                            <p className="mb-4 opacity-90" style={{ fontSize: isMobile ? '0.9rem' : '1.1rem' }}>
+                                You have {products.length} product selected. Add at least one more to start comparing.
+                            </p>
+                            <Button 
+                                as={Link} 
+                                to="/" 
+                                size={isMobile ? "md" : "lg"}
+                                className="btn-light text-dark fw-bold px-4 py-2"
+                                style={{ borderRadius: '50px', boxShadow: '0 4px 15px rgba(0,0,0,0.2)' }}
+                            >
+                                <ArrowLeft className="me-2" size={16} />
+                                Add More Products
+                            </Button>
+                        </Card.Body>
+                    </Card>
+                </div>
             </Container>
         );
     }
 
     const categorizedFeatures = {
         all: features,
-        basic: features.filter(f => ['display', 'processor', 'ram', 'storage'].includes(f)),
-        performance: features.filter(f => ['processor', 'ram', 'battery'].includes(f)),
-        display: features.filter(f => ['display'].includes(f)),
-        other: features.filter(f => !['display', 'processor', 'ram', 'storage', 'battery'].includes(f))
+        basic: features.filter(f => ['display', 'processor', 'ram', 'storage'].some(key => f.toLowerCase().includes(key))),
+        performance: features.filter(f => ['processor', 'ram', 'battery', 'cpu', 'gpu'].some(key => f.toLowerCase().includes(key))),
+        display: features.filter(f => ['display', 'screen', 'resolution'].some(key => f.toLowerCase().includes(key))),
+        other: features.filter(f => !['display', 'processor', 'ram', 'storage', 'battery', 'cpu', 'gpu', 'screen', 'resolution'].some(key => f.toLowerCase().includes(key)))
     };
 
     const currentFeatures = categorizedFeatures[activeTab] || features;
 
-    const renderEnhancedToolbar = () => (
-        <Card className="comparison-toolbar-card mb-2 border-0 shadow-sm">
-            <Card.Body className="py-2 px-2 px-md-3">
-                <Container fluid>
+    const renderModernToolbar = () => (
+        <Card className="border-0 shadow-sm mb-4" style={{ borderRadius: '16px', overflow: 'hidden' }}>
+            <div style={{ background: 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)' }}>
+                <Card.Body className="py-3 px-4">
                     <Row className="align-items-center">
-                        <Col xs={12} md={8} className="mb-2 mb-md-0">
-                            <div className="d-flex align-items-center gap-2 flex-wrap">
-                                <div className="comparison-stats d-flex gap-2">
-                                    <Badge className="badge-custom-primary px-2 py-1" style={{ fontSize: '0.7rem' }}>
-                                        <strong>{products.length}</strong> Products
-                                    </Badge>
-                                    <Badge className="badge-custom-secondary px-2 py-1" style={{ fontSize: '0.7rem' }}>
-                                        <strong>{currentFeatures.length}</strong> Features
-                                    </Badge>
+                        <Col xs={12} lg={8} className="mb-3 mb-lg-0">
+                            <div className="d-flex align-items-center gap-3 flex-wrap">
+                                <div className="stats-group d-flex gap-2 flex-wrap">
+                                    <div className="stat-badge d-flex align-items-center px-3 py-2 rounded-pill" style={{
+                                        background: 'linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%) !important',
+                                        color: 'white',
+                                        fontSize: '0.85rem',
+                                        fontWeight: '600'
+                                    }}>
+                                        <span>{products.length} Products</span>
+                                    </div>
+                                    <div className="stat-badge d-flex align-items-center px-3 py-2 rounded-pill" style={{
+                                        background: 'linear-gradient(135deg, #48bb78 0%, #38a169 100%)',
+                                        color: 'white',
+                                        fontSize: '0.85rem',
+                                        fontWeight: '600'
+                                    }}>
+                                        <span>{currentFeatures.length} Features</span>
+                                    </div>
                                 </div>
-                                <div className="comparison-progress-mini d-none d-lg-block">
-                                    <small className="text-muted d-block mb-1" style={{ fontSize: '0.7rem' }}>Score</small>
-                                    <ProgressBar 
-                                        now={85}
-                                        style={{ 
-                                            height: '4px', 
-                                            width: '70px', 
-                                            backgroundColor: 'rgba(16, 185, 129, 0.15)',
-                                            borderRadius: '2px'
-                                        }}
-                                    />
-                                </div>
+                                
+                                {!isMobile && (
+                                    <div className="comparison-score d-flex align-items-center gap-2">
+                                        <span className="text-muted fw-medium" style={{ fontSize: '0.8rem' }}>Similarity:</span>
+                                        <div className="score-bar" style={{ width: '60px', height: '6px', background: '#e2e8f0', borderRadius: '3px', overflow: 'hidden' }}>
+                                            <div style={{ 
+                                                width: '85%', 
+                                                height: '100%', 
+                                                background: 'linear-gradient(90deg, var(--primary-color) 0%, var(--primary-dark) 100%)',
+                                                borderRadius: '3px'
+                                            }}></div>
+                                        </div>
+                                        <span className="fw-bold" style={{ fontSize: '0.8rem', color: 'var(--primary-color)' }}>85%</span>
+                                    </div>
+                                )}
                             </div>
                         </Col>
-                        <Col xs={12} md={4}>
-                            <div className="d-flex align-items-center justify-content-center justify-content-md-end">
-                                <div className="view-mode-toggle d-flex border rounded overflow-hidden ">
+                        
+                        <Col xs={12} lg={4}>
+                            <div className="view-toggle-wrapper d-flex justify-content-center justify-content-lg-end">
+                                <div className="view-toggle d-flex p-1 rounded-pill" style={{ 
+                                    background: 'white',
+                                    boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
+                                    border: '1px solid #e2e8f0'
+                                }}>
                                     <Button 
-                                        size="sm"
                                         onClick={() => setViewMode('table')}
-                                        className={`d-flex align-items-center justify-content-center flex-fill flex-md-grow-0 px-2 py-1 border-0 ${
-                                            viewMode === 'table' ? 'btn-custom-primary' : 'btn-outline-secondary bg-white'
+                                        className={`d-flex align-items-center justify-content-center px-3 py-2 border-0 rounded-pill transition-all ${
+                                            viewMode === 'table' 
+                                                ? 'text-white' 
+                                                : 'text-muted bg-transparent'
                                         }`}
-                                        style={{ borderRadius: 0, fontSize: '0.7rem' }}
+                                        style={{ 
+                                            background: viewMode === 'table' 
+                                                ? 'linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%) !important'
+                                                : 'transparent',
+                                            fontSize: '0.85rem',
+                                            fontWeight: '600',
+                                            minWidth: isMobile ? '80px' : '90px',
+                                            transition: 'all 0.3s ease'
+                                        }}
                                     >
-                                        <List size={12} className="me-1" />
-                                        <span>Table</span>
+                                        <List size={14} className="me-1" />
+                                        Table
                                     </Button>
                                     
                                     <Button 
-                                        size="sm"
                                         onClick={() => setViewMode('cards')}
-                                        className={`d-flex align-items-center justify-content-center flex-fill flex-md-grow-0 px-2 py-1 border-0 ${
-                                            viewMode === 'cards' ? 'btn-custom-primary' : 'btn-outline-secondary bg-white'
+                                        className={`d-flex align-items-center justify-content-center px-3 py-2 border-0 rounded-pill transition-all ${
+                                            viewMode === 'cards' 
+                                                ? 'text-white' 
+                                                : 'text-muted bg-transparent'
                                         }`}
-                                        style={{ borderRadius: 0, fontSize: '0.7rem' }}
+                                        style={{ 
+                                            background: viewMode === 'cards' 
+                                                ? 'linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%) !important'
+                                                : 'transparent',
+                                            fontSize: '0.85rem',
+                                            fontWeight: '600',
+                                            minWidth: isMobile ? '80px' : '90px',
+                                            transition: 'all 0.3s ease'
+                                        }}
                                     >
-                                        <Grid3x3Gap size={12} className="me-1" />
-                                        <span>Cards</span>
+                                        <Grid3x3Gap size={14} className="me-1" />
+                                        Cards
                                     </Button>
                                 </div>
                             </div>
                         </Col>
                     </Row>
-                </Container>
-            </Card.Body>
+                </Card.Body>
+            </div>
         </Card>
     );
 
-    const renderTableView = () => (
-        <Card className="comparison-card border-0 shadow-sm" style={{ borderRadius: '8px' }}>
-            {/* Enhanced Feature Categories Tabs */}
-            <div className="feature-tabs-container bg-light" style={{ borderRadius: '8px 8px 0 0' }}>
-                <Container fluid className="px-2 px-md-3">
+    const renderModernTableView = () => (
+        <Card className="border-0 shadow-lg" style={{ borderRadius: '20px', overflow: 'hidden' }}>
+            {/* Feature Tabs */}
+            <div style={{ background: '#f8fafc' }}>
+                <Container fluid className="px-4 pt-3">
                     <Tabs
                         activeKey={activeTab}
                         onSelect={setActiveTab}
-                        className="comparison-tabs border-0 pt-2"
+                        className="modern-tabs border-0"
                         variant="pills"
                     >
-                        <Tab 
-                            eventKey="all" 
-                            title={
-                                <div className="tab-title d-flex align-items-center gap-1">
-                                    <span className="fw-semibold" style={{ fontSize: '0.7rem' }}>All</span>
-                                    <Badge bg="secondary" className="rounded-pill d-none d-sm-inline" style={{ fontSize: '0.6rem' }}>{categorizedFeatures.all.length}</Badge>
-                                </div>
-                            } 
-                        />
-                        <Tab 
-                            eventKey="basic" 
-                            title={
-                                <div className="tab-title d-flex align-items-center gap-1">
-                                    <span className="fw-semibold" style={{ fontSize: '0.7rem' }}>Essential</span>
-                                    <Badge bg="secondary" className="rounded-pill d-none d-sm-inline" style={{ fontSize: '0.6rem' }}>{categorizedFeatures.basic.length}</Badge>
-                                </div>
-                            } 
-                        />
-                        <Tab 
-                            eventKey="performance" 
-                            title={
-                                <div className="tab-title d-flex align-items-center gap-1">
-                                    <span className="fw-semibold" style={{ fontSize: '0.7rem' }}>Performance</span>
-                                    <Badge bg="secondary" className="rounded-pill d-none d-sm-inline" style={{ fontSize: '0.6rem' }}>{categorizedFeatures.performance.length}</Badge>
-                                </div>
-                            } 
-                        />
-                        <Tab 
-                            eventKey="display" 
-                            title={
-                                <div className="tab-title d-flex align-items-center gap-1">
-                                    <span className="fw-semibold" style={{ fontSize: '0.7rem' }}>Display</span>
-                                    <Badge bg="secondary" className="rounded-pill d-none d-sm-inline" style={{ fontSize: '0.6rem' }}>{categorizedFeatures.display.length}</Badge>
-                                </div>
-                            } 
-                        />
-                        <Tab 
-                            eventKey="other" 
-                            title={
-                                <div className="tab-title d-flex align-items-center gap-1">
-                                    <span className="fw-semibold" style={{ fontSize: '0.7rem' }}>Other</span>
-                                    <Badge bg="secondary" className="rounded-pill d-none d-sm-inline" style={{ fontSize: '0.6rem' }}>{categorizedFeatures.other.length}</Badge>
-                                </div>
-                            } 
-                        />
+                        {Object.entries(categorizedFeatures).map(([key, featureList]) => (
+                            <Tab 
+                                key={key}
+                                eventKey={key} 
+                                title={
+                                    <div className="modern-tab-title d-flex align-items-center gap-2">
+                                        <span className="fw-semibold text-capitalize" style={{ fontSize: isMobile ? '0.75rem' : '0.85rem' }}>
+                                            {key === 'basic' ? 'Essential' : key}
+                                        </span>
+                                        <div className="feature-count px-2 py-1 rounded-pill" style={{
+                                            background: activeTab === key ? 'rgba(255,255,255,0.3)' : 'rgba(var(--primary-rgb), 0.1)',
+                                            color: activeTab === key ? 'white' : 'var(--primary-color)',
+                                            fontSize: '0.7rem',
+                                            fontWeight: '600',
+                                            minWidth: '24px',
+                                            textAlign: 'center'
+                                        }}>
+                                            {featureList.length}
+                                        </div>
+                                    </div>
+                                } 
+                            />
+                        ))}
                     </Tabs>
                 </Container>
             </div>
 
             <Card.Body className="p-0">
-                <div className="comparison-table-wrapper" style={{ overflowX: 'auto' }}>
-                    <Table borderless className="comparison-table mb-0 table-fixed">
-                        <thead className="bg-light sticky-top">
+                <div className="table-wrapper" style={{ overflowX: 'auto', maxHeight: isMobile ? '70vh' : 'none' }}>
+                    <Table className="modern-comparison-table mb-0">
+                        <thead style={{ 
+                            background: 'linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%) !important',
+                            color: 'white',
+                            position: 'sticky',
+                            top: 0,
+                            zIndex: 10
+                        }}>
                             <tr>
-                                <th className="feature-header sticky-column" style={{ 
-                                    width: window.innerWidth < 768 ? '120px' : '160px',
-                                    minWidth: window.innerWidth < 768 ? '120px' : '160px',
-                                    maxWidth: window.innerWidth < 768 ? '120px' : '160px',
-                                    backgroundColor: '#f8f9fa',
+                                <th className="feature-column" style={{ 
+                                    width: isMobile ? '140px' : '200px',
+                                    minWidth: isMobile ? '140px' : '200px',
+                                    padding: isMobile ? '12px 8px' : '16px 20px',
+                                    fontWeight: '700',
+                                    fontSize: isMobile ? '0.8rem' : '0.9rem',
                                     position: 'sticky',
                                     left: 0,
-                                    zIndex: 20,
-                                    padding: window.innerWidth < 768 ? '8px 4px' : '12px 8px',
-                                    borderRight: '1px solid #dee2e6'
+                                    zIndex: 11,
+                                    verticalAlign: 'middle',
+                                    borderRight: '2px solid rgba(255,255,255,0.2)'
                                 }}>
-                                    <span className="fw-bold text-dark" style={{ fontSize: window.innerWidth < 768 ? '0.7rem' : '0.8rem' }}>Features</span>
+                                    Features
                                 </th>
                                 {products.map((product) => (
-                                    <th key={product.id} className="product-header" style={{ 
-                                        width: window.innerWidth < 768 ? '110px' : '140px',
-                                        minWidth: window.innerWidth < 768 ? '110px' : '140px',
-                                        maxWidth: window.innerWidth < 768 ? '110px' : '140px',
-                                        padding: window.innerWidth < 768 ? '6px 2px' : '8px 4px'
+                                    <th key={product.id} className="product-column text-center" style={{ 
+                                        width: isMobile ? '140px' : '200px',
+                                        minWidth: isMobile ? '140px' : '200px',
+                                        padding: isMobile ? '8px 4px' : '12px 8px'
                                     }}>
-                                        <div className="text-center">
-                                            <div className="mb-1 mb-md-2">
-                                                <img 
-                                                    src={product.image} 
-                                                    alt={product.name} 
-                                                    style={{ 
-                                                        width: window.innerWidth < 768 ? '24px' : '32px', 
-                                                        height: window.innerWidth < 768 ? '24px' : '32px', 
-                                                        objectFit: 'contain',
-                                                        borderRadius: '4px'
-                                                    }}
-                                                />
+                                        <div className="product-header-content">
+                                            <div className="product-image mb-3">
+                                                <div className="image-wrapper d-inline-block p-3 rounded-circle" style={{
+                                                    background: 'rgba(255,255,255,0.2)',
+                                                    border: '2px solid rgba(255,255,255,0.3)'
+                                                }}>
+                                                    <img 
+                                                        src={product.image} 
+                                                        alt={product.name} 
+                                                        style={{ 
+                                                            width: isMobile ? '40px' : '50px', 
+                                                            height: isMobile ? '40px' : '50px', 
+                                                            objectFit: 'contain',
+                                                            borderRadius: '6px'
+                                                        }}
+                                                    />
+                                                </div>
                                             </div>
-                                            <div className="fw-bold text-dark mb-1" style={{ 
-                                                fontSize: window.innerWidth < 768 ? '0.6rem' : '0.7rem', 
-                                                lineHeight: '1.2',
-                                                overflow: 'hidden',
-                                                textOverflow: 'ellipsis',
-                                                whiteSpace: 'nowrap'
-                                            }}>
-                                                {product.name.length > (window.innerWidth < 768 ? 12 : 15) ? 
-                                                    product.name.substring(0, window.innerWidth < 768 ? 12 : 15) + '...' : 
-                                                    product.name}
+                                            <div className="product-info">
+                                                <div className="product-name fw-bold mb-2" style={{ 
+                                                    fontSize: isMobile ? '0.75rem' : '0.85rem', 
+                                                    lineHeight: '1.2'
+                                                }}>
+                                                    {product.name.length > (isMobile ? 12 : 16) ? 
+                                                        product.name.substring(0, isMobile ? 12 : 16) + '...' : 
+                                                        product.name}
+                                                </div>
+                                                <div className="d-flex justify-content-center align-items-center gap-2 mb-2">
+                                                    <div className="brand-badge px-2 py-1 rounded-pill" style={{
+                                                        background: 'rgba(255,255,255,0.2)',
+                                                        fontSize: isMobile ? '0.6rem' : '0.65rem',
+                                                        fontWeight: '600'
+                                                    }}>
+                                                        {product.brand}
+                                                    </div>
+                                                    <div className="price fw-bold" style={{ 
+                                                        fontSize: isMobile ? '0.8rem' : '0.9rem',
+                                                        color: '#ffd700'
+                                                    }}>
+                                                        ${product.price}
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <Badge className="badge-custom-secondary mb-1" style={{ fontSize: window.innerWidth < 768 ? '0.5rem' : '0.6rem' }}>{product.brand}</Badge>
-                                            <div className="text-custom-success fw-bold" style={{ fontSize: window.innerWidth < 768 ? '0.7rem' : '0.8rem' }}>
-                                                ${product.price}
-                                            </div>
-                                            <Badge className={`${product.category === 'Mobile' ? 'badge-custom-primary' : 'badge-custom-success'}`} style={{ fontSize: window.innerWidth < 768 ? '0.5rem' : '0.55rem' }}>
-                                                {product.category.substring(0, 3)}
-                                            </Badge>
                                         </div>
                                     </th>
                                 ))}
@@ -274,27 +352,32 @@ const ComparisonView = ({ products, features, onClearAll }) => {
                                 const allValues = products.map(p => p.specs[feature]).filter(Boolean);
                                 
                                 return (
-                                    <tr key={feature} className={index % 2 === 0 ? 'bg-white' : 'bg-light bg-opacity-25'}>
-                                        <td className="feature-cell sticky-column" style={{ 
-                                            backgroundColor: index % 2 === 0 ? '#ffffff' : '#f8f9fa',
+                                    <tr key={feature} className={index % 2 === 0 ? 'row-even' : 'row-odd'} style={{
+                                        background: index % 2 === 0 ? '#ffffff' : '#f8fafc',
+                                        borderBottom: '1px solid #e2e8f0',
+                                        transition: 'all 0.2s ease'
+                                    }}>
+                                        <td className="feature-name-cell" style={{ 
                                             position: 'sticky',
                                             left: 0,
-                                            zIndex: 10,
-                                            width: window.innerWidth < 768 ? '120px' : '160px',
-                                            minWidth: window.innerWidth < 768 ? '120px' : '160px',
-                                            maxWidth: window.innerWidth < 768 ? '120px' : '160px',
-                                            padding: window.innerWidth < 768 ? '6px 4px' : '8px',
-                                            borderRight: '1px solid #dee2e6'
+                                            zIndex: 9,
+                                            background: index % 2 === 0 ? '#ffffff' : '#f8fafc',
+                                            padding: isMobile ? '12px 8px' : '16px 20px',
+                                            borderRight: '2px solid #e2e8f0',
+                                            fontWeight: '600',
+                                            fontSize: isMobile ? '0.75rem' : '0.85rem',
+                                            color: '#374151',
+                                            verticalAlign: 'middle',
                                         }}>
-                                            <span className="fw-semibold text-dark" style={{ 
-                                                fontSize: window.innerWidth < 768 ? '0.6rem' : '0.7rem',
-                                                overflow: 'hidden',
-                                                textOverflow: 'ellipsis',
-                                                whiteSpace: 'nowrap',
-                                                display: 'block'
-                                            }}>
-                                                {feature}
-                                            </span>
+                                            <div className="feature-label justify-content-center d-flex align-items-center gap-2">
+                                                <span style={{ 
+                                                    overflow: 'hidden',
+                                                    textOverflow: 'ellipsis',
+                                                    whiteSpace: 'nowrap'
+                                                }}>
+                                                    {feature}
+                                                </span>
+                                            </div>
                                         </td>
                                         {products.map((product) => {
                                             const value = product.specs && product.specs[feature];
@@ -302,32 +385,46 @@ const ComparisonView = ({ products, features, onClearAll }) => {
                                             
                                             return (
                                                 <td key={product.id} className="value-cell text-center" style={{ 
-                                                    width: window.innerWidth < 768 ? '110px' : '140px',
-                                                    minWidth: window.innerWidth < 768 ? '110px' : '140px',
-                                                    maxWidth: window.innerWidth < 768 ? '110px' : '140px',
-                                                    padding: window.innerWidth < 768 ? '6px 2px' : '8px 4px'
+                                                    padding: isMobile ? '12px 4px' : '16px 8px',
+                                                    verticalAlign: 'middle'
                                                 }}>
                                                     <div className="value-container">
-                                                        {valueType === 'best' && highlightBest && window.innerWidth >= 768 && (
-                                                            <Award size={10} className="value-icon text-custom-success mb-1" />
+                                                        {valueType === 'best' && highlightBest && (
+                                                            <div className="best-indicator mb-1">
+                                                                <Award size={isMobile ? 12 : 14} className="text-warning" />
+                                                            </div>
                                                         )}
-                                                        <div className={`value-text d-inline-block px-1 px-md-2 py-1 rounded ${
-                                                            valueType === 'best' ? 'bg-success bg-opacity-10 text-success fw-bold' :
-                                                            'bg-primary bg-opacity-10 text-primary'
+                                                        <div className={`value-display px-3 py-2 rounded-pill d-inline-block ${
+                                                            valueType === 'best' 
+                                                                ? 'best-value' 
+                                                                : 'normal-value'
                                                         }`} style={{ 
-                                                            fontSize: window.innerWidth < 768 ? '0.55rem' : '0.65rem',
+                                                            background: valueType === 'best' 
+                                                                ? 'linear-gradient(135deg, #48bb78 0%, #38a169 100%)'
+                                                                : '#f1f5f9',
+                                                            color: valueType === 'best' ? 'white' : '#475569',
+                                                            fontSize: isMobile ? '0.7rem' : '0.8rem',
+                                                            fontWeight: valueType === 'best' ? '700' : '600',
+                                                            minWidth: isMobile ? '60px' : '80px',
+                                                            maxWidth: isMobile ? '100px' : '140px',
                                                             overflow: 'hidden',
                                                             textOverflow: 'ellipsis',
                                                             whiteSpace: 'nowrap',
-                                                            maxWidth: window.innerWidth < 768 ? '90px' : '120px'
+                                                            border: valueType === 'best' ? 'none' : '1px solid #e2e8f0'
                                                         }}>
-                                                            {value || <span className="text-muted">Normal</span>}
+                                                            {value || <span className="text-muted">N/A</span>}
                                                         </div>
                                                         {valueType === 'best' && highlightBest && (
-                                                            <div className="mt-1">
-                                                                <Badge className="badge-custom-success" style={{ fontSize: window.innerWidth < 768 ? '0.4rem' : '0.5rem' }}>
-                                                                    {window.innerWidth < 768 ? '★' : 'BEST'}
-                                                                </Badge>
+                                                            <div className="best-badge mt-1">
+                                                                <span className="px-2 py-1 rounded-pill d-inline-block" style={{
+                                                                    background: 'linear-gradient(135deg, #ffd700 0%, #ffed4e 100%)',
+                                                                    color: '#744210',
+                                                                    fontSize: isMobile ? '0.6rem' : '0.7rem',
+                                                                    fontWeight: '700',
+                                                                    boxShadow: '0 2px 8px rgba(255, 215, 0, 0.4)'
+                                                                }}>
+                                                                    {isMobile ? '★' : 'BEST'}
+                                                                </span>
                                                             </div>
                                                         )}
                                                     </div>
@@ -344,93 +441,166 @@ const ComparisonView = ({ products, features, onClearAll }) => {
         </Card>
     );
 
-    const renderCardView = () => (
-        <div className="comparison-cards-container">
-            <Row className="g-2 g-md-3">
+    const renderModernCardView = () => (
+        <div className="modern-cards-container">
+            <Row className={`g-${isMobile ? '3' : '4'}`}>
                 {products.map((product, index) => (
                     <Col key={product.id} xs={12} sm={6} lg={4} xl={4}>
-                        <Card className="product-comparison-card h-100 border-0 shadow-sm" style={{ borderRadius: '8px' }}>
-                            <div className="comparison-card-header p-2 p-md-3" style={{ background: 'linear-gradient(135deg, #f8fafc, #fff)', borderRadius: '8px 8px 0 0' }}>
-                                <div className="d-flex align-items-center justify-content-between mb-2">
-                                    <Badge className="badge-custom-primary px-2 py-1" style={{ fontSize: '0.6rem' }}>#{index + 1}</Badge>
-                                    <div className="rating-stars text-warning d-none d-sm-block" style={{ fontSize: '0.7rem' }}>
-                                        {'★'.repeat(4)}{'☆'.repeat(1)}
-                                        <small className="text-muted ms-1" style={{ fontSize: '0.6rem' }}>4.0</small>
+                        <Card className="product-card h-100 border-0 shadow-lg position-relative overflow-hidden" style={{ 
+                            borderRadius: '20px',
+                            transition: 'all 0.3s ease',
+                            background: 'white'
+                        }}>
+                            {/* Card Header with Theme Gradient */}
+                            <div className="card-header-modern p-4" style={{ 
+                                background: 'linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%) !important',
+                                color: 'white'
+                            }}>
+                                <div className="d-flex justify-content-between align-items-start mb-3">
+                                    <div className="rank-badge px-3 py-1 rounded-pill" style={{
+                                        background: 'rgba(255,255,255,0.2)',
+                                        fontSize: '0.8rem',
+                                        fontWeight: '700'
+                                    }}>
+                                        #{index + 1}
+                                    </div>
+                                    <div className="rating-display d-flex align-items-center gap-1">
+                                        {[...Array(5)].map((_, i) => (
+                                            <span key={i} className="star-icon">
+                                                {i < 4 ? <StarFill size={12} className="text-warning" /> : <Star size={12} className="text-warning opacity-50" />}
+                                            </span>
+                                        ))}
+                                        <span className="ms-1" style={{ fontSize: '0.75rem', opacity: 0.9 }}>4.0</span>
                                     </div>
                                 </div>
                                 
-                                <div className="text-center">
-                                    <div className="product-image-section mb-2">
-                                        <img 
-                                            src={product.image} 
-                                            alt={product.name} 
-                                            style={{
-                                                width: window.innerWidth < 768 ? '40px' : '50px',
-                                                height: window.innerWidth < 768 ? '40px' : '50px',
-                                                objectFit: 'contain',
-                                                borderRadius: '6px',
-                                                background: 'white',
-                                                padding: '4px',
-                                                border: '1px solid #e9ecef'
-                                            }}
-                                        />
+                                <div className="product-showcase text-center">
+                                    <div className="product-image-container mb-3">
+                                        <div className="image-wrapper d-inline-block p-4 rounded-circle" style={{
+                                            background: 'rgba(255,255,255,0.15)',
+                                            border: '3px solid rgba(255,255,255,0.2)'
+                                        }}>
+                                            <img 
+                                                src={product.image} 
+                                                alt={product.name} 
+                                                style={{
+                                                    width: isMobile ? '60px' : '70px',
+                                                    height: isMobile ? '60px' : '70px',
+                                                    objectFit: 'contain',
+                                                    borderRadius: '8px'
+                                                }}
+                                            />
+                                        </div>
                                     </div>
                                     
-                                    <h6 className="product-name mb-2 fw-bold text-dark" style={{ fontSize: window.innerWidth < 768 ? '0.75rem' : '0.85rem' }}>{product.name}</h6>
-                                    <div className="d-flex align-items-center justify-content-center gap-1 mb-2 flex-wrap">
-                                        <Badge className="badge-custom-secondary" style={{ fontSize: window.innerWidth < 768 ? '0.55rem' : '0.6rem' }}>{product.brand}</Badge>
-                                        <Badge className={product.category === 'Mobile' ? 'badge-custom-primary' : 'badge-custom-success'} style={{ fontSize: window.innerWidth < 768 ? '0.55rem' : '0.6rem' }}>
-                                            {product.category}
-                                        </Badge>
+                                    <h5 className="product-title mb-3 fw-bold" style={{ 
+                                        fontSize: isMobile ? '1rem' : '1.1rem',
+                                        lineHeight: '1.3'
+                                    }}>
+                                        {product.name}
+                                    </h5>
+                                    
+                                    <div className="product-meta d-flex justify-content-center align-items-center gap-3 mb-0">
+                                        <span className="brand-badge px-3 py-1 rounded-pill" style={{
+                                            background: 'rgba(255,255,255,0.2)',
+                                            fontSize: '0.75rem',
+                                            fontWeight: '600'
+                                        }}>
+                                            {product.brand}
+                                        </span>
+                                        <div className="price-tag" style={{ 
+                                            fontSize: isMobile ? '1.2rem' : '1.3rem',
+                                            fontWeight: '800',
+                                            color: '#ffd700'
+                                        }}>
+                                            ${product.price}
+                                        </div>
                                     </div>
-                                    <div className="product-price text-custom-success fw-bold mb-0" style={{ fontSize: window.innerWidth < 768 ? '0.9rem' : '1rem' }}>${product.price}</div>
                                 </div>
                             </div>
                             
-                            <Card.Body className="p-2 p-md-3">
-                                <h6 className="specs-section-title mb-2 fw-bold text-dark border-bottom pb-1" style={{ fontSize: window.innerWidth < 768 ? '0.7rem' : '0.75rem' }}>
-                                    Specifications
-                                </h6>
-                                <div className="specs-list">
-                                    {currentFeatures.slice(0, window.innerWidth < 768 ? 4 : 5).map((feature) => {
+                            {/* Card Body with Specifications */}
+                            <Card.Body className="p-4">
+                                <div className="specs-header d-flex align-items-center gap-2 mb-3 pb-2 border-bottom">
+                                    <h6 className="specs-title mb-0 fw-bold text-dark" style={{ 
+                                        fontSize: isMobile ? '0.9rem' : '1rem'
+                                    }}>
+                                        Key Specifications
+                                    </h6>
+                                </div>
+                                
+                                <div className="specs-grid">
+                                    {currentFeatures.slice(0, isMobile ? 5 : 6).map((feature) => {
                                         const value = product.specs[feature];
                                         const allValues = products.map(p => p.specs[feature]).filter(Boolean);
                                         const valueType = highlightBest && value ? getValueType(value, feature, allValues) : 'neutral';
                                         
                                         return (
-                                            <div key={feature} className={`comparison-spec-item d-flex justify-content-between align-items-center py-1 ${valueType === 'best' ? 'bg-success bg-opacity-10 px-2 rounded my-1' : ''}`}>
-                                                <span className="spec-label fw-medium text-dark" style={{ 
-                                                    fontSize: window.innerWidth < 768 ? '0.6rem' : '0.65rem',
-                                                    overflow: 'hidden',
-                                                    textOverflow: 'ellipsis',
-                                                    whiteSpace: 'nowrap',
-                                                    maxWidth: window.innerWidth < 768 ? '70px' : '80px'
-                                                }}>{feature}:</span>
-                                                <div className="spec-value-container d-flex align-items-center gap-1">
-                                                    {valueType === 'best' && highlightBest && window.innerWidth >= 768 && (
-                                                        <Award size={8} className="text-custom-success" />
+                                            <div key={feature} className={`spec-row d-flex justify-content-between align-items-center py-2 px-3 rounded-lg mb-2 ${
+                                                valueType === 'best' ? 'best-spec' : 'normal-spec'
+                                            }`} style={{
+                                                background: valueType === 'best' 
+                                                    ? 'linear-gradient(135deg, rgba(72, 187, 120, 0.1) 0%, rgba(56, 161, 105, 0.1) 100%)'
+                                                    : '#f8fafc',
+                                                border: valueType === 'best' 
+                                                    ? '1px solid rgba(72, 187, 120, 0.2)'
+                                                    : '1px solid #e2e8f0',
+                                                borderRadius: '8px'
+                                            }}>
+                                                <div className="spec-label-container d-flex align-items-center gap-2">
+                                                    {valueType === 'best' && (
+                                                        <Award size={12} className="text-success" />
                                                     )}
-                                                    <span className={`spec-value ${valueType === 'best' ? 'fw-bold text-success' : 'text-dark'}`} style={{ 
-                                                        fontSize: window.innerWidth < 768 ? '0.6rem' : '0.65rem',
+                                                    <span className="spec-label fw-medium text-dark" style={{ 
+                                                        fontSize: isMobile ? '0.75rem' : '0.8rem',
+                                                        maxWidth: isMobile ? '80px' : '100px',
                                                         overflow: 'hidden',
                                                         textOverflow: 'ellipsis',
-                                                        whiteSpace: 'nowrap',
-                                                        maxWidth: window.innerWidth < 768 ? '50px' : '60px'
+                                                        whiteSpace: 'nowrap'
                                                     }}>
-                                                        {value || <span className="text-muted">-</span>}
+                                                        {feature}:
                                                     </span>
-                                                    {valueType === 'best' && highlightBest && (
-                                                        <Badge className="badge-custom-success" style={{ fontSize: window.innerWidth < 768 ? '0.4rem' : '0.5rem' }}>★</Badge>
+                                                </div>
+                                                
+                                                <div className="spec-value-container d-flex align-items-center gap-1">
+                                                    <span className={`spec-value fw-bold ${
+                                                        valueType === 'best' ? 'text-success' : 'text-dark'
+                                                    }`} style={{ 
+                                                        fontSize: isMobile ? '0.75rem' : '0.8rem',
+                                                        maxWidth: isMobile ? '70px' : '90px',
+                                                        overflow: 'hidden',
+                                                        textOverflow: 'ellipsis',
+                                                        whiteSpace: 'nowrap'
+                                                    }}>
+                                                        {value || <span className="text-muted">N/A</span>}
+                                                    </span>
+                                                    {valueType === 'best' && (
+                                                        <span className="best-star px-1 py-0 rounded-circle d-inline-flex align-items-center justify-content-center" style={{
+                                                            background: 'linear-gradient(135deg, #ffd700 0%, #ffed4e 100%)',
+                                                            color: '#744210',
+                                                            fontSize: '0.6rem',
+                                                            fontWeight: '700',
+                                                            width: '18px',
+                                                            height: '18px'
+                                                        }}>
+                                                            ★
+                                                        </span>
                                                     )}
                                                 </div>
                                             </div>
                                         );
                                     })}
-                                    {currentFeatures.length > (window.innerWidth < 768 ? 4 : 5) && (
-                                        <div className="text-center mt-1">
-                                            <small className="text-muted" style={{ fontSize: '0.6rem' }}>
-                                                +{currentFeatures.length - (window.innerWidth < 768 ? 4 : 5)} more
-                                            </small>
+                                    
+                                    {currentFeatures.length > (isMobile ? 5 : 6) && (
+                                        <div className="more-specs text-center mt-2">
+                                            <span className="more-indicator px-3 py-1 rounded-pill d-inline-block" style={{
+                                                background: '#e2e8f0',
+                                                color: '#6b7280',
+                                                fontSize: '0.7rem',
+                                                fontWeight: '600'
+                                            }}>
+                                                +{currentFeatures.length - (isMobile ? 5 : 6)} more features
+                                            </span>
                                         </div>
                                     )}
                                 </div>
@@ -443,89 +613,139 @@ const ComparisonView = ({ products, features, onClearAll }) => {
     );
 
     return (
-        <div className="comparison-container compact-comparison px-1 px-md-0">
-            {/* Enhanced Page Header */}
-            <Container fluid className="comparison-page-header mb-2">
-                <Row className="align-items-center">
-                    <Col xs={12} md={8} className="text-center text-md-start mb-2 mb-md-0">
-                        <h1 className="page-title text-custom-primary fw-bold mb-1" style={{ fontSize: window.innerWidth < 768 ? '1.2rem' : '1.4rem' }}>
-                            Selected Products
-                        </h1>
-                        <p className="page-subtitle text-muted mb-0" style={{ fontSize: window.innerWidth < 768 ? '0.75rem' : '0.8rem' }}>
-                            Analyzing {products.length} products across {currentFeatures.length} features • 
-                            <span className="text-custom-success ms-1">Live data</span>
-                        </p>
-                    </Col>
-                    <Col xs={12} md={4}>
-                        <div className="page-actions d-flex gap-2 justify-content-center justify-content-md-end">
-                            <Button 
-                                as={Link} 
-                                to="/" 
-                                className="d-flex align-items-center btn-custom-outline-primary px-2 py-1 flex-fill flex-md-grow-0"
-                                style={{ borderRadius: '6px', fontSize: '0.7rem' }}
-                            >
-                                <ArrowLeft className="me-1" size={12} />
-                                <span>Back</span>
-                            </Button>
-                            <Button 
-                                onClick={onClearAll}
-                                className="d-flex align-items-center btn-custom-outline-danger px-2 py-1 flex-fill flex-md-grow-0"
-                                style={{ borderRadius: '6px', fontSize: '0.7rem' }}
-                            >
-                                <Trash3 className="me-1" size={12} />
-                                <span>Clear</span>
-                            </Button>
-                        </div>
-                    </Col>
-                </Row>
-            </Container>
+        <div className="modern-comparison-container" style={{ 
+            background: 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)',
+            minHeight: '100vh',
+            padding: isMobile ? '1rem' : '2rem 0'
+        }}>
+            <Container fluid className={isMobile ? 'px-2' : 'px-4'}>
+                {/* Modern Page Header */}
+                <div className="page-header-modern mb-4">
+                    <Card className="border-0 shadow-lg" style={{ 
+                        borderRadius: '20px',
+                        background: 'linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%) !important',
+                        color: 'white',
+                        overflow: 'hidden'
+                    }}>
+                        <Card.Body className="p-4">
+                            <Row className="align-items-center">
+                                <Col xs={12} lg={8} className="mb-3 mb-lg-0">
+                                    <div className="header-content">
+                                        <h1 className="display-6 fw-bold mb-2" style={{ 
+                                            fontSize: isMobile ? '1.8rem' : '2.5rem'
+                                        }}>
+                                            Product Comparison
+                                        </h1>
+                                        <p className="mb-0 opacity-90" style={{ 
+                                            fontSize: isMobile ? '0.9rem' : '1.1rem',
+                                            fontWeight: '500'
+                                        }}>
+                                            Analyzing {products.length} products across {currentFeatures.length} features with real-time insights
+                                        </p>
+                                    </div>
+                                </Col>
+                                <Col xs={12} lg={4}>
+                                    <div className="header-actions d-flex gap-2 justify-content-center justify-content-lg-end">
+                                        <Button 
+                                            as={Link} 
+                                            to="/" 
+                                            className="action-btn d-flex align-items-center px-4 py-2 border-0 rounded-pill"
+                                            style={{ 
+                                                background: 'rgba(255,255,255,0.2)',
+                                                color: 'white',
+                                                fontSize: '0.85rem',
+                                                fontWeight: '600',
+                                                backdropFilter: 'blur(10px)',
+                                                transition: 'all 0.3s ease'
+                                            }}
+                                        >
+                                            <ArrowLeft className="me-2" size={16} />
+                                            Back to Products
+                                        </Button>
+                                        <Button 
+                                            onClick={onClearAll}
+                                            className="action-btn d-flex align-items-center px-4 py-2 border-0 rounded-pill"
+                                            style={{ 
+                                                background: 'rgba(248, 113, 113, 0.2)',
+                                                color: 'white',
+                                                fontSize: '0.85rem',
+                                                fontWeight: '600',
+                                                backdropFilter: 'blur(10px)',
+                                                transition: 'all 0.3s ease'
+                                            }}
+                                        >
+                                            <Trash3 className="me-2" size={16} />
+                                            Clear All
+                                        </Button>
+                                    </div>
+                                </Col>
+                            </Row>
+                        </Card.Body>
+                    </Card>
+                </div>
 
-            {/* Enhanced Toolbar */}
-            {renderEnhancedToolbar()}
+                {/* Modern Toolbar */}
+                {renderModernToolbar()}
 
-            {/* Comparison Content */}
-            {viewMode === 'table' ? renderTableView() : renderCardView()}
+                {/* Comparison Content */}
+                {viewMode === 'table' ? renderModernTableView() : renderModernCardView()}
 
-            {/* Enhanced Comparison Legend */}
-            <Card className="comparison-legend mt-2 border-0 shadow-sm" style={{ borderRadius: '8px' }}>
-                <Card.Body className="p-2 p-md-3">
-                    <Container fluid>
+                {/* Modern Footer Legend */}
+                <Card className="border-0 shadow-lg mt-4" style={{ borderRadius: '16px' }}>
+                    <Card.Body className="p-4">
                         <Row className="align-items-center">
-                            <Col xs={12} md={6} className="mb-2 mb-md-0">
-                                <h6 className="legend-title fw-bold mb-2 text-dark" style={{ fontSize: window.innerWidth < 768 ? '0.75rem' : '0.8rem' }}>Legend</h6>
-                                <div className="d-flex align-items-center gap-2 gap-md-3 flex-wrap justify-content-center justify-content-md-start">
-                                    <div className="legend-item d-flex align-items-center gap-1">
-                                        <Award size={12} className="text-custom-success" />
-                                        <span style={{ fontSize: window.innerWidth < 768 ? '0.65rem' : '0.7rem' }}>Best</span>
+                            <Col xs={12} lg={8} className="mb-3 mb-lg-0">
+                                <h6 className="legend-title fw-bold mb-3 text-dark text-start">
+                                    Legend & Guide
+                                </h6>
+                                <div className="legend-items d-flex gap-4 flex-wrap">
+                                    <div className="legend-item d-flex align-items-center gap-2">
+                                        <Award size={16} className="text-warning" />
+                                        <span style={{ fontSize: '0.85rem', fontWeight: '600' }}>Best Value</span>
                                     </div>
-                                    <div className="legend-item d-flex align-items-center gap-1">
-                                        <div className="legend-dot bg-primary bg-opacity-25" style={{ 
-                                            width: '8px', 
-                                            height: '8px', 
-                                            borderRadius: '50%'
+                                    <div className="legend-item d-flex align-items-center gap-2">
+                                        <div className="legend-dot rounded-circle" style={{ 
+                                            width: '12px', 
+                                            height: '12px',
+                                            background: 'linear-gradient(135deg, #48bb78 0%, #38a169 100%)'
                                         }}></div>
-                                        <span style={{ fontSize: window.innerWidth < 768 ? '0.65rem' : '0.7rem' }}>Standard</span>
+                                        <span style={{ fontSize: '0.85rem', fontWeight: '600' }}>Superior Performance</span>
                                     </div>
-                                    <div className="legend-item d-flex align-items-center gap-1">
-                                        <div className="legend-dot bg-secondary bg-opacity-25" style={{ 
-                                            width: '8px', 
-                                            height: '8px', 
-                                            borderRadius: '50%'
+                                    <div className="legend-item d-flex align-items-center gap-2">
+                                        <div className="legend-dot rounded-circle" style={{ 
+                                            width: '12px', 
+                                            height: '12px',
+                                            background: '#f1f5f9',
+                                            border: '1px solid #e2e8f0'
                                         }}></div>
-                                        <span style={{ fontSize: window.innerWidth < 768 ? '0.65rem' : '0.7rem' }}>Normal</span>
+                                        <span style={{ fontSize: '0.85rem', fontWeight: '600' }}>Standard</span>
                                     </div>
                                 </div>
                             </Col>
-                            <Col xs={12} md={6} className="text-center text-md-end">
-                                <small className="text-muted" style={{ fontSize: window.innerWidth < 768 ? '0.6rem' : '0.65rem' }}>
-                                    Updated: {new Date().toLocaleDateString()} • 
-                                    <span className="text-custom-primary ms-1">Real-time</span>
-                                </small>
+                            <Col xs={12} lg={4} className="text-center text-lg-end">
+                                <div className="update-info">
+                                    <small className="text-muted d-block mb-1" style={{ fontSize: '0.8rem' }}>
+                                        Last updated: {new Date().toLocaleDateString()}
+                                    </small>
+                                    <div className="status-indicator d-flex align-items-center justify-content-center justify-content-lg-end gap-1">
+                                        <div className="status-dot rounded-circle" style={{
+                                            width: '8px',
+                                            height: '8px',
+                                            background: 'var(--primary-color)',
+                                            animation: 'pulse 2s infinite'
+                                        }}></div>
+                                        <span className="fw-semibold" style={{ fontSize: '0.8rem', color: 'var(--primary-color)' }}>
+                                            Live Data
+                                        </span>
+                                    </div>
+                                </div>
                             </Col>
                         </Row>
-                    </Container>
-                </Card.Body>
-            </Card>
+                    </Card.Body>
+                </Card>
+            </Container>
+
+          
         </div>
     );
 };
@@ -535,6 +755,10 @@ ComparisonView.propTypes = {
         PropTypes.shape({
             id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
             name: PropTypes.string.isRequired,
+            brand: PropTypes.string.isRequired,
+            price: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+            category: PropTypes.string.isRequired,
+            image: PropTypes.string.isRequired,
             specs: PropTypes.object.isRequired,
         })
     ).isRequired,
