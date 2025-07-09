@@ -629,11 +629,11 @@ const ComparisonView = ({ products, features, onClearAll }) => {
                         <Card.Body className="p-4">
                             <Row className="align-items-center">
                                 <Col xs={12} lg={8} className="mb-3 mb-lg-0">
-                                    <div className="header-content">
+                                    <div className="header-content text-lg-start">
                                         <h1 className="display-6 fw-bold mb-2" style={{ 
-                                            fontSize: isMobile ? '1.8rem' : '2.5rem'
+                                            fontSize: isMobile ? '1.8rem' : '1.9rem'
                                         }}>
-                                            Product Comparison
+                                            Selected Product 
                                         </h1>
                                         <p className="mb-0 opacity-90" style={{ 
                                             fontSize: isMobile ? '0.9rem' : '1.1rem',
