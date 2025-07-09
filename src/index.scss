@@ -2528,3 +2528,332 @@ body {
   box-shadow: none !important;
   border-color: transparent !important;
 }
+.view-mode-toggle {
+  .btn:hover {
+    color: #94a3b8 !important;
+  }
+}
+
+// Enhanced Comparison View - Compact Layout
+.compact-comparison {
+  .comparison-container {
+    margin-bottom: 1rem;
+    padding: 0 0.5rem;
+
+    @media (max-width: 768px) {
+      margin-bottom: 2rem;
+      padding: 0 0.25rem;
+    }
+  }
+
+  // Compact table styles
+  .comparison-table-wrapper {
+    overflow: hidden;
+    border-radius: 0 0 8px 8px;
+
+    .comparison-table {
+      table-layout: fixed;
+      width: 100%;
+
+      &.table-fixed {
+        border-collapse: separate;
+        border-spacing: 0;
+      }
+
+      th,
+      td {
+        border: none;
+        vertical-align: middle;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .sticky-column {
+        position: sticky;
+        left: 0;
+        z-index: 10;
+        border-right: 1px solid #dee2e6;
+      }
+
+      .feature-header {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        background: #f8f9fa !important;
+      }
+
+      // Hover effects
+      tbody tr:hover {
+        background: rgba(99, 102, 241, 0.03) !important;
+
+        .sticky-column {
+          background: rgba(99, 102, 241, 0.05) !important;
+        }
+      }
+    }
+  }
+
+  // Compact toolbar
+  .comparison-toolbar-card {
+    background: linear-gradient(
+      135deg,
+      rgba(99, 102, 241, 0.02),
+      rgba(99, 102, 241, 0.01)
+    ) !important;
+    border-left: 3px solid var(--primary-color) !important;
+    border-radius: 6px !important;
+
+    .comparison-stats .badge {
+      font-weight: 600;
+      letter-spacing: 0.3px;
+    }
+
+    .view-mode-toggle {
+      border: 1px solid #dee2e6;
+      border-radius: 4px;
+      overflow: hidden;
+
+      .btn {
+        transition: all 0.2s ease;
+        font-weight: 500;
+
+        &:hover {
+          transform: translateY(-1px);
+        }
+      }
+    }
+  }
+
+  // Compact tabs
+  .feature-tabs-container {
+    .comparison-tabs {
+      .nav-tabs {
+        border-bottom: 1px solid #dee2e6;
+        margin-bottom: 0;
+
+        .nav-link {
+          border: none;
+          background: transparent;
+          color: #6c757d;
+          font-weight: 600;
+          padding: 8px 12px;
+          transition: all 0.2s ease;
+          position: relative;
+          font-size: 0.8rem;
+
+          &.active {
+            background: white;
+            color: #6366f1;
+            border-bottom: 2px solid #6366f1;
+          }
+
+          &:hover:not(.active) {
+            color: #6366f1;
+            background: rgba(99, 102, 241, 0.05);
+          }
+        }
+      }
+    }
+  }
+
+  // Compact cards
+  .product-comparison-card {
+    transition: all 0.2s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1) !important;
+    }
+
+    .comparison-spec-item {
+      border-bottom: 1px solid #f8f9fa;
+      transition: all 0.2s ease;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      &.bg-success {
+        border-radius: 4px;
+        margin: 2px 0;
+        border: 1px solid rgba(16, 185, 129, 0.2);
+      }
+    }
+  }
+
+  // Compact legend
+  .comparison-legend {
+    background: linear-gradient(135deg, #ffffff, #f8f9fa) !important;
+    border-left: 3px solid var(--primary-color) !important;
+
+    .legend-item {
+      padding: 2px 4px;
+      border-radius: 3px;
+      transition: all 0.2s ease;
+
+      &:hover {
+        background: rgba(99, 102, 241, 0.05);
+      }
+    }
+  }
+}
+
+// Fix for responsive tables - prevent horizontal scroll
+.table-responsive {
+  overflow-x: visible !important;
+  -webkit-overflow-scrolling: auto !important;
+}
+
+// Override Bootstrap table responsive behavior
+@media (max-width: 768px) {
+  .compact-comparison {
+    .comparison-table-wrapper {
+      overflow-x: hidden;
+
+      .comparison-table {
+        th,
+        td {
+          padding: 6px 2px !important;
+          font-size: 0.6rem !important;
+        }
+
+        .sticky-column {
+          width: 120px !important;
+          min-width: 120px !important;
+          max-width: 120px !important;
+        }
+
+        .product-header,
+        .value-cell {
+          width: 100px !important;
+          min-width: 100px !important;
+          max-width: 100px !important;
+        }
+
+        .value-text {
+          font-size: 0.55rem !important;
+          padding: 2px 4px !important;
+          max-width: 80px !important;
+        }
+      }
+    }
+
+    .comparison-page-header {
+      padding: 0 0.5rem;
+
+      .page-title {
+        font-size: 1.2rem !important;
+      }
+
+      .page-subtitle {
+        font-size: 0.7rem !important;
+      }
+
+      .page-actions .btn {
+        padding: 4px 8px !important;
+        font-size: 0.7rem !important;
+      }
+    }
+
+    .comparison-toolbar-card .card-body {
+      padding: 8px 12px !important;
+    }
+
+    .feature-tabs-container .nav-link {
+      padding: 6px 8px !important;
+      font-size: 0.7rem !important;
+    }
+  }
+}
+
+// Enhanced value highlighting
+.value-cell {
+  .value-text {
+    transition: all 0.2s ease;
+    display: inline-block;
+    min-width: fit-content;
+
+    &:hover {
+      transform: scale(1.05);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  &.best .value-text {
+    background: linear-gradient(
+      135deg,
+      rgba(16, 185, 129, 0.15),
+      rgba(16, 185, 129, 0.1)
+    ) !important;
+    border: 1px solid rgba(16, 185, 129, 0.3) !important;
+    color: #047857 !important;
+    font-weight: 700 !important;
+  }
+}
+
+// Dark theme adjustments for compact layout
+[data-theme="dark"],
+.dark-theme {
+  .compact-comparison {
+    .comparison-table-wrapper {
+      .comparison-table {
+        .sticky-column,
+        .feature-header {
+          background: #334155 !important;
+          color: #f1f5f9 !important;
+        }
+
+        tbody tr:hover {
+          background: rgba(129, 140, 248, 0.1) !important;
+
+          .sticky-column {
+            background: rgba(129, 140, 248, 0.15) !important;
+          }
+        }
+
+        .value-text {
+          background: rgba(129, 140, 248, 0.2) !important;
+          color: #f1f5f9 !important;
+        }
+
+        &.best .value-text {
+          background: rgba(16, 185, 129, 0.2) !important;
+          color: #10b981 !important;
+        }
+      }
+    }
+
+    .comparison-toolbar-card {
+      background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.05),
+        rgba(255, 255, 255, 0.02)
+      ) !important;
+      border-left-color: #818cf8 !important;
+    }
+
+    .feature-tabs-container {
+      background: #334155 !important;
+
+      .nav-link {
+        color: #94a3b8 !important;
+
+        &.active {
+          background: #1e293b !important;
+          color: #818cf8 !important;
+          border-bottom-color: #818cf8 !important;
+        }
+
+        &:hover:not(.active) {
+          color: #818cf8 !important;
+          background: rgba(129, 140, 248, 0.1) !important;
+        }
+      }
+    }
+
+    .comparison-legend {
+      background: linear-gradient(135deg, #1e293b, #334155) !important;
+    }
+  }
+}
