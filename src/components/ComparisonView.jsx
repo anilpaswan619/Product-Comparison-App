@@ -565,10 +565,10 @@ const ComparisonView = ({ products, features, onClearAll }) => {
                                                                 }`} style={{
                                                                     background: valueType === 'best' 
                                                                         ? 'linear-gradient(135deg, rgba(72, 187, 120, 0.1) 0%, rgba(56, 161, 105, 0.1) 100%)'
-                                                                        : '#f8fafc',
+                                                                        : '',
                                                                     border: valueType === 'best' 
                                                                         ? '1px solid rgba(72, 187, 120, 0.2)'
-                                                                        : '1px solid #e2e8f0',
+                                                                        : 'border: 1px solid rgba(72, 187, 120, 0.2);',
                                                                     borderRadius: '8px',
                                                                     minHeight: '60px'
                                                                 }}>
@@ -629,10 +629,10 @@ const ComparisonView = ({ products, features, onClearAll }) => {
                                                                 }`} style={{
                                                                     background: valueType === 'best' 
                                                                         ? 'linear-gradient(135deg, rgba(72, 187, 120, 0.1) 0%, rgba(56, 161, 105, 0.1) 100%)'
-                                                                        : '#f8fafc',
+                                                                        : '',
                                                                     border: valueType === 'best' 
                                                                         ? '1px solid rgba(72, 187, 120, 0.2)'
-                                                                        : '1px solid #e2e8f0',
+                                                                        : 'border: 1px solid rgba(72, 187, 120, 0.2);',
                                                                     borderRadius: '8px',
                                                                     minHeight: '60px',
                                                                     width: '48%'
@@ -693,10 +693,10 @@ const ComparisonView = ({ products, features, onClearAll }) => {
                                                         }`} style={{
                                                             background: valueType === 'best' 
                                                                 ? 'linear-gradient(135deg, rgba(72, 187, 120, 0.1) 0%, rgba(56, 161, 105, 0.1) 100%)'
-                                                                : '#f8fafc',
+                                                                : '',
                                                             border: valueType === 'best' 
                                                                 ? '1px solid rgba(72, 187, 120, 0.2)'
-                                                                : '1px solid #e2e8f0',
+                                                                : 'border: 1px solid rgba(72, 187, 120, 0.2);',
                                                             borderRadius: '8px'
                                                         }}>
                                                             <div className="spec-label-container d-flex align-items-center gap-2">
