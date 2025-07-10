@@ -27,7 +27,7 @@ const HeroSection = ({ totalProducts, selectedCount, onGetStarted }) => {
         <Row className="align-items-center min-vh-75">
           <Col lg={8} className="mx-auto text-center">
             <div className="animate-slide-up" style={{ animationDelay: '0.1s' }}>
-              <Badge className="badge-custom-primary mb-3 px-3 py-2 fs-6 rounded-pill">
+              <Badge className="badge-custom-primary mb-3 px-3 py-2 fs-6 rounded-pill mt-lg-1 mt-3">
                 <i className="fas fa-star me-2"></i>
                 Trusted by 10,000+ users
               </Badge>
