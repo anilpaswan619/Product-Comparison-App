@@ -102,11 +102,11 @@ const CompareBar = ({ selectedItems = [], onRemove, onCompare, onClearAll, maxIt
                                 backdropFilter: 'blur(10px)'
                             }}
                             onMouseEnter={(e) => {
-                                e.target.style.background = 'rgba(255, 255, 255, 0.2)';
+                           
                                 e.target.style.transform = 'scale(1.1)';
                             }}
                             onMouseLeave={(e) => {
-                                e.target.style.background = 'rgba(255, 255, 255, 0.1)';
+                        
                                 e.target.style.transform = 'scale(1)';
                             }}
                         >

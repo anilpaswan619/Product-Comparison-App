@@ -209,7 +209,7 @@ const ProductList = ({
       </div>
 
    
-      <div className="results-info bg-white rounded-3 shadow-sm border p-2 p-md-3 mb-3 mb-md-4">
+      <div className="results-info rounded-3 shadow-sm border border-secondary p-2 p-md-3 mb-3 mb-md-4 outnine-none">
         <Row className="align-items-center">
           <Col xs={12} sm={8}>
             <div className="d-flex align-items-center gap-2 gap-md-3 flex-wrap">

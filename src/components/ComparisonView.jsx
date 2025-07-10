@@ -71,7 +71,7 @@ const ComparisonView = ({ products, features, onClearAll }) => {
                                 as={Link} 
                                 to="/" 
                                 size={isMobile ? "md" : "lg"}
-                                className="btn-light text-dark fw-bold px-4 py-2"
+                                className="btn-light fw-bold px-4 py-2"
                                 style={{ borderRadius: '50px', boxShadow: '0 4px 15px rgba(0,0,0,0.2)' }}
                             >
                                 <ArrowLeft className="me-2" size={16} />
@@ -277,7 +277,7 @@ const ComparisonView = ({ products, features, onClearAll }) => {
                 <div className="table-wrapper" style={{ overflowX: 'auto', maxHeight: isMobile ? '70vh' : 'none' }}>
                     <Table className="modern-comparison-table mb-0">
                         <thead style={{ 
-                            background: 'linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%) !important',
+                            background: 'white',
                             color: 'white',
                             position: 'sticky',
                             top: 0,
@@ -769,7 +769,7 @@ const ComparisonView = ({ products, features, onClearAll }) => {
 
     return (
         <div className="modern-comparison-container" style={{ 
-            background: 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)',
+           
             minHeight: '100vh',
             padding: isMobile ? '1rem' : '2rem 0'
         }}>
