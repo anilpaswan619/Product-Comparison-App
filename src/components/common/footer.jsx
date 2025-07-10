@@ -75,7 +75,7 @@ const Footer = () => {
             
                     <div className="d-flex align-items-center gap-2 mb-2 mb-lg-0">
                         <a
-                            href="https://twitter.com/yourprofile"
+                            href="https://twitter.com/"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="d-flex align-items-center justify-content-center"
@@ -100,7 +100,7 @@ const Footer = () => {
                             <Twitter size={16} />
                         </a>
                         <a
-                            href="https://linkedin.com/in/yourprofile"
+                            href="https://www.linkedin.com/in/anil-paswan-91466578/"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="d-flex align-items-center justify-content-center"
@@ -125,7 +125,7 @@ const Footer = () => {
                             <Linkedin size={16} />
                         </a>
                         <a
-                            href="https://github.com/yourprofile"
+                            href="https://github.com/anilpaswan619"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="d-flex align-items-center justify-content-center"
